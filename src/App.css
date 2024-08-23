@@ -106,9 +106,57 @@ body{
   /* color: grey; */
   flex-direction: row;
 }
+.jshnsf{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  position: relative;
+  top: 50px;
+}
+.signupemail{
+  padding: 15px;
+  width: 200px;
+  /* border-radius: 10px; */
+  border: 0.5px solid grey;
+  color: black;
+  font-weight: 500;
+}
+.mhdjddbdn{
+  width: 250px;
+  height: 47px;
+  background-color: #5e93d7;
+  border: none;
+  /* border-radius: 10px; */
+  color: white;
+  font-weight: 500;
+  position: relative;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+}
+.mhdjddbdn:hover{
+  background-color: rgb(80, 80, 218);
+}
 @media screen and (max-width: 600px) {
+  .jshnsf{
+    justify-content: center;
+  }
   .jnvmn{
     display: none;
+    margin-bottom: 30px;
+  }
+  .mhdjddbdn{
+    height: 48px;
+    width: 40vw;
+    font-size: 10px;
+  }
+  .signupemail{
+    
+    width: 40vw;
   }
   .body{
     justify-content: center;
