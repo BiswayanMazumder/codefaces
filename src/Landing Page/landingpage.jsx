@@ -3,55 +3,31 @@ import { Link } from 'react-router-dom';
 import Typewriter from 'typewriter-effect';
 export default function Landingpage() {
     useEffect(() => {
-        document.title = "CodeFaces - Learn and Practice Coding with Problems";
+        document.title = "LuxeLayers : Shop T-shirts , Jackets , Shorts and Joggers Online";
     })
     return (
         <>
             <div className="webbody">
-                <div className="jdjkkvm">
-                    <div className="kdkvmmv">
-                        <img src="https://g1uudlawy6t63z36.public.blob.vercel-storage.com/Favicon%20Image/logo.webp" alt="" height={"50px"} style={{ marginLeft: "50px" }} className='laptop' />
-
+                <div className="headersection">
+                    <div className="logo">
+                        <img src="https://overlaysnow.com/cdn/shop/files/Overlays_Flame_Logo_150x150_2_150x.jpg?v=1719309287" alt="" className='logoimg' />
                     </div>
-                    <div className="buttons">
-                        <Link style={{ color: "black", textDecoration: "none" }} className='jnvmn'>
-                            Practice
-                        </Link>
-                        <Link style={{ color: "black", textDecoration: "none" }} className='jnvmn'>
-                            Complete
-                        </Link>
-                        <Link style={{ color: "#5e93d7", textDecoration: "none", fontWeight: "600" }} className='jnvmn'>
-                            Login
-                        </Link>
-                        <div className="signupbtn">
-                            Sign Up
+                    <div className="headeroptions">
+                        <div className="options" >
+                            <Link to="/" style={{textDecoration:"none",color:"black"}} className='headerlink'>New Arrivals</Link>
+                            <Link to="/" style={{textDecoration:"none",color:"black"}}>Latest Drop</Link>
+                            <Link to="/" style={{textDecoration:"none",color:"black"}}>Shop Men</Link>
+                            <Link to="/" style={{textDecoration:"none",color:"black"}}>Heavy Weight</Link>
+                            <Link to="/" style={{textDecoration:"none",color:"orangered"}}>Home</Link>
+                            <Link to="/" style={{textDecoration:"none",color:"black"}}>Shop Women</Link>
+                            <Link to="/" style={{textDecoration:"none",color:"black"}}>About Us</Link>
+                            <Link to="/" style={{textDecoration:"none",color:"black"}}>Sale</Link>
+                            <Link to="/" style={{textDecoration:"none",color:"black"}}>Contact Us</Link>
                         </div>
                     </div>
                 </div>
-                <div className="body">
-                    <div className="text">
-                        <Typewriter
-                            options={{
-                                strings: ['Start your coding<br/>journey today ', 'Code Your Way<br/>to Success', 'Unlock Your Coding<br/>Potential', 'Embark on Your<br/>Coding Odyssey', 'Ignite Your Passion<br/>for Coding'],
-                                autoStart: true,
-                                loop: true,
-                                cursor: '|',
-                                delay: 75,
-                            }}
-                        />
-                        <div className="jhjkfv">
-                            Learn to code from scratch with job focussed courses designed by experts.
-                        </div>
-                        <div className="jshnsf">
-                            <input type="text" placeholder='Enter email' className='signupemail'/>
-                            <Link style={{textDecoration:"none"}}>
-                            <div className="mhdjddbdn">
-                                Starting Learning Today
-                            </div>
-                            </Link>
-                        </div>
-                    </div>
-                    <img src="https://g1uudlawy6t63z36.public.blob.vercel-storage.com/Coding_Boy" alt="" className='codingboy' />
+                <div className="bodyimage">
+                    <img src="https://overlaysnow.com/cdn/shop/files/Free_spirit___The_ultimate_Textures_web_1.jpg?v=1723292870&width=2000" alt="" width={"100%"} height={"100%"} />
                 </div>
             </div>
         </>

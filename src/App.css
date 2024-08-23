@@ -40,135 +40,73 @@ body{
   margin: 0;
   padding: 0;
   background-color: #dae2f1;
+  overflow-x: hidden;
 }
 .webbody{
   height: 100vh;
   width: 100vw;
 }
-.jdjkkvm{
+.headersection{
   width: 100vw;
-  height: 72px;
+  height: 150px;
   background-color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  /* padding-right: 10px; */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
-.buttons{
-  margin-right: 50px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  color: white;
-  text-decoration: none;
-  gap: 20px;
-}
-.signupbtn{
-  border: 1px solid #5e93d7;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 20px;
-  padding-right: 20px;
+.logo{
   display: flex;
   justify-content: center;
-  align-items: center;
-  color: #5e93d7;
-  font-weight: 500;
+  position: relative;
+  top: 10px;
 }
-.signupbtn:hover{
-  background-color: #5e93d7;
-  border: 1px solid #5e93d7;
-  color: white;
-}
-.body{
+.bodyimage{
   width: 100vw;
-  /* height: 500px; */
+}
+.logoimg{
+  width: 80px;
+}
+.options{
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
-  /* background-color: red; */
-  position: relative;
-  top: 50px;
-  font-weight: 500;
-  font-size: 4vw;
-  color:#2E3446;
-  flex-wrap: wrap;
-}
-.jhjkfv{
-  font-size: 20px;
-  font-weight: 300;
-  position: relative;
-  top: 30px;
-  display: flex;
-  /* color: grey; */
-  flex-direction: row;
-}
-.jshnsf{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: start;
-  position: relative;
-  top: 50px;
-}
-.signupemail{
-  padding: 15px;
-  width: 200px;
-  /* border-radius: 10px; */
-  border: 0.5px solid grey;
+  gap: 50px;
+  text-decoration: none;
   color: black;
-  font-weight: 500;
+  font-weight: 400;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
-.mhdjddbdn{
-  width: 250px;
-  height: 47px;
-  background-color: #5e93d7;
-  border: none;
-  /* border-radius: 10px; */
-  color: white;
-  font-weight: 500;
-  position: relative;
-  justify-content: center;
+.options:hover{
+  color: red;
+}
+.headeroptions{
   display: flex;
-  align-items: center;
-  text-align: center;
-  font-size: 15px;
-  font-weight: 500;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: start;
+  text-align: start;
+  width: 100%;
+  text-decoration: none;
+  color: white;
+  /* background-color: black; */
+  position: relative;
+  top: 40px;
 }
-.mhdjddbdn:hover{
-  background-color: rgb(80, 80, 218);
+@media screen and (max-width: 1439px) {
+  .headeroptions{
+    display: none;
+  }
+  .headersection{
+    height: 75px;
+  }
+  .logoimg{
+    height: 50px;
+  }
 }
 @media screen and (max-width: 600px) {
-  .jshnsf{
-    justify-content: center;
+  .headersection{
+    height: 75px;
   }
-  .jnvmn{
-    display: none;
-    padding-bottom: 50px;
+  .logoimg{
+    height: 50px;
   }
-  .mhdjddbdn{
-    height: 48px;
-    width: 40vw;
-    font-size: 10px;
-  }
-  .signupemail{
-    
-    width: 40vw;
-  }
-  .body{
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-size: 8vw;
-    gap: 40px;
-  }
-  .codingboy{
-    height: 200px;
-    width: 80vw;
-    position: relative;
-    top: 20px;
-  }
+  
 }
