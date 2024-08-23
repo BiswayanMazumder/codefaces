@@ -82,8 +82,45 @@ body{
   border: 1px solid #5e93d7;
   color: white;
 }
+.body{
+  width: 100vw;
+  /* height: 500px; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  /* background-color: red; */
+  position: relative;
+  top: 50px;
+  font-weight: 500;
+  font-size: 4vw;
+  color:#2E3446;
+  flex-wrap: wrap;
+}
+.jhjkfv{
+  font-size: 20px;
+  font-weight: 300;
+  position: relative;
+  top: 30px;
+  display: flex;
+  /* color: grey; */
+  flex-direction: row;
+}
 @media screen and (max-width: 600px) {
   .jnvmn{
     display: none;
+  }
+  .body{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 8vw;
+    gap: 40px;
+  }
+  .codingboy{
+    height: 200px;
+    width: 80vw;
+    position: relative;
+    top: 20px;
   }
 }

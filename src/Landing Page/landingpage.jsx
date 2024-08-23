@@ -28,6 +28,15 @@ export default function Landingpage() {
                         </div>
                     </div>
                 </div>
+                <div className="body">
+                    <div className="text">
+                    Start your coding <br />journey today
+                    <div className="jhjkfv">
+                    Learn to code from scratch with job focussed courses designed by experts.
+                    </div>
+                    </div>
+                    <img src="https://g1uudlawy6t63z36.public.blob.vercel-storage.com/Coding_Boy" alt="" className='codingboy'/>
+                </div>
             </div>
         </>
     )
