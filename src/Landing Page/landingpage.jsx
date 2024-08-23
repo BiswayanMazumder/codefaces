@@ -44,9 +44,11 @@ export default function Landingpage() {
                         </div>
                         <div className="jshnsf">
                             <input type="text" placeholder='Enter email' className='signupemail'/>
+                            <Link style={{textDecoration:"none"}}>
                             <div className="mhdjddbdn">
                                 Starting Learning Today
                             </div>
+                            </Link>
                         </div>
                     </div>
                     <img src="https://g1uudlawy6t63z36.public.blob.vercel-storage.com/Coding_Boy" alt="" className='codingboy' />
