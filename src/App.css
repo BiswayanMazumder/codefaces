@@ -116,6 +116,10 @@ body{
   position: relative;
   top: 40px;
 }
+.bodyimg{
+  height: 100%;
+  width: 100%;
+}
 @media screen and (max-width: 1439px) {
   .headeroptions{
     display: none;
@@ -125,6 +129,9 @@ body{
   }
   .logoimg{
     height: 50px;
+  }
+  .bodyimg{
+    height: 500px;
   }
 }
 @media screen and (max-width: 600px) {

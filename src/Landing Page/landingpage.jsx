@@ -50,7 +50,7 @@ export default function Landingpage() {
                     </div>
                 </div>
                 <div className="bodyimage">
-                    <img src={currentImage} alt="" width={"100%"} height={"100%"} />
+                    <img src={currentImage} alt="" className='bodyimg'/>
                 </div>
             </div>
         </>
