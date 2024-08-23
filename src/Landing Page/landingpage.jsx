@@ -10,7 +10,7 @@ export default function Landingpage() {
             <div className="webbody">
                 <div className="jdjkkvm">
                     <div className="kdkvmmv">
-                        <img src="https://optiflowinator.vercel.app/_next/image?url=%2Fimages%2Flogo.jpg&w=64&q=75" alt="" height={"50px"} style={{ marginLeft: "50px" }} className='laptop'/>
+                        <img src="https://g1uudlawy6t63z36.public.blob.vercel-storage.com/Favicon%20Image/logo.webp" alt="" height={"50px"} style={{ marginLeft: "50px" }} className='laptop'/>
                         
                     </div>
                     <div className="buttons">
@@ -20,9 +20,12 @@ export default function Landingpage() {
                         <Link style={{ color: "black", textDecoration: "none" }} className='jnvmn'>
                             Complete
                         </Link>
-                        <Link style={{ color: "blue", textDecoration: "none", fontWeight: "600" }} className='jnvmn'>
+                        <Link style={{ color: "#5e93d7", textDecoration: "none", fontWeight: "600" }} className='jnvmn'>
                             Login
                         </Link>
+                        <div className="signupbtn">
+                            Sign Up
+                        </div>
                     </div>
                 </div>
             </div>
