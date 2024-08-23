@@ -47,6 +47,7 @@ body{
   width: 100vw;
 }
 .headersection{
+  position: fixed;
   width: 100vw;
   height: 150px;
   background-color: white;
