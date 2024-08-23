@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom';
-
+import Typewriter from 'typewriter-effect';
 export default function Landingpage() {
     useEffect(() => {
         document.title = "CodeFaces - Learn and Practice Coding with Problems";
@@ -30,7 +30,15 @@ export default function Landingpage() {
                 </div>
                 <div className="body">
                     <div className="text">
-                    Start your coding <br />journey today
+                    <Typewriter
+                                    options={{
+                                        strings: ['Start your coding<br/>journey today ', 'Code Your Way<br/>to Success', 'Unlock Your Coding<br/>Potential', 'Embark on Your<br/>Coding Odyssey', 'Ignite Your Passion<br/>for Coding'],
+                                        autoStart: true,
+                                        loop: true,
+                                        cursor: '|',
+                                        delay: 75,
+                                    }}
+                                />
                     <div className="jhjkfv">
                     Learn to code from scratch with job focussed courses designed by experts.
                     </div>
