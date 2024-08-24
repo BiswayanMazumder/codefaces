@@ -73,6 +73,7 @@ body{
 }
 .bodyimage{
   width: 100vw;
+  /* height: 90%; */
 }
 .logoimage{
   display: flex;
@@ -119,6 +120,13 @@ body{
 .bodyimg{
   height: 100%;
   width: 100%;
+}
+.jjehfjnfjd{
+  width: 80vw;
+  height: 50%;
+}
+.promotionalvideo{
+  width: 100vw;
 }
 @media screen and (max-width: 1439px) {
   .headeroptions{

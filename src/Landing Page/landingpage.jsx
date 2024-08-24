@@ -52,6 +52,9 @@ export default function Landingpage() {
                 <div className="bodyimage">
                     <img src={currentImage} alt="" className='bodyimg'/>
                 </div>
+                <div className="jjehfjnfjd">
+                    <video src="https://cdn.shopify.com/videos/c/o/v/334b6fb92fea4292887dadba3afbc61b.mp4" autoPlay muted loop className='promotionalvideo'></video>
+                </div>
             </div>
         </>
     );
