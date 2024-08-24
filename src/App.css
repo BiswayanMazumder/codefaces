@@ -123,11 +123,13 @@ body{
 }
 .jjehfjnfjd{
   width: 80vw;
-  height: 50%;
 }
-.promotionalvideo{
+.promotionalvideo {
   width: 100vw;
+  height: 650px;
+  object-fit: cover; /* This ensures the video covers the entire area while maintaining its aspect ratio */
 }
+
 .dhifjkfjlf {
   width: 100%;
   height: 200px;
@@ -149,7 +151,7 @@ body{
   width: 100px;
   padding: 4px;
   border-radius: 50%;
-  border: 1px solid yellow;
+  border: 2px solid yellow;
   /* background-color: grey; */
   justify-content: center;
   align-items: center;
