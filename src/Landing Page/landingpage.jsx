@@ -171,30 +171,54 @@ export default function Landingpage() {
                         <video src="https://videos.pexels.com/video-files/8533112/8533112-uhd_2560_1440_25fps.mp4" autoPlay muted loop className='promotionalvideo'></video>
                     </div>
                 </Link>
-                <div className="dhifjkfjlf" style={{ height: '400px' }}>
-                    <Link>
-                        <div className="gallery">
-                        <img src="https://images.vegnonveg.com/resized/700X573/11395/air-jordan-5-retro-whiteblack-sail-metallic-silver-white-66b365aa44059.jpg" alt="" className='newstockimages'/>
+                <div className="dhifjkfjlf" style={{ height: '500px', color: "black" }}>
+                    <Link style={{ textDecoration: "none", color: "black" }}>
+                        <div className="gallery" >
+                            <img src="https://images.vegnonveg.com/resized/700X573/11395/air-jordan-5-retro-whiteblack-sail-metallic-silver-white-66b365aa44059.jpg" alt="" className='newstockimages' />
+                            <br /><br />
+                            AIR JORDAN 5 RETRO 'WHITE/BLACK-SAIL-METALLIC SILVER'
                         </div>
                     </Link>
-                    <Link>
+                    <Link style={{ textDecoration: "none", color: "black" }}>
                         <div className="gallery">
-                        <img src="https://images.vegnonveg.com/resized/700X573/11394/air-jordan-1-low-whitebordeaux-sail-purple-66b364fe14e20.jpg" alt="" className='newstockimages'/>
+                            <img src="https://images.vegnonveg.com/resized/700X573/11394/air-jordan-1-low-whitebordeaux-sail-purple-66b364fe14e20.jpg" alt="" className='newstockimages' />
+                            <br /><br />
+                            AIR JORDAN 1 LOW 'WHITE/BORDEAUX-SAIL'
                         </div>
                     </Link>
-                    <Link>
+                    <Link style={{ textDecoration: "none", color: "black" }}>
                         <div className="gallery">
-                        <img src="https://images.vegnonveg.com/resized/700X573/11404/air-max-1-essential-premium-neutral-oliveblack-cargo-khaki-green-66b495cfd64d0.jpg" alt="" className='newstockimages'/>
+                            <img src="https://images.vegnonveg.com/resized/700X573/11404/air-max-1-essential-premium-neutral-oliveblack-cargo-khaki-green-66b495cfd64d0.jpg" alt="" className='newstockimages' />
+                            <br /><br />
+                            AIR MAX 1 ESSENTIAL PREMIUM 'NEUTRAL OLIVE/BLACK-CARGO KHAKI'
                         </div>
                     </Link>
-                    <Link>
+                    <Link style={{ textDecoration: "none", color: "black" }}>
                         <div className="gallery">
-                        <img src="https://images.vegnonveg.com/resized/700X573/11400/killshot-2-dark-russetphantom-gum-medium-brown-black-brown-66b36827b5c5e.jpg" alt="" className='newstockimages'/>
+                            <img src="https://images.vegnonveg.com/resized/700X573/11400/killshot-2-dark-russetphantom-gum-medium-brown-black-brown-66b36827b5c5e.jpg" alt="" className='newstockimages' />
+                            <br /><br />
+                            KILLSHOT 2 'DARK RUSSET/PHANTOM-GUM MEDIUM BROWN-BLACK'
                         </div>
                     </Link>
-                    <Link>
+                    <Link style={{ textDecoration: "none", color: "black" }}>
                         <div className="gallery">
-                        <img src="https://images.vegnonveg.com/resized/700X573/9805/air-jordan-1-mid-whiteblack-white-64dcc2a91c4af.jpg" alt="" className='newstockimages'/>
+                            <img src="https://images.vegnonveg.com/resized/700X573/9805/air-jordan-1-mid-whiteblack-white-64dcc2a91c4af.jpg" alt="" className='newstockimages' />
+                            <br /><br />
+                            AIR JORDAN 1 MID 'WHITE/BLACK'
+                        </div>
+                    </Link>
+                    <Link style={{ textDecoration: "none", color: "black" }}>
+                        <div className="gallery">
+                            <img src="https://images.vegnonveg.com/resized/700X573/11425/air-jordan-1-low-whitemetallic-gold-black-white-66bb4992d8cb4.jpg" alt="" className='newstockimages' />
+                            <br /><br />
+                            AIR JORDAN 1 LOW 'WHITE/METALLIC GOLD-BLACK'
+                        </div>
+                    </Link>
+                    <Link style={{ textDecoration: "none", color: "black" }}>
+                        <div className="gallery">
+                            <img src="https://images.vegnonveg.com/resized/700X573/11381/air-jordan-1-mid-se-whiteoxidized-green-sail-neutral-grey-white-66a8c651cc6f3.jpg" alt="" className='newstockimages' />
+                            <br /><br />
+                            AIR JORDAN 1 MID SE 'WHITE/OXIDIZED GREEN-SAIL-NEUTRAL GREY'
                         </div>
                     </Link>
                 </div>
