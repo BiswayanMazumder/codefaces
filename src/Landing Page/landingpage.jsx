@@ -53,112 +53,112 @@ export default function Landingpage() {
                     <img src={currentImage} alt="" className='bodyimg' />
                 </div>
                 <div className="dhifjkfjlf">
-                    <Link style={{ textDecoration: "none"}}>
+                    <Link style={{ textDecoration: "none" }}>
                         <div className="items" >
                             <img src="https://images.vegnonveg.com/resized/700X573/11428/air-jordan-4-retro-blackwhite-black-66c718d11e771.jpg" alt="" height={'100px'} width={'100px'} style={{ borderRadius: '50%' }} />
                             <br /><br />
                             AIR JORDAN 4 RETRO GS 'BLACK/WHITE'
                         </div>
                     </Link>
-                    <Link style={{ textDecoration: "none"}}>
+                    <Link style={{ textDecoration: "none" }}>
                         <div className="items">
                             <img src="https://images.vegnonveg.com/resized/700X573/11473/air-max-90-drift-action-greenblack-summit-white-green-66c6f5a6b95b7.jpg" alt="" height={'100px'} width={'100px'} style={{ borderRadius: '50%' }} />
                             <br /><br />
                             AIR MAX 90 DRIFT 'ACTION GREEN/BLACK-SUMMIT WHITE'
                         </div>
                     </Link>
-                    <Link style={{ textDecoration: "none"}}>
+                    <Link style={{ textDecoration: "none" }}>
                         <div className="items">
                             <img src="https://images.vegnonveg.com/resized/700X573/11478/cortez-blackdark-smoke-grey-black-66c719e4c838e.jpg" alt="" height={'100px'} width={'100px'} style={{ borderRadius: '50%' }} />
                             <br /><br />
                             CORTEZ 'BLACK/DARK SMOKE GREY'
                         </div>
                     </Link>
-                    <Link style={{ textDecoration: "none"}}>
+                    <Link style={{ textDecoration: "none" }}>
                         <div className="items">
                             <img src="https://images.vegnonveg.com/resized/700X573/11475/air-force-1-07-whitedragon-red-white-white-66c717cce8961.jpg" alt="" height={'100px'} width={'100px'} style={{ borderRadius: '50%' }} />
                             <br /><br />
                             AIR FORCE 1 '07 'WHITE/DRAGON RED-WHITE'
                         </div>
                     </Link>
-                    <Link style={{ textDecoration: "none"}}>
+                    <Link style={{ textDecoration: "none" }}>
                         <div className="items">
                             <img src="https://images.vegnonveg.com/resized/700X573/11477/killshot-2-phantomuniversity-gold-gum-medium-brown-multicolor-66c719921548d.jpg" alt="" height={'100px'} width={'100px'} style={{ borderRadius: '50%' }} />
                             <br /><br />
                             KILLSHOT 2 'PHANTOM/UNIVERSITY GOLD-GUM MEDIUM BROWN'
                         </div>
                     </Link>
-                    <Link style={{ textDecoration: "none"}}>
+                    <Link style={{ textDecoration: "none" }}>
                         <div className="items">
                             <img src="https://images.vegnonveg.com/resized/700X573/11417/gel-quantum-360-viii-blackfiery-red-black-66b3610d4657e.jpg" alt="" height={'100px'} width={'100px'} style={{ borderRadius: '50%' }} />
                             <br /><br />
                             GEL-QUANTUM 360 VIII 'BLACK/FIERY RED'
                         </div>
                     </Link>
-                    <Link style={{ textDecoration: "none"}}>
+                    <Link style={{ textDecoration: "none" }}>
                         <div className="items">
                             <img src="https://images.vegnonveg.com/resized/700X573/11418/gel-quantum-360-viii-illuminate-yellowblack-black-66b3621140516.jpg" alt="" height={'100px'} width={'100px'} style={{ borderRadius: '50%' }} />
                             <br /><br />
                             GEL-QUANTUM 360 VIII 'ILLUMINATE YELLOW/BLACK'
                         </div>
                     </Link>
-                    <Link style={{ textDecoration: "none"}}>
+                    <Link style={{ textDecoration: "none" }}>
                         <div className="items">
                             <img src="https://images.vegnonveg.com/resized/700X573/11426/air-jordan-1-mid-saillight-dew-muslin-white-66bb4a42e2b7a.jpg" alt="" height={'100px'} width={'100px'} style={{ borderRadius: '50%' }} />
                             <br /><br />
                             AIR JORDAN 1 MID 'SAIL/LIGHT DEW-MUSLIN'
                         </div>
                     </Link>
-                    <Link style={{ textDecoration: "none"}}>
+                    <Link style={{ textDecoration: "none" }}>
                         <div className="items">
                             <img src="https://images.vegnonveg.com/resized/700X573/11434/dunk-low-nn-baroque-brownblack-white-sail-brown-66bb4b2dc3a2a.jpg" alt="" height={'100px'} width={'100px'} style={{ borderRadius: '50%' }} />
                             <br /><br />
                             DUNK LOW NN 'BAROQUE BROWN/BLACK-WHITE-SAIL'
                         </div>
                     </Link>
-                    <Link style={{ textDecoration: "none"}}>
+                    <Link style={{ textDecoration: "none" }}>
                         <div className="items">
                             <img src="https://images.vegnonveg.com/resized/700X573/11415/crazy-1-magic-beigeshadow-brown-brown-66b472e580b2e.jpg" alt="" height={'100px'} width={'100px'} style={{ borderRadius: '50%' }} />
                             <br /><br />
                             CRAZY 1 'MAGIC BEIGE/SHADOW BROWN'
                         </div>
                     </Link>
-                    <Link style={{ textDecoration: "none"}}>
+                    <Link style={{ textDecoration: "none" }}>
                         <div className="items">
                             <img src="https://images.vegnonveg.com/resized/700X573/11422/air-jordan-4-retro-se-smoke-greyiron-grey-cement-grey-grey-66b48d859813d.jpg" alt="" height={'100px'} width={'100px'} style={{ borderRadius: '50%' }} />
                             <br /><br />
                             AIR JORDAN 4 RETRO SE 'SMOKE GREY/IRON GREY-CEMENT GREY'
                         </div>
                     </Link>
-                    <Link style={{ textDecoration: "none"}}>
+                    <Link style={{ textDecoration: "none" }}>
                         <div className="items">
                             <img src="https://images.vegnonveg.com/resized/700X573/11396/dunk-low-retro-whitedenim-turq-white-66b3660dc7ed0.jpg" alt="" height={'100px'} width={'100px'} style={{ borderRadius: '50%' }} />
                             <br /><br />
                             DUNK LOW RETRO 'WHITE/DENIM TURQ'
                         </div>
                     </Link>
-                    <Link style={{ textDecoration: "none"}}>
+                    <Link style={{ textDecoration: "none" }}>
                         <div className="items">
                             <img src="https://images.vegnonveg.com/resized/700X573/11406/dunk-low-coconut-milkflax-sail-brown-66b497326da01.jpg" alt="" height={'100px'} width={'100px'} style={{ borderRadius: '50%' }} />
                             <br /><br />
                             DUNK LOW 'COCONUT MILK/FLAX-SAIL'
                         </div>
                     </Link>
-                    <Link style={{ textDecoration: "none"}}>
+                    <Link style={{ textDecoration: "none" }}>
                         <div className="items">
                             <img src="https://images.vegnonveg.com/resized/700X573/11421/air-max-1-whitelight-army-neutral-grey-black-white-66b47248b5e8d.jpg" alt="" height={'100px'} width={'100px'} style={{ borderRadius: '50%' }} />
                             <br /><br />
                             AIR MAX 1 'WHITE/LIGHT ARMY-NEUTRAL GREY-BLACK'
                         </div>
                     </Link>
-                    <Link style={{ textDecoration: "none"}}>
+                    <Link style={{ textDecoration: "none" }}>
                         <div className="items">
                             <img src="https://images.vegnonveg.com/resized/700X573/11416/gazelle-indoor-preloved-inkwonder-clay-sand-strata-blue-66b47456555a2.jpg" alt="" height={'100px'} width={'100px'} style={{ borderRadius: '50%' }} />
                             <br /><br />
                             GAZELLE INDOOR 'PRELOVED INK/WONDER CLAY-SAND STRATA'
                         </div>
                     </Link>
-                    <Link style={{ textDecoration: "none"}}>
+                    <Link style={{ textDecoration: "none" }}>
                         <div className="items">
                             <img src="https://images.vegnonveg.com/resized/700X573/11476/v2k-run-summit-whitechrome-white-light-orewood-brown-white-66c7187fc664e.jpg" alt="" height={'100px'} width={'100px'} style={{ borderRadius: '50%' }} />
                             <br /><br />
@@ -166,11 +166,16 @@ export default function Landingpage() {
                         </div>
                     </Link>
                 </div>
-                <Link style={{ textDecoration: "none"}}>
+                <Link style={{ textDecoration: "none" }}>
                     <div className="jjehfjnfjd">
                         <video src="https://videos.pexels.com/video-files/8533112/8533112-uhd_2560_1440_25fps.mp4" autoPlay muted loop className='promotionalvideo'></video>
                     </div>
                 </Link>
+                <div className="dkjkvdv">
+                    <div className="ddkvmdv">
+                        NEW IN
+                    </div>
+                </div>
             </div>
         </>
     );
