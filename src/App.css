@@ -153,6 +153,13 @@ body{
   overflow-x: auto; /* Allows horizontal scrolling */
   overflow-y: hidden; /* Prevents vertical scrolling */
 }
+.rjkhgjgmg{
+  background-color: red;
+  width: 100vw;
+  height: 100px;
+  position: relative;
+  top: 50px;
+}
 .dhifjkfjlf::-webkit-scrollbar {
   display: none; /* Hide scrollbar for WebKit browsers */
 }
@@ -196,4 +203,18 @@ body{
     height: 50px;
   }
   
+}
+.gallery{
+  height: 300px;
+  /* width: 300px; */
+  margin-left: 50px;
+  margin-right: 50px;
+  /* background-color: green; */
+}
+.newstockimages{
+  height: 300px;
+  /* width: 300px; */
+}
+.newstockimages:hover{
+  border-radius: 10px;
 }
