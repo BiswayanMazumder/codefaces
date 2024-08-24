@@ -128,6 +128,32 @@ body{
 .promotionalvideo{
   width: 100vw;
 }
+.dhifjkfjlf {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  justify-content: flex-start; /* Align items to the start of the container */
+  align-items: center;
+  flex-direction: row;
+  /* gap: 20px; */
+  overflow-x: auto; /* Allows horizontal scrolling */
+  overflow-y: hidden; /* Prevents vertical scrolling */
+}
+.dhifjkfjlf::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for WebKit browsers */
+}
+.items {
+  margin-left: 20px;
+  margin-right: 20px;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  background-color: grey;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0; /* Prevents the items from shrinking */
+}
+
 @media screen and (max-width: 1439px) {
   .headeroptions{
     display: none;
