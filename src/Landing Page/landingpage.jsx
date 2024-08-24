@@ -32,7 +32,7 @@ export default function Landingpage() {
                             </svg>
                         </div>
                         <div className="logoimage">
-                            <img src="https://overlaysnow.com/cdn/shop/files/Overlays_Flame_Logo_150x150_2_150x.jpg?v=1719309287" alt="" className='logoimg' />
+                            <img src="https://g1uudlawy6t63z36.public.blob.vercel-storage.com/_fa24086d-6873-4c24-9ff6-0aceb7380333-QyUF9bBdbH9jERIGwpyEPhaZ2HcKZL.jpg" alt="" className='logoimg' />
                         </div>
                     </div>
                     <div className="headeroptions">
