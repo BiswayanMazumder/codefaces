@@ -240,29 +240,3 @@ body{
   /* background-color: black; */
   padding: 20px;
 }
-
-.secondphoto{
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.secondcollagephoto{
-  position: relative;
-  width: 40vw;
-  height: 50vh;
-}
-.dhifjkfjlfd{
-  /* display: none; */
-}
-.dhifjkfjlfk{
-  display: flex;
-  flex-direction: column;
-}
-.collagephoto:hover,.secondcollagephoto:hover{
-  transform: scale(1.1) rotateX(5deg) rotateY(5deg);
-}
-@media screen and (max-width: 1439px) {
-  .dhifjkfjlfd{
-    display: none;
-  }
-}

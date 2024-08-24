@@ -224,22 +224,31 @@ export default function Landingpage() {
                 </div>
                 <Link style={{ textDecoration: "none" }}>
                     <div className="jjehfjnfjd">
-                        <video src="https://cdn.shopify.com/videos/c/o/v/4144efc50b5b4801b277b3132794de9c.mp4" autoPlay muted loop className='promotionalvideos'></video>
+                        <video src="https://images.vegnonveg.com/media/collections/132/17171505421326659a34e3985f.mp4" autoPlay muted loop className='promotionalvideos'></video>
                     </div>
                 </Link>
-                <div className="dhifjkfjlfd" style={{ height: '800px', color: "black" }}>
-                    <div className="jfkjfkgkflh">
-                        <div className="firstphoto">
-                            <img src="https://images.vegnonveg.com/resized/700X573/10934/air-jordan-4-retro-whitecoconut-milk-vivid-sulfur-white-66167eb42b031.jpg" alt="" className='collagephoto'/>
+                <div className="dhifjkfjlf" style={{ height: '500px', color: "black" }}>
+                <Link style={{ textDecoration: "none", color: "black" }}>
+                        <div className="gallery" >
+                            <img src="https://images.vegnonveg.com/media/collections/102/172007371710266863df57389e.png" alt="" className='newstockimages' />
+                            <br /><br />
+                            LEGENDARY AIR JORDAN 1
                         </div>
-                        <div className="secondphoto">
-                            <img src="https://images.vegnonveg.com/resized/700X573/11235/mad-iiinfinity-carbon-blackred-black-667e82afb2deb.jpg" alt="" className='secondcollagephoto' />
-                            <img src="https://marketplace.mainstreet.co.in/cdn/shop/files/NikeAirMax1_86OGBigBubbleSportRed-3_a4bb35f7-1606-4afa-b7cb-24b97ba499d3.jpg?v=1722329650&width=360" alt="" className='secondcollagephoto' />
+                    </Link>
+                    <Link style={{ textDecoration: "none", color: "black" }}>
+                        <div className="gallery" >
+                            <img src="https://images.vegnonveg.com/media/collections/75/171955723875667e5c76f082e.png" alt="" className='newstockimages' />
+                            <br /><br />
+                            SLIDES - ALL DAY COMFORT
                         </div>
-                    </div>
-                </div>
-                <div className="dhifjkfjlfk" style={{ height: '800px', color: "black" }}>
-
+                    </Link>
+                    <Link style={{ textDecoration: "none", color: "black" }}>
+                        <div className="gallery" >
+                            <img src="https://images.vegnonveg.com/media/collections/101/17198391211016682a991ee9b7.png" alt="" className='newstockimages' />
+                            <br /><br />
+                            NIKE DUNKS - HERITAGE
+                        </div>
+                    </Link>
                 </div>
             </div>
         </>
