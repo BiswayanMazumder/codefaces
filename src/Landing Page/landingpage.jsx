@@ -227,6 +227,20 @@ export default function Landingpage() {
                         <video src="https://cdn.shopify.com/videos/c/o/v/4144efc50b5b4801b277b3132794de9c.mp4" autoPlay muted loop className='promotionalvideos'></video>
                     </div>
                 </Link>
+                <div className="dhifjkfjlfd" style={{ height: '800px', color: "black" }}>
+                    <div className="jfkjfkgkflh">
+                        <div className="firstphoto">
+                            <img src="https://images.vegnonveg.com/resized/700X573/10934/air-jordan-4-retro-whitecoconut-milk-vivid-sulfur-white-66167eb42b031.jpg" alt="" className='collagephoto'/>
+                        </div>
+                        <div className="secondphoto">
+                            <img src="https://images.vegnonveg.com/resized/700X573/11235/mad-iiinfinity-carbon-blackred-black-667e82afb2deb.jpg" alt="" className='secondcollagephoto' />
+                            <img src="https://marketplace.mainstreet.co.in/cdn/shop/files/NikeAirMax1_86OGBigBubbleSportRed-3_a4bb35f7-1606-4afa-b7cb-24b97ba499d3.jpg?v=1722329650&width=360" alt="" className='secondcollagephoto' />
+                        </div>
+                    </div>
+                </div>
+                <div className="dhifjkfjlfk" style={{ height: '800px', color: "black" }}>
+
+                </div>
             </div>
         </>
     );
