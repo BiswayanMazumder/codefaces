@@ -127,7 +127,7 @@ body{
 }
 .promotionalvideo {
   width: 100vw;
-  height: 650px;
+  height: 600px;
   object-fit: cover; /* This ensures the video covers the entire area while maintaining its aspect ratio */
 }
 
