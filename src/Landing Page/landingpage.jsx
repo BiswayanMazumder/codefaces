@@ -222,6 +222,11 @@ export default function Landingpage() {
                         </div>
                     </Link>
                 </div>
+                <Link style={{ textDecoration: "none" }}>
+                    <div className="jjehfjnfjd">
+                        <video src="https://cdn.shopify.com/videos/c/o/v/4144efc50b5b4801b277b3132794de9c.mp4" autoPlay muted loop className='promotionalvideos'></video>
+                    </div>
+                </Link>
             </div>
         </>
     );
