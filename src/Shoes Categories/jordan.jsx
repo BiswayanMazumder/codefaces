@@ -202,6 +202,10 @@ export default function Jordan() {
                         imageUrls.map((url, index) => (
                             <div className="jenfkjfrf">
                             <img src={imageUrls[index]} alt="" />
+                            <div className="ejfjf">
+                                {airJordanSneakers[index]}
+                            </div>
+                            {/* <br /><br /> */}
                             </div>
                         ))
                     }

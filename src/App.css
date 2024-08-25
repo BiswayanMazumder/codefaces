@@ -254,9 +254,32 @@ body{
 }
 .jenfkjfrf{
   position: relative;
-  top: 50px;
+  top: 80px;
+  height: 500px;
   /* margin-left: 30px; */
   height: 300px;
   width:350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 50px;
   /* background-color: red; */
+}
+@media screen and (min-width: 1440px) {
+  .ejfjf {
+    opacity: 0;          /* Hide the element */
+    visibility: hidden;  /* Hide the element from the layout */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth transition */
+  }
+}
+.jenfkjfrf:hover .ejfjf {
+  opacity: 1;          /* Make it fully visible */
+  visibility: visible; /* Make it visible in the layout */
+}
+@media screen and (max-width: 1439px) {
+  .ejfjf{
+    display: flex;
+  }
 }
