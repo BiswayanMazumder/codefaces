@@ -40,14 +40,15 @@ export default function Landingpage() {
                     </div>
                     <div className="headeroptions">
                         <div className="options">
-                            <Link to="/" style={{ textDecoration: "none", color: "black" }} className='headerlink'>New Arrivals</Link>
-                            <Link to="/" style={{ textDecoration: "none", color: "black" }}>Latest Drop</Link>
-                            <Link to="/" style={{ textDecoration: "none", color: "black" }}>Shop Men</Link>
-                            <Link to="/" style={{ textDecoration: "none", color: "black" }}>Heavy Weight</Link>
+                        {/* <Link to="/" style={{ textDecoration: "none", color: "black" }}>SS24</Link> */}
+                        <Link to="/" style={{ textDecoration: "none", color: "black" }} className='headerlink'>Footwear</Link>
+                             <Link to="/" style={{ textDecoration: "none", color: "black" }}>SS24</Link>
+                            <Link to="/" style={{ textDecoration: "none", color: "black" }}>Air Force 1</Link>
+                            <Link to="/jordan" style={{ textDecoration: "none", color: "black" }}>Jordan</Link>
                             <Link to="/" style={{ textDecoration: "none", color: "orangered" }}>Home</Link>
-                            <Link to="/" style={{ textDecoration: "none", color: "black" }}>Shop Women</Link>
-                            <Link to="/" style={{ textDecoration: "none", color: "black" }}>About Us</Link>
-                            <Link to="/" style={{ textDecoration: "none", color: "black" }}>Sale</Link>
+                            <Link to="/dunks" style={{ textDecoration: "none", color: "black" }}>Dunks</Link>
+                            <Link to="/" style={{ textDecoration: "none", color: "black" }}>Air Max</Link>
+                            <Link to="/slides" style={{ textDecoration: "none", color: "black" }}>Slides</Link>
                             <Link to="/" style={{ textDecoration: "none", color: "black" }}>Contact Us</Link>
                         </div>
                     </div>
