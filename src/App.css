@@ -69,6 +69,7 @@ body{
   align-items: center;
   position: relative;
   top: 50%;
+  /* gap: 10px; */
   /* background-color: red; */
   margin-left: 50px;
 }

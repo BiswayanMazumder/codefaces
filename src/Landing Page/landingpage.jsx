@@ -27,6 +27,9 @@ export default function Landingpage() {
                 <div className="headersection">
                     <div className="logo">
                         <div className="searchform">
+                            {/* <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="icon icon-hamburger" fill="none" viewBox="0 0 18 16">
+                                <path d="M1 .5a.5.5 0 100 1h15.71a.5.5 0 000-1H1zM.5 8a.5.5 0 01.5-.5h15.71a.5.5 0 010 1H1A.5.5 0 01.5 8zm0 7a.5.5 0 01.5-.5h15.71a.5.5 0 010 1H1a.5.5 0 01-.5-.5z" fill="currentColor">
+                                </path></svg> */}
                             <svg focusable="false" width="18" height="18" className="icon icon--header-search" viewBox="0 0 18 18">
                                 <path d="M12.336 12.336c2.634-2.635 2.682-6.859.106-9.435-2.576-2.576-6.8-2.528-9.435.106C.373 5.642.325 9.866 2.901 12.442c2.576 2.576 6.8 2.528 9.435-.106zm0 0L17 17" fill="none" stroke="currentColor" strokeWidth="2"></path>
                             </svg>
@@ -256,7 +259,7 @@ export default function Landingpage() {
                     </div>
                 </Link>
                 <div className="dhifjkfjlf" style={{ height: '500px', color: "black" }}>
-                <Link style={{ textDecoration: "none", color: "black" }}>
+                    <Link style={{ textDecoration: "none", color: "black" }}>
                         <div className="gallery" >
                             <img src="https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_466,c_limit/0b024371-2a62-4df8-bdb3-5786c1bde198/v2k-run-shoes-zJV8TV.png" alt="" className='newstockimages' />
                             <br /><br />
@@ -327,6 +330,11 @@ export default function Landingpage() {
                         </div>
                     </Link>
                 </div>
+                <Link style={{ textDecoration: "none" }}>
+                    <div className="jjehfjnfjd">
+                        <video src="https://vod.freecaster.com/louisvuitton/9cab9fef-a9c7-45bb-b866-e0176b146dce/PqutfkpKHJm5u7hJW9yCWG6s_3.mp4" autoPlay muted loop className='promotionalvideo'></video>
+                    </div>
+                </Link>
             </div>
         </>
     );
