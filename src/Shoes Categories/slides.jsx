@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export default function Slides() {
     useEffect(() => {
-      document.title = 'Buy Nike Air Jordan for Men, women, and kids | LuxeLayers';  
+      document.title = 'Shop the Latest Collection of Slides and Sandals Online at LuxeLayers';  
     })
     const imageUrls = [
         "https://images.vegnonveg.com/resized/400X328/11240/jordan-jumpman-slide-neutral-greymetallic-silver-grey-667d41362b384.jpg",
