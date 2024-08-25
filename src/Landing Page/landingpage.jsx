@@ -231,7 +231,7 @@ export default function Landingpage() {
                     </div>
                 </Link>
                 <div className="dhifjkfjlf" style={{ height: '500px', color: "black" }}>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
+                    <Link style={{ textDecoration: "none", color: "black" }} to={"/jordan"}>
                         <div className="gallery" >
                             <img src="https://images.vegnonveg.com/media/collections/102/172007371710266863df57389e.png" alt="" className='newstockimages' />
                             <br /><br />
