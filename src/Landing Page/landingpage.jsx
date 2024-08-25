@@ -228,7 +228,7 @@ export default function Landingpage() {
                     </div>
                 </Link>
                 <div className="dhifjkfjlf" style={{ height: '500px', color: "black" }}>
-                <Link style={{ textDecoration: "none", color: "black" }}>
+                    <Link style={{ textDecoration: "none", color: "black" }}>
                         <div className="gallery" >
                             <img src="https://images.vegnonveg.com/media/collections/102/172007371710266863df57389e.png" alt="" className='newstockimages' />
                             <br /><br />
@@ -255,6 +255,78 @@ export default function Landingpage() {
                         <video src="https://cdn.shopify.com/videos/c/o/v/4144efc50b5b4801b277b3132794de9c.mp4" autoPlay muted loop className='promotionalvideos'></video>
                     </div>
                 </Link>
+                <div className="dhifjkfjlf" style={{ height: '500px', color: "black" }}>
+                <Link style={{ textDecoration: "none", color: "black" }}>
+                        <div className="gallery" >
+                            <img src="https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_466,c_limit/0b024371-2a62-4df8-bdb3-5786c1bde198/v2k-run-shoes-zJV8TV.png" alt="" className='newstockimages' />
+                            <br /><br />
+                            NIKE V2K RUN
+                        </div>
+                    </Link>
+                    <Link style={{ textDecoration: "none", color: "black" }}>
+                        <div className="gallery" >
+                            <img src="https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_466,c_limit/71521bad-30ec-4ffb-8776-9deb56556c96/p-6000-shoes-kGDH2V.png" alt="" className='newstockimages' />
+                            <br /><br />
+                            NIKE P-6000 PREMIUM
+                        </div>
+                    </Link>
+                    <Link style={{ textDecoration: "none", color: "black" }}>
+                        <div className="gallery" >
+                            <img src="https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_466,c_limit/df4a60dc-5801-4897-96b6-218643b5b4e8/v2k-run-shoes-jqDSBb.png" alt="" className='newstockimages' />
+                            <br /><br />
+                            NIKE V2K RUN
+                        </div>
+                    </Link>
+                    <Link style={{ textDecoration: "none", color: "black" }}>
+                        <div className="gallery" >
+                            <img src="https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_466,c_limit/18f80bc9-88ac-450f-8f85-fbe2f68fa810/zoom-vomero-5-shoes-pTGjFN.png" alt="" className='newstockimages' />
+                            <br /><br />
+                            NIKE ZOOM VOMERO 5
+                        </div>
+                    </Link>
+                    <Link style={{ textDecoration: "none", color: "black" }}>
+                        <div className="gallery" >
+                            <img src="https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_466,c_limit/da1c5a0e-0d65-4b72-8e99-b65e1062b7d7/p-6000-shoes-QcQbpx.png" alt="" className='newstockimages' />
+                            <br /><br />
+                            NIKE P-6000
+                        </div>
+                    </Link>
+                    <Link style={{ textDecoration: "none", color: "black" }}>
+                        <div className="gallery" >
+                            <img src="https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_466,c_limit/6b5f86ee-d9eb-4e78-89a3-4f3978503ce2/air-max-dn-shoes-PWPh7h.png" alt="" className='newstockimages' />
+                            <br /><br />
+                            NIKE AIR MAX DN PREMIUM
+                        </div>
+                    </Link>
+                    <Link style={{ textDecoration: "none", color: "black" }}>
+                        <div className="gallery" >
+                            <img src="https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_466,c_limit/e9dc7d31-f2ad-4577-bd3f-33ed7c34dfab/zoom-vomero-5-shoes-1DsLmz.png" alt="" className='newstockimages' />
+                            <br /><br />
+                            NIKE ZOOM VOMERO 5
+                        </div>
+                    </Link>
+                    <Link style={{ textDecoration: "none", color: "black" }}>
+                        <div className="gallery" >
+                            <img src="https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_466,c_limit/03f2c10f-64e4-4f6f-9cbc-a954d1ce0678/v2k-run-shoes-k4c8Dd.png" alt="" className='newstockimages' />
+                            <br /><br />
+                            NIKE V2K RUN
+                        </div>
+                    </Link>
+                    <Link style={{ textDecoration: "none", color: "black" }}>
+                        <div className="gallery" >
+                            <img src="https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_466,c_limit/31a17614-4755-48c0-95ed-2023ebfaaf38/initiator-shoes-FXHpRJ.png" alt="" className='newstockimages' />
+                            <br /><br />
+                            NIKE INITIATOR
+                        </div>
+                    </Link>
+                    <Link style={{ textDecoration: "none", color: "black" }}>
+                        <div className="gallery" >
+                            <img src="https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_466,c_limit/425cc1ec-1c70-48fc-a531-d329065ae364/zoom-vomero-5-shoes-C5jXXx.png" alt="" className='newstockimages' />
+                            <br /><br />
+                            NIKE ZOOM VOMERO 5
+                        </div>
+                    </Link>
+                </div>
             </div>
         </>
     );
