@@ -238,7 +238,7 @@ export default function Landingpage() {
                             LEGENDARY AIR JORDAN 1
                         </div>
                     </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
+                    <Link style={{ textDecoration: "none", color: "black" }} to={'/slides'}>
                         <div className="gallery" >
                             <img src="https://images.vegnonveg.com/media/collections/75/171955723875667e5c76f082e.png" alt="" className='newstockimages' />
                             <br /><br />
