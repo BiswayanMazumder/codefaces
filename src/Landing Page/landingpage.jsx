@@ -245,7 +245,7 @@ export default function Landingpage() {
                             SLIDES - ALL DAY COMFORT
                         </div>
                     </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
+                    <Link style={{ textDecoration: "none", color: "black" }} to={'/dunks'}>
                         <div className="gallery" >
                             <img src="https://images.vegnonveg.com/media/collections/101/17198391211016682a991ee9b7.png" alt="" className='newstockimages' />
                             <br /><br />
