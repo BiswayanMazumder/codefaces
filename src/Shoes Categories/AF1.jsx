@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export default function AF1() {
     useEffect(() => {
-      document.title = 'Shop the Latest Collection of Slides and Sandals Online at LuxeLayers';  
+      document.title = 'Buy Nike Air Force for Men, women, and kids | LuxeLayers';  
     })
     const imageUrls = [
         "https://images.vegnonveg.com/resized/400X328/11317/air-force-1-shadow-sailcacao-wow-flax-sesame-white-6690be258346c.jpg",
