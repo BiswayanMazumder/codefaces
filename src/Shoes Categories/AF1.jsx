@@ -1,50 +1,47 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-export default function Dunks() {
+export default function AF1() {
     useEffect(() => {
       document.title = 'Shop the Latest Collection of Slides and Sandals Online at LuxeLayers';  
     })
     const imageUrls = [
-        'https://images.vegnonveg.com/resized/400X328/5358/nike-dunk-low-retro-whiteblack-white-60e41a479d3e7.jpg',
-        'https://images.vegnonveg.com/resized/400X328/5363/w-nike-dunk-low-whiteblack-white-60e41b4c68977.jpg',
-        'https://images.vegnonveg.com/resized/400X328/8828/nike-dunk-low-retro-whitegrey-fog-63ce764079383.jpg',
-        'https://images.vegnonveg.com/resized/400X328/8828/nike-dunk-low-retro-whitegrey-fog-63ce764031209.jpg',
-        'https://images.vegnonveg.com/resized/400X328/10539/dunk-low-dark-currywhite-white-658e94dce57fc.jpg',
-        'https://images.vegnonveg.com/resized/400X328/11342/dunk-low-nn-summit-whitekhaki-baroque-brown-phantom-white-6690cf8f03a69.jpg',
-        'https://images.vegnonveg.com/resized/400X328/11434/dunk-low-nn-baroque-brownblack-white-sail-brown-66bb4b2dc3a2a.jpg',
-        'https://images.vegnonveg.com/resized/400X328/11407/dunk-low-blackmidnight-navy-white-university-red-white-66bb4bbad6fab.jpg',
-        'https://images.vegnonveg.com/resized/400X328/11396/dunk-low-retro-whitedenim-turq-white-66b3660dc7ed0.jpg',
-        'https://images.vegnonveg.com/resized/400X328/11406/dunk-low-coconut-milkflax-sail-brown-66b497326da01.jpg',
-        'https://images.vegnonveg.com/resized/400X328/11408/dunk-low-game-royalblack-white-multicolor-66b4784782d8e.jpg',
-        'https://images.vegnonveg.com/resized/400X328/11397/dunk-low-retro-whitedragon-red-black-white-66b3667e7b69f.jpg',
+        "https://images.vegnonveg.com/resized/400X328/11317/air-force-1-shadow-sailcacao-wow-flax-sesame-white-6690be258346c.jpg",
+        "https://images.vegnonveg.com/resized/400X328/11226/air-force-1-07-lv8-light-british-tanburgundy-crush-brown-666a86b38436d.jpg",
+        "https://images.vegnonveg.com/resized/400X328/11336/air-force-1-07-lv8-1-coconut-milkvintage-green-bicoastal-white-6690cdf402403.jpg",
+        "https://images.vegnonveg.com/resized/400X328/11257/air-force-1-07-nn-hydrangeasblack-raspberry-barely-grape-purple-66865dbe70bcc.jpg",
+        "https://images.vegnonveg.com/resized/400X328/11195/air-force-1-07-saillimestone-pale-vanilla-coconut-milk-cream-66508e9ee2809.jpg",
+        "https://images.vegnonveg.com/resized/400X328/11326/air-force-1-07-whiteuniversity-gold-white-6690c18e24b7c.jpg",
+        "https://images.vegnonveg.com/resized/400X328/8772/air-force-1-07-blackwhite-black_1-63bbfb21984a4.jpg",
+        "https://images.vegnonveg.com/resized/400X328/11475/air-force-1-07-whitedragon-red-white-white-66c717cce8961.jpg",
+        
       ];
       
       const dunkLowModels = [
-        "DUNK LOW RETRO 'WHITE/BLACK'",
-        "DUNK LOW 'WHITE/BLACK' Womens",
-        "DUNK LOW RETRO 'WHITE/GREY FOG'",
-        "DUNK LOW 'DARK CURRY/WHITE'",
-        "DUNK LOW NN 'SUMMIT WHITE/KHAKI-BAROQUE BROWN-PHANTOM'",
-        "DUNK LOW NN 'BAROQUE BROWN/BLACK-WHITE-SAIL'",
-        "DUNK LOW 'BLACK/MIDNIGHT NAVY-WHITE-UNIVERSITY RED'",
-        "DUNK LOW RETRO 'WHITE/DENIM TURQ'",
-        "DUNK LOW 'COCONUT MILK/FLAX-SAIL'",
-        "DUNK LOW 'GAME ROYAL/BLACK-WHITE'",
-        "DUNK LOW RETRO 'WHITE/DRAGON RED-BLACK'",
-        "DUNK LOW NN 'PHANTOM/OBSIDIAN-PALE IVORY'",
-        "DUNK LOW PREMIUM 'PHANTOM/PHOTON DUST-LIGHT SMOKE GREY'",
-        "DUNK LOW PREMIUM 'OIL GREEN/TREELINE-SAIL'",
-        "DUNK LOW RETRO PREMIUM 'MEDIUM OLIVE/HEMP-SUMMIT WHITE-SAIL'",
-        "DUNK LOW LX 'PHOTON DUST/METALLIC SILVER-PINK FOAM'",
-        "DUNK LOW 'CACAO WOW/PALE IVORY-PINK FOAM'",
-        "DUNK HIGH RETRO SE 'PHANTOM/RACER BLUE-PALE IVORY-GUM YELLOW'",
-        "DUNK LOW RETRO 'WHITE/VIOTECH'",
-        "DUNK LOW 'SAIL/PACIFIC MOSS-CREAM-LIMESTONE'",
-        "DUNK LOW NN 'PHOTON DUST/OBSIDIAN-WHITE-PHANTOM'",
-        "DUNK LOW NN 'WHITE/DUSTY CACTUS'",
-        "DUNK LOW 'WHITE/BLACK-FOOTBALL GREY-GREEN STRIKE'",
-        "DUNK LOW RETRO SE 'PHANTOM/KHAKI-LIGHT BONE-SUMMIT WHITE'"
+        "AIR FORCE 1 SHADOW 'SAIL/CACOA WOW-FLAX-SESAME WHITE'",
+        "AIR FORCE 1 '07 LV8 'LIGHT BRITISH TAN/BURGUNDY CRUSH-BROWN'",
+        "AIR FORCE 1 '07 LV8-1 'COCONUT MILK/VINTAGE GREEN-BICOASTAL WHITE'",
+        "AIR FORCE 1 '07 NN 'HYDRANGEAS/BLACK-RASPBERRY-BARELY GRAPE PURPLE'",
+        "AIR FORCE 1 '07 'SAIL/LIMESTONE-PALE VANILLA-COCONUT MILK-CREAM'",
+        "AIR FORCE 1 '07 'WHITE/UNIVERSITY GOLD-WHITE'",
+        "AIR FORCE 1 '07 'BLACK/WHITE-BLACK'",
+        "AIR FORCE 1 '07 'WHITE/DRAGON RED-WHITE'",
+        "AIR FORCE 1 LOW 'BLACK/TEA-BLACK-PETRA BROWN'",
+        "AIR FORCE 1 LV8-3 'LIGHT BRITISH TAN/BURGUNDY CRUSH-BROWN'",
+        "AIR FORCE 1 '07 NN 'FLAX/CACOA WOW-SESAME WHITE'",
+        "AIR FORCE 1 '07 LV8 'PHANTOM/MALACHITE-GUM YELLOW'",
+        "AIR FORCE 1 '07 'BLACK/BLACK'",
+        "AIR FORCE 1 LE 'BLACK/BLACK'",
+        "AIR FORCE 1 '07 NN 'WHITE/OBSIDIAN-PALE IVORY-METALLIC GOLD'",
+        "AIR FORCE 1 '07 'WHITE/MIDNIGHT NAVY-WHITE'",
+        "AIR FORCE 1 SP 'BLACK/GAME ROYAL-BLACK'",
+        "AIR FORCE 1 '07 ESSENTIAL 'SAIL/BLACK-BLACK'",
+        "AIR FORCE 1 '07 NN 'WHITE/GYM RED-VOLT'",
+        "AIR FORCE 1 '07 LV8 'WHITE/PHANTOM-SUMMIT WHITE'",
+        "AIR FORCE 1 '07 NN SE 'SAIL/VAPOR GREEN-SEA GLASS-VOLT'",
+        "AIR FORCE 1 '07 NN SE 'SEA GLASS/VAPOR GREEN-LIGHT SILVER-SAIL'",
+        "AIR FORCE 1 LOW RETRO PREMIUM 'WHITE/ELEMENTAL GOLD-DARK HAZEL'",
+        "AIR FORCE 1 LV8-4 'WHITE/BLACK-WHITE'"
       ];
       
           
@@ -69,17 +66,17 @@ export default function Dunks() {
                         <div className="options">
                         <Link to="/" style={{ textDecoration: "none", color: "black" }} className='headerlink'>Footwear</Link>
                             <Link to="/" style={{ textDecoration: "none", color: "black" }}>SS24</Link>
-                            <Link to="/AF1" style={{ textDecoration: "none", color: "black" }}>Air Force 1</Link>
+                            <Link to="/AF1" style={{ textDecoration: "none", color: "orangered" }}>Air Force 1</Link>
                             <Link to="/jordan" style={{ textDecoration: "none", color: "black" }}>Jordan</Link>
                             <Link to="/" style={{ textDecoration: "none", color: "black" }}>Home</Link>
-                            <Link to="/dunks" style={{ textDecoration: "none", color: "orangered" }}>Dunks</Link>
+                            <Link to="/dunks" style={{ textDecoration: "none", color: "black" }}>Dunks</Link>
                             <Link to="/airmax" style={{ textDecoration: "none", color: "black" }}>Air Max</Link>
                             <Link to="/slides" style={{ textDecoration: "none", color: "black" }}>Slides</Link>
                             <Link to="/" style={{ textDecoration: "none", color: "black" }}>Contact Us</Link>
                         </div>
                     </div>
                 </div>
-                <img src="https://images.vegnonveg.com/media/collections/101/17198391211016682a991ee9b7.png" alt="" width={"100%"}  />
+                <img src="https://images.vegnonveg.com/media/collections/84/171955716484667e5c2c97284.png" alt="" width={"100%"}  />
                 <div className="fgfhhgjjh">
                     {
                         imageUrls.map((url, index) => (

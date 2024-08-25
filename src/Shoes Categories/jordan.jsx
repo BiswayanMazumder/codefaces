@@ -186,7 +186,7 @@ export default function Jordan() {
                         <div className="options">
                         <Link to="/" style={{ textDecoration: "none", color: "black" }} className='headerlink'>Footwear</Link>
                              <Link to="/" style={{ textDecoration: "none", color: "black" }}>SS24</Link>
-                            <Link to="/" style={{ textDecoration: "none", color: "black" }}>Air Force 1</Link>
+                            <Link to="/AF1" style={{ textDecoration: "none", color: "black" }}>Air Force 1</Link>
                             <Link to="/jordan" style={{ textDecoration: "none", color: "orangered" }}>Jordan</Link>
                             <Link to="/" style={{ textDecoration: "none", color: "black" }}>Home</Link>
                             <Link to="/dunks" style={{ textDecoration: "none", color: "black" }}>Dunks</Link>

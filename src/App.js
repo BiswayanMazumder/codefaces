@@ -12,6 +12,7 @@ import Jordan from './Shoes Categories/jordan';
 import Slides from './Shoes Categories/slides';
 import Dunks from './Shoes Categories/dunks';
 import AirMax from './Shoes Categories/airmax';
+import AF1 from './Shoes Categories/AF1';
 function App() {
   return (
     <BrowserRouter>
@@ -29,6 +30,9 @@ function App() {
       </Routes>
       <Routes>
         <Route path="/airmax" element={<AirMax />} />
+      </Routes>
+      <Routes>
+        <Route path="/AF1" element={<AF1 />} />
       </Routes>
       <SpeedInsights />
       <Analytics />
