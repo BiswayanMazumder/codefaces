@@ -283,3 +283,42 @@ body{
     display: flex;
   }
 }
+.jdkfkvjdlv{
+  width: 100vw; 
+  height: 100vh;
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  top: 50px;
+  gap: 30px;
+}
+.jjfejf{
+  font-size: 50px;
+  /* font-weight: 400; */
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+.email{
+  position: relative;
+  width: 40vw;
+  height: 50px;
+  color: black;
+  font-size: 15px;
+  font-weight: 500;
+  /* background-color: red; */
+  border: 0.5px solid grey;
+}
+@media screen and (max-width: 1439px) {
+  .jjfejf{
+    font-size: 20px;
+  }
+  .email{
+    position: relative;
+    width: 80vw;
+    height: 50px;
+    /* background-color: red; */
+  }
+}

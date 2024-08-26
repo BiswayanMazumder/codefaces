@@ -15,6 +15,7 @@ import AirMax from './Shoes Categories/airmax';
 import AF1 from './Shoes Categories/AF1';
 import Footwear from './Shoes Categories/footwear';
 import SS24 from './Shoes Categories/ss24';
+import Login from './Login and Signup/login';
 function App() {
   return (
     <BrowserRouter>
@@ -41,6 +42,9 @@ function App() {
       </Routes>
       <Routes>
         <Route path="/ss24" element={<SS24 />} />
+      </Routes>
+      <Routes>
+        <Route path="/account/login" element={<Login />} />
       </Routes>
       <SpeedInsights />
       <Analytics />
