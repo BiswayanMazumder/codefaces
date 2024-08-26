@@ -52,6 +52,13 @@ export default function Login() {
                             <input type="password" placeholder='Password' className='email' />
                         </div>
                     </div>
+                    <Link style={{ textDecoration: "none", color: "white" }}>
+                    <div className="ekfjmmf">
+                        <div className="loginbutton" style={{border: "none", backgroundColor:"black",color:"white",justifyContent:"center",alignItems:"center",textAlign:"center",display:"flex"}} >
+                            LOGIN
+                        </div>
+                    </div>
+                    </Link>
                 </div>
             </div>
         </>
