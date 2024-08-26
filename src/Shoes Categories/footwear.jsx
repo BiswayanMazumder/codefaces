@@ -176,7 +176,7 @@ export default function Footwear() {
                     <div className="headeroptions">
                         <div className="options">
                         <Link to="/footwear" style={{ textDecoration: "none", color: "orangered" }} className='headerlink'>Footwear</Link>
-                            <Link to="/" style={{ textDecoration: "none", color: "black" }}>SS24</Link>
+                            <Link to="/ss24" style={{ textDecoration: "none", color: "black" }}>SS24</Link>
                             <Link to="/AF1" style={{ textDecoration: "none", color: "black" }}>Air Force 1</Link>
                             <Link to="/jordan" style={{ textDecoration: "none", color: "black" }}>Jordan</Link>
                             <Link to="/" style={{ textDecoration: "none", color: "black" }}>Home</Link>

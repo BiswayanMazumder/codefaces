@@ -14,6 +14,7 @@ import Dunks from './Shoes Categories/dunks';
 import AirMax from './Shoes Categories/airmax';
 import AF1 from './Shoes Categories/AF1';
 import Footwear from './Shoes Categories/footwear';
+import SS24 from './Shoes Categories/ss24';
 function App() {
   return (
     <BrowserRouter>
@@ -37,6 +38,9 @@ function App() {
       </Routes>
       <Routes>
         <Route path="/footwear" element={<Footwear />} />
+      </Routes>
+      <Routes>
+        <Route path="/ss24" element={<SS24 />} />
       </Routes>
       <SpeedInsights />
       <Analytics />
