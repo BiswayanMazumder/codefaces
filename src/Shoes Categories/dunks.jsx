@@ -75,7 +75,7 @@ export default function Dunks() {
                             <Link to="/dunks" style={{ textDecoration: "none", color: "orangered" }}>Dunks</Link>
                             <Link to="/airmax" style={{ textDecoration: "none", color: "black" }}>Air Max</Link>
                             <Link to="/slides" style={{ textDecoration: "none", color: "black" }}>Slides</Link>
-                            <Link to="/" style={{ textDecoration: "none", color: "black" }}>Contact Us</Link>
+                            <Link to="/" style={{ textDecoration: "none", color: "black" }}>Login</Link>
                         </div>
                     </div>
                 </div>
