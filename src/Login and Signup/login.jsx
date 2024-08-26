@@ -1,10 +1,43 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+const firebaseConfig = {
+    apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
+    authDomain: "luxelayers.firebaseapp.com",
+    projectId: "luxelayers",
+    storageBucket: "luxelayers.appspot.com",
+    messagingSenderId: "293993080821",
+    appId: "1:293993080821:web:713b6779443a50ac0922bc",
+    measurementId: "G-PKC7WSY6LG"
+};
 
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 export default function Login() {
     useEffect(() => {
         document.title = 'Account'
-    })
+    });
+    const auth = getAuth();
+    const login = () => {
+        const email=document.getElementById("emailaddress").value;
+        const password=document.getElementById("passwordbox").value;
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in 
+                console.log("Signed in")
+                const user = userCredential.user;
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error("Error: ", errorMessage);
+            });
+    }
     return (
         <>
             <div className="webbody">
@@ -43,28 +76,28 @@ export default function Login() {
                     </div>
                     Please enter your e-mail and password:
                     <div className="ekfjmmf">
-                        <div className="email" style={{border: "none"}}>
-                            <input type="text" placeholder='E-mail' className='email' />
+                        <div className="email" style={{ border: "none" }}>
+                            <input type="text" placeholder='E-mail' className='email' id='emailaddress' />
                         </div>
                     </div>
                     <div className="ekfjmmf">
-                        <div className="email" style={{border: "none"}}>
-                            <input type="password" placeholder='Password' className='email' />
+                        <div className="email" style={{ border: "none" }}>
+                            <input type="password" placeholder='Password' className='email' id='passwordbox' />
                         </div>
                     </div>
                     <Link style={{ textDecoration: "none", color: "white" }}>
-                    <div className="ekfjmmf">
-                        <div className="loginbutton" style={{border: "none", backgroundColor:"black",color:"white",justifyContent:"center",alignItems:"center",textAlign:"center",display:"flex"}} >
-                            LOGIN
+                        <div className="ekfjmmf" onClick={login}>
+                            <div className="loginbutton" style={{ border: "none", backgroundColor: "black", color: "white", justifyContent: "center", alignItems: "center", textAlign: "center", display: "flex" }} >
+                                LOGIN
+                            </div>
                         </div>
-                    </div>
                     </Link>
                     <Link style={{ textDecoration: "none", color: "white" }}>
-                    <div className="ekfjmmf">
-                        <div className="email" style={{border: "none"}}>
-                            Forgot Password?
+                        <div className="ekfjmmf">
+                            <div className="email" style={{ border: "none" }}>
+                                Forgot Password?
+                            </div>
                         </div>
-                    </div>
                     </Link>
                     <div className="dfbjdndn">
                         <div className="ejfhfm">
@@ -72,13 +105,13 @@ export default function Login() {
                             Free & Fast Delivery
                         </div>
                         <div className="ejfhfm">
-                            <img src="https://overlaysnow.com/cdn/shop/files/retweet_100x.png?v=1679920531" alt="" className='featureimgs'/>
+                            <img src="https://overlaysnow.com/cdn/shop/files/retweet_100x.png?v=1679920531" alt="" className='featureimgs' />
                             Return Policy
                         </div>
                         <div className="ejfhfm">
-                            <img src="https://overlaysnow.com/cdn/shop/files/mail_100x.png?v=1679920559" alt="" className='featureimgs'/>
+                            <img src="https://overlaysnow.com/cdn/shop/files/mail_100x.png?v=1679920559" alt="" className='featureimgs' />
                             Contact us
-                            
+
                         </div>
                     </div>
                 </div>
