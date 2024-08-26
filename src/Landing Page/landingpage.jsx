@@ -170,7 +170,7 @@ export default function Landingpage() {
                         </div>
                     </Link>
                 </div>
-                <Link style={{ textDecoration: "none" }}>
+                <Link style={{ textDecoration: "none" }} to={'/dunks'}>
                     <div className="jjehfjnfjd">
                         <video src="https://videos.pexels.com/video-files/8533112/8533112-uhd_2560_1440_25fps.mp4" autoPlay muted loop className='promotionalvideo'></video>
                     </div>
@@ -226,7 +226,7 @@ export default function Landingpage() {
                         </div>
                     </Link>
                 </div>
-                <Link style={{ textDecoration: "none" }}>
+                <Link style={{ textDecoration: "none" }} to={'/ss24'}>
                     <div className="jjehfjnfjd">
                         <video src="https://images.vegnonveg.com/media/collections/132/17171505421326659a34e3985f.mp4" autoPlay muted loop className='promotionalvideos'></video>
                     </div>
