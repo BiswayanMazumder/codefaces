@@ -192,7 +192,7 @@ export default function Jordan() {
                             <Link to="/dunks" style={{ textDecoration: "none", color: "black" }}>Dunks</Link>
                             <Link to="/airmax" style={{ textDecoration: "none", color: "black" }}>Air Max</Link>
                             <Link to="/slides" style={{ textDecoration: "none", color: "black" }}>Slides</Link>
-                            <Link to="/" style={{ textDecoration: "none", color: "black" }}>Login</Link>
+                            <Link to="/account/login" style={{ textDecoration: "none", color: "black" }}>Login</Link>
                         </div>
                     </div>
                 </div>
