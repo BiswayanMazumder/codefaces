@@ -66,6 +66,21 @@ export default function Login() {
                         </div>
                     </div>
                     </Link>
+                    <div className="dfbjdndn">
+                        <div className="ejfhfm">
+                            <img src="https://overlaysnow.com/cdn/shop/files/truck_1_100x.png?v=1679920131" alt="" className='featureimgs' />
+                            Free & Fast Delivery
+                        </div>
+                        <div className="ejfhfm">
+                            <img src="https://overlaysnow.com/cdn/shop/files/retweet_100x.png?v=1679920531" alt="" className='featureimgs'/>
+                            Return Policy
+                        </div>
+                        <div className="ejfhfm">
+                            <img src="https://overlaysnow.com/cdn/shop/files/mail_100x.png?v=1679920559" alt="" className='featureimgs'/>
+                            Contact us
+                            
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
