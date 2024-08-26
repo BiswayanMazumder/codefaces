@@ -59,6 +59,13 @@ export default function Login() {
                         </div>
                     </div>
                     </Link>
+                    <Link style={{ textDecoration: "none", color: "white" }}>
+                    <div className="ekfjmmf">
+                        <div className="email" style={{border: "none"}}>
+                            Forgot Password?
+                        </div>
+                    </div>
+                    </Link>
                 </div>
             </div>
         </>
