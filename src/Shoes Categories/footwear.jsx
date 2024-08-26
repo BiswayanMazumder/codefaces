@@ -78,16 +78,6 @@ export default function Footwear() {
     "https://images.vegnonveg.com/resized/400X328/11419/blazer-low-77-vintage-summit-whitecacao-wow-photon-dust-white-66b471a8d8a64.jpg",
     "https://images.vegnonveg.com/resized/400X328/11416/gazelle-indoor-preloved-inkwonder-clay-sand-strata-blue-66b47456555a2.jpg",
     "https://images.vegnonveg.com/resized/400X328/11414/ae-1-core-blackarctic-fusion-cloud-white-black-66b4732ea2fe1.jpg",
-    "https://images.vegnonveg.com/resized/400X328/11408/dunk-low-game-royalblack-white-multicolor-66b4784782d8e.jpg",
-    "https://images.vegnonveg.com/resized/400X328/11408/dunk-low-game-royalblack-white-multicolor-66b47847c3aaa.jpg",
-    "https://images.vegnonveg.com/resized/400X328/11403/dunk-low-nn-phantomobsidian-pale-ivory-white-66b47686279b2.jpg",
-    "https://images.vegnonveg.com/resized/400X328/11397/dunk-low-retro-whitedragon-red-black-white-66b3667e7b69f.jpg",
-    "https://images.vegnonveg.com/resized/400X328/11423/blazer-low-77-vintage-crimson-tintglacier-blue-pink-66b47296f03c2.jpg",
-    "https://images.vegnonveg.com/resized/400X328/11420/air-max-90-whitekhaki-cyber-dark-smoke-grey-white-66b4720bd006d.jpg",
-    "https://images.vegnonveg.com/resized/400X328/11405/air-max-plus-premium-black-teablack-petra-brown-olive-grey-black-66b478d3d7fd6.jpg",
-    "https://images.vegnonveg.com/resized/400X328/11401/air-force-1-low-black-teablack-petra-brown-black-66b475a7d425c.jpg",
-    
-        
       ];
       
       const dunkLowModels = [
