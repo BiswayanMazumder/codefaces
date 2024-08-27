@@ -16,6 +16,7 @@ import AF1 from './Shoes Categories/AF1';
 import Footwear from './Shoes Categories/footwear';
 import SS24 from './Shoes Categories/ss24';
 import Login from './Login and Signup/login';
+import Cart from './Cart Page/cart';
 function App() {
   return (
     <BrowserRouter>
@@ -45,6 +46,9 @@ function App() {
       </Routes>
       <Routes>
         <Route path="/account/login" element={<Login />} />
+      </Routes>
+      <Routes>
+        <Route path="/account/viewcart" element={<Cart />} />
       </Routes>
       <SpeedInsights />
       <Analytics />

@@ -68,7 +68,7 @@ export default function Landingpage() {
                             </Link>
                         </div>
                         <div className="searchform">
-                            <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/" : '/account/login'}>
+                            <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/viewcart" : '/account/login'}>
                                 <svg focusable="false" width="18" height="18" class="icon icon--header-cart   " viewBox="0 0 20 18">
                                     <path d="M3 1h14l1 16H2L3 1z" fill="none" stroke="currentColor" stroke-width="2"></path>
                                     <path d="M7 4v0a3 3 0 003 3v0a3 3 0 003-3v0" fill="none" stroke="currentColor" stroke-width="2"></path>

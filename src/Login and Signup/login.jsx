@@ -30,6 +30,7 @@ export default function Login() {
                 // Signed in 
                 console.log("Signed in")
                 const user = userCredential.user;
+                window.location.replace('/')
                 // ...
             })
             .catch((error) => {
