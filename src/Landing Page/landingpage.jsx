@@ -98,7 +98,10 @@ export default function Landingpage() {
                             <Link to="/dunks" style={{ textDecoration: "none", color: "black" }}>Dunks</Link>
                             <Link to="/airmax" style={{ textDecoration: "none", color: "black" }}>Air Max</Link>
                             <Link to="/slides" style={{ textDecoration: "none", color: "black" }}>Slides</Link>
-                            <Link to="/account/login" style={{ textDecoration: "none", color: "black" }}>Login</Link>
+                            {
+                                user?<Link  style={{ textDecoration: "none", color: "black" }}>Logout</Link>:
+                                <Link to={'/account/login'} style={{ textDecoration: "none", color: "black" }}>Login</Link>
+                            }
                         </div>
                     </div>
                 </div>
