@@ -17,6 +17,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 export default function Cart() {
+    useEffect(() => {
+        document.title='Shopping Cart | luxelayers.com'
+    })
     const [user, setUser] = useState(false);
     useEffect(() => {
         const auth = getAuth();
