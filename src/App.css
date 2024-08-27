@@ -387,6 +387,11 @@ body{
   font-weight: 600;
   /* background-color: red; */
 }
+.gendertiles{
+  display: flex;
+  flex-direction: row;
+  gap:1px;
+}
 @media screen and (max-width: 600px) {
   .dfndndf{
     width: 100vw;

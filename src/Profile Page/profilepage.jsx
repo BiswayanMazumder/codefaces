@@ -68,12 +68,12 @@ export default function Profilepage() {
 
                 if (docSnap.exists()) {
                     setName(docSnap.data()["Name"]);
-                    console.log('Name', docSnap.data()["Name"]);
+                    // console.log('Name', docSnap.data()["Name"]);
                 } else {
-                    console.log('No such document!');
+                    // console.log('No such document!');
                 }
             } catch (e) {
-                console.log(`Error getting document: ${e.message}`);
+                // console.log(`Error getting document: ${e.message}`);
             }
         };
 
@@ -81,7 +81,58 @@ export default function Profilepage() {
             fetchData();
         }
     }, [user]);
+    useEffect(() => {
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in, see docs for a list of available properties
+                // https://firebase.google.com/docs/reference/js/auth.user
+                const uid = user.uid;
+                // console.log('User is signed in');
+                setUser(true);
+                // ...
+            } else {
+                // User is signed out
+                // ...
+                // console.log('User is not signed')
+                // setUser(false);
+                window.location.replace('/')
+            }
+        });
+        // console.log(user);
+    });
+    const [gender,setgender]=useState(true);
+    useEffect(() => {
+        const fetchData = async () => {
+            const auth = getAuth();
+            const db = getFirestore(app);
+            const currentUser = auth.currentUser;
 
+            if (!currentUser) {
+                console.log('No user is logged in.');
+                return;
+            }
+
+            const docRef = doc(db, "User Detail", currentUser.uid);
+
+            try {
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    setgender(docSnap.data()["Gender"]);
+                    // console.log('Name', docSnap.data()["Gender"]);
+                } else {
+                    console.log('No such document!');
+                }
+            } catch (e) {
+                // console.log(`Error getting document: ${e.message}`);
+            }
+        };
+
+        if (user) {
+            fetchData();
+        }
+    }, [user]);
     return (
         <div className="webbody">
             <div className="headersection">
@@ -132,6 +183,16 @@ export default function Profilepage() {
                     <div className="personalnames">
                         Personal Information
                         <input type="text" placeholder={name} className='username' disabled style={{ cursor: "not-allowed" }} />
+                    </div>
+                    <div className="personalnames">
+                        Your Gender
+                        <br /><br />
+                        <div className="gendertiles">
+                            <input type="radio" id="male" name="gender" value="male" checked={gender} disabled style={{ cursor: "not-allowed" }}  />
+                            <label for="male">Male</label>
+                            <input type="radio" id="female" name="gender" value="female" checked={!gender} disabled style={{ cursor: "not-allowed" }}/>
+                            <label for="female">Female</label>
+                        </div>
                     </div>
                     <div className="personalnames">
                         Email Address
