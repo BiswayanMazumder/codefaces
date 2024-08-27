@@ -17,6 +17,7 @@ import Footwear from './Shoes Categories/footwear';
 import SS24 from './Shoes Categories/ss24';
 import Login from './Login and Signup/login';
 import Cart from './Cart Page/cart';
+import Profilepage from './Profile Page/profilepage';
 function App() {
   return (
     <BrowserRouter>
@@ -49,6 +50,9 @@ function App() {
       </Routes>
       <Routes>
         <Route path="/account/viewcart" element={<Cart />} />
+      </Routes>
+      <Routes>
+        <Route path="/account/profile" element={<Profilepage />} />
       </Routes>
       <SpeedInsights />
       <Analytics />

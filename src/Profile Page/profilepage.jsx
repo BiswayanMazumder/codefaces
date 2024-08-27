@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 const firebaseConfig = {
     apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
     authDomain: "luxelayers.firebaseapp.com",
@@ -12,14 +13,10 @@ const firebaseConfig = {
     appId: "1:293993080821:web:713b6779443a50ac0922bc",
     measurementId: "G-PKC7WSY6LG"
 };
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-export default function Cart() {
-    useEffect(() => {
-        document.title='Shopping Cart | luxelayers.com'
-    })
+export default function Profilepage() {
     const [user, setUser] = useState(false);
     useEffect(() => {
         const auth = getAuth();
@@ -36,15 +33,17 @@ export default function Cart() {
                 // ...
                 // console.log('User is not signed')
                 // setUser(false);
-                window.location.replace('/')
             }
         });
-        // console.log(user);
+        console.log(user);
     });
-    return (
-        <>
-            <div className="webbody">
-                <div className="headersection">
+    useEffect(() => {
+        document.title = "LuxeLayers : Shop T-shirts , Jackets , Shorts and Joggers Online";
+    })
+  return (
+    <>
+        <div className="webbody">
+        <div className="headersection">
                     <div className="logo">
                         <div className="searchform">
                             <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/" : '/account/login'}>
@@ -56,16 +55,16 @@ export default function Cart() {
                         <div className="searchform">
                             <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/viewcart" : '/account/login'}>
                                 <svg focusable="false" width="18" height="18" class="icon icon--header-cart   " viewBox="0 0 20 18">
-                                    <path d="M3 1h14l1 16H2L3 1z" fill="none" stroke="orangered" stroke-width="2"></path>
-                                    <path d="M7 4v0a3 3 0 003 3v0a3 3 0 003-3v0" fill="none" stroke="orangered" stroke-width="2"></path>
+                                    <path d="M3 1h14l1 16H2L3 1z" fill="none" stroke="currentColor" stroke-width="2"></path>
+                                    <path d="M7 4v0a3 3 0 003 3v0a3 3 0 003-3v0" fill="none" stroke="currentColor" stroke-width="2"></path>
                                 </svg>
                             </Link>
                         </div>
                         <div className="searchform">
                             <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/" : '/account/login'}>
                                 <svg focusable="false" width="18" height="18" class="icon icon--header-customer   " viewBox="0 0 18 17">
-                                    <circle cx="9" cy="5" r="4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></circle>
-                                    <path d="M1 17v0a4 4 0 014-4h8a4 4 0 014 4v0" fill="none" stroke="currentColor" stroke-width="2"></path>
+                                    <circle cx="9" cy="5" r="4" fill="none" stroke="orangered" stroke-width="2" stroke-linejoin="round"></circle>
+                                    <path d="M1 17v0a4 4 0 014-4h8a4 4 0 014 4v0" fill="none" stroke="orangered" stroke-width="2"></path>
                                 </svg>
                             </Link>
                         </div>
@@ -91,7 +90,7 @@ export default function Cart() {
                         </div>
                     </div>
                 </div>
-            </div>
-        </>
-    )
+        </div>
+    </>
+  )
 }

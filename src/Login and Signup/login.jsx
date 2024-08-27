@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 const firebaseConfig = {
     apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
     authDomain: "luxelayers.firebaseapp.com",
@@ -22,6 +22,20 @@ export default function Login() {
         document.title = 'Account'
     });
     const auth = getAuth();
+    const sendresetpassword = () => {
+        const auth = getAuth();
+        const email = document.getElementById("emailaddress").value;
+        sendPasswordResetEmail(auth, email)
+            .then(() => {
+                // Password reset email sent!
+                // ..
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // ..
+            });
+    }
     const login = () => {
         const email = document.getElementById("emailaddress").value;
         const password = document.getElementById("passwordbox").value;
@@ -105,7 +119,7 @@ export default function Login() {
                             </div>
                         </div>
                     </Link>
-                    <Link style={{ textDecoration: "none", color: "white" }}>
+                    <Link style={{ textDecoration: "none", color: "white" }} onClick={sendresetpassword}>
                         <div className="ekfjmmf">
                             <div className="email" style={{ border: "none" }}>
                                 Forgot Password?

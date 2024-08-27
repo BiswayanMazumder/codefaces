@@ -76,8 +76,8 @@ export default function Landingpage() {
                             </Link>
                         </div>
                         <div className="searchform">
-                            <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/" : '/account/login'}>
-                                <svg focusable="false" width="18" height="18" class="icon icon--header-customer   " viewBox="0 0 18 17">
+                            <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/profile" : '/account/login'}>
+                            <svg focusable="false" width="18" height="18" class="icon icon--header-customer   " viewBox="0 0 18 17">
                                     <circle cx="9" cy="5" r="4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></circle>
                                     <path d="M1 17v0a4 4 0 014-4h8a4 4 0 014 4v0" fill="none" stroke="currentColor" stroke-width="2"></path>
                                 </svg>
@@ -99,7 +99,7 @@ export default function Landingpage() {
                             <Link to="/airmax" style={{ textDecoration: "none", color: "black" }}>Air Max</Link>
                             <Link to="/slides" style={{ textDecoration: "none", color: "black" }}>Slides</Link>
                             {
-                                user?<Link  style={{ textDecoration: "none", color: "black" }}>Logout</Link>:
+                                user?<Link  style={{ textDecoration: "none", color: "red" }}>Logout</Link>:
                                 <Link to={'/account/login'} style={{ textDecoration: "none", color: "black" }}>Login</Link>
                             }
                         </div>
