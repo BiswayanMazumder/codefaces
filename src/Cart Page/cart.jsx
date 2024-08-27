@@ -28,14 +28,14 @@ export default function Cart() {
                 // User is signed in, see docs for a list of available properties
                 // https://firebase.google.com/docs/reference/js/auth.user
                 const uid = user.uid;
-                console.log('User is signed in');
-                setUser(true);
+                // console.log('User is signed in');
+                // setUser(true);
                 // ...
             } else {
                 // User is signed out
                 // ...
-                console.log('User is not signed')
-                setUser(false);
+                // console.log('User is not signed')
+                // setUser(false);
                 window.location.replace('/')
             }
         });
