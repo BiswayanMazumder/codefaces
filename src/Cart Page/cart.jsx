@@ -29,7 +29,7 @@ export default function Cart() {
                 // https://firebase.google.com/docs/reference/js/auth.user
                 const uid = user.uid;
                 // console.log('User is signed in');
-                // setUser(true);
+                setUser(true);
                 // ...
             } else {
                 // User is signed out

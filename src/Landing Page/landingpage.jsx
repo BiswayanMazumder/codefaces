@@ -27,7 +27,7 @@ export default function Landingpage() {
                 // https://firebase.google.com/docs/reference/js/auth.user
                 const uid = user.uid;
                 // console.log('User is signed in');
-                // setUser(true);
+                setUser(true);
                 // ...
             } else {
                 // User is signed out
@@ -36,7 +36,7 @@ export default function Landingpage() {
                 // setUser(false);
             }
         });
-        // console.log(user);
+        console.log(user);
     });
     useEffect(() => {
         document.title = "LuxeLayers : Shop T-shirts , Jackets , Shorts and Joggers Online";
