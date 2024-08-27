@@ -50,7 +50,7 @@ body{
 .headersection{
   /* position: fixed; */
   width: 100vw;
-  height: 150px;
+  height: 100px;
   background-color: white;
 }
 .logo{
@@ -69,7 +69,7 @@ body{
   justify-content: start;
   align-items: center;
   position: relative;
-  top: 50%;
+  top: 10px;
   /* gap: 10px; */
   /* background-color: red; */
   margin-left: 50px;
@@ -203,7 +203,7 @@ body{
     display: none;
   }
   .headersection{
-    height: 75px;
+    height: 60px;
   }
   .logoimg{
     height: 50px;
@@ -214,7 +214,7 @@ body{
 }
 @media screen and (max-width: 600px) {
   .headersection{
-    height: 75px;
+    height: 60px;
   }
   .logoimg{
     height: 50px;
