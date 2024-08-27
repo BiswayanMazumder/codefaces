@@ -39,7 +39,7 @@ export default function Cart() {
                 window.location.replace('/')
             }
         });
-        console.log(user);
+        // console.log(user);
     });
     return (
         <>
