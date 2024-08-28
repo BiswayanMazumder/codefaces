@@ -49,7 +49,7 @@ export default function AF1() {
         <>
             <div className="webbody">
                 <div className="headersection">
-                    <div className="logo">
+                    {/* <div className="logo">
                         <div className="searchform">
 
                             <svg focusable="false" width="18" height="18" className="icon icon--header-search" viewBox="0 0 18 18">
@@ -73,7 +73,7 @@ export default function AF1() {
                         {/* <div className="logoimage">
                             <img src="https://g1uudlawy6t63z36.public.blob.vercel-storage.com/_fa24086d-6873-4c24-9ff6-0aceb7380333-QyUF9bBdbH9jERIGwpyEPhaZ2HcKZL.jpg" alt="" className='logoimg' onClick={() => window.location.href = "/"} />
                         </div> */}
-                    </div>
+                    {/* </div>  */}
                     <div className="headeroptions">
                         <div className="options">
                             <Link to="/footwear" style={{ textDecoration: "none", color: "black" }} className='headerlink'>Footwear</Link>

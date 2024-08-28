@@ -101,7 +101,7 @@ export default function Profilepage() {
         });
         // console.log(user);
     });
-    const [gender,setgender]=useState(true);
+    const [gender, setgender] = useState(true);
     useEffect(() => {
         const fetchData = async () => {
             const auth = getAuth();
@@ -188,9 +188,9 @@ export default function Profilepage() {
                         Your Gender
                         <br /><br />
                         <div className="gendertiles">
-                            <input type="radio" id="male" name="gender" value="male" checked={gender} disabled style={{ cursor: "not-allowed" }}  />
+                            <input type="radio" id="male" name="gender" value="male" checked={gender} disabled style={{ cursor: "not-allowed" }} />
                             <label for="male">Male</label>
-                            <input type="radio" id="female" name="gender" value="female" checked={!gender} disabled style={{ cursor: "not-allowed" }}/>
+                            <input type="radio" id="female" name="gender" value="female" checked={!gender} disabled style={{ cursor: "not-allowed" }} />
                             <label for="female">Female</label>
                         </div>
                     </div>
@@ -198,7 +198,27 @@ export default function Profilepage() {
                         Email Address
                         <input type="text" placeholder={email} className='username' disabled style={{ cursor: "not-allowed" }} />
                     </div>
+                    <div className="personalnames">
+                        FAQs
+                    </div>
+                    <div className="personalnames">
+                        What happens when I update my email address?
+                        <br /><br />
+                        <div className="answers" style={{ fontWeight: "400", marginRight: "20px" }}>
+                            Your login email id changes, likewise. You'll receive all your account related communication on your updated email address.
+                        </div>
+                    </div>
+                    <div className="personalnames">
+                        What happens to my existing LuxeLayers account when I update my email address?
+                        <br /><br />
+                        <div className="answers" style={{ fontWeight: "400", marginRight: "20px" }}>
+                            Your login email id changes, likewise. You'll receive all your account related communication on your updated email address.
+                        </div>
+
+                    </div>
+
                 </div>
+
             </div>
         </div>
     );
