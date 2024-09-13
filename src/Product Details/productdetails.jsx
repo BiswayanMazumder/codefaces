@@ -65,7 +65,7 @@ export default function ProductDetails() {
                     if (data["UK 11"]) sizes.push('UK 11');
                     if (data["UK 12"]) sizes.push('UK 12');
                     setFilteredSizes(sizes);
-                    // console.log(sizes);
+                    console.log(sizes);
                 } else {
                     console.log('No such document!');
                 }
@@ -97,7 +97,7 @@ export default function ProductDetails() {
                 </div>
             </div>
             <div className="sneakerdetails">
-                <img src={sneakerimage} alt="" />
+                <img src={sneakerimage} alt="" height={"40%"} width={"40%"} />
 
                 <div className="jjenfkmdcm">
                     <div className="sneakerprice" style={{ position: "relative", top: "30px", fontWeight: "300" }}>
@@ -117,6 +117,38 @@ export default function ProductDetails() {
                         whiteSpace: "wrap",
                     }}>
                         {productdetails}
+                    </div>
+                    <Link className="sneakerprice" style={{
+                        fontSize: "15px",
+                        position: "relative",
+                        top: "50px",
+                        color: "black",
+                        textDecoration: "none",
+                        whiteSpace: "wrap",
+                        fontWeight: "bold",
+                    }}>
+                        SELECT SIZE
+                    </Link>
+                    <div className="sneakerprice" style={{
+                        fontSize: "15px",
+                        position: "relative",
+                        top: "70px",
+                        whiteSpace: "wrap",
+                    }}>
+                        <select id="myDropdown" name="options" style={{ width: "200px", height: "30px", border: "1px solid white" }}>
+                            {/* <option value="" disabled selected>SELECT SIZE</option> */}
+                            {
+                                filteredSizes.map((size) => (
+                                    <option value={size}>{size}</option>
+                                ))
+                            }
+                        </select>
+                        <Link style={{ textDecoration: "none" }}>
+                            <div className="ejnfdmvkdmv">
+                            ADD TO CART
+                                {/* <center>ADD TO CART</center> */}
+                            </div>
+                        </Link>
                     </div>
                 </div>
             </div>
