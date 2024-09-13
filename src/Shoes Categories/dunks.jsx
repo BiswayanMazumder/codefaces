@@ -48,7 +48,7 @@ export default function Dunks() {
                 // Fetch additional data for each document
                 const ajName = [];
                 const ajPic = [];
-                
+
                 for (const docId of names) {
                     const docRef = doc(db, 'Dunks', docId);
                     const docSnap = await getDoc(docRef);
@@ -60,7 +60,7 @@ export default function Dunks() {
 
                 setFetchedAjName(ajName);
                 setFetchedAjPic(ajPic);
-                
+
             } catch (e) {
                 if (process.env.NODE_ENV === 'development') {
                     console.error("Error fetching document names:", e);
@@ -130,12 +130,16 @@ export default function Dunks() {
                 </div>
                 <img src="https://images.vegnonveg.com/media/collections/101/17198391211016682a991ee9b7.png" alt="" width={"100%"} />
                 {loading ? (
-                    <div className="loading">Loading...</div>
+                    <center className="loading">Loading...</center>
                 ) : (
                     <div className="fgfhhgjjh">
                         {
                             fetchedAjName.map((name, index) => (
-                                <div className="jenfkjfrf" key={index}>
+                                <div
+                                    className="jenfkjfrf"
+                                    key={index}
+                                    onClick={() => console.log(documentNames[index])} // Added onClick event handler
+                                >
                                     <LazyImage src={fetchedAjPic[index]} alt={name} />
                                     <div className="ejfjf">
                                         {name}
@@ -144,6 +148,7 @@ export default function Dunks() {
                             ))
                         }
                     </div>
+
                 )}
                 <br /><br />
             </div>
