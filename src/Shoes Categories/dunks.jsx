@@ -1,82 +1,119 @@
-import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getFirestore, collection, getDocs, doc, getDoc } from 'firebase/firestore';
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
+    authDomain: "luxelayers.firebaseapp.com",
+    projectId: "luxelayers",
+    storageBucket: "luxelayers.appspot.com",
+    messagingSenderId: "293993080821",
+    appId: "1:293993080821:web:713b6779443a50ac0922bc",
+    measurementId: "G-PKC7WSY6LG"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 export default function Dunks() {
     useEffect(() => {
-        document.title = 'Shop the Latest Collection of Slides and Sandals Online at LuxeLayers';
-    })
-    const imageUrls = [
-        'https://images.vegnonveg.com/resized/400X328/5358/nike-dunk-low-retro-whiteblack-white-60e41a479d3e7.jpg',
-        'https://images.vegnonveg.com/resized/400X328/5363/w-nike-dunk-low-whiteblack-white-60e41b4c68977.jpg',
-        'https://images.vegnonveg.com/resized/400X328/8828/nike-dunk-low-retro-whitegrey-fog-63ce764079383.jpg',
-        'https://images.vegnonveg.com/resized/400X328/8828/nike-dunk-low-retro-whitegrey-fog-63ce764031209.jpg',
-        'https://images.vegnonveg.com/resized/400X328/10539/dunk-low-dark-currywhite-white-658e94dce57fc.jpg',
-        'https://images.vegnonveg.com/resized/400X328/11342/dunk-low-nn-summit-whitekhaki-baroque-brown-phantom-white-6690cf8f03a69.jpg',
-        'https://images.vegnonveg.com/resized/400X328/11434/dunk-low-nn-baroque-brownblack-white-sail-brown-66bb4b2dc3a2a.jpg',
-        'https://images.vegnonveg.com/resized/400X328/11407/dunk-low-blackmidnight-navy-white-university-red-white-66bb4bbad6fab.jpg',
-        'https://images.vegnonveg.com/resized/400X328/11396/dunk-low-retro-whitedenim-turq-white-66b3660dc7ed0.jpg',
-        'https://images.vegnonveg.com/resized/400X328/11406/dunk-low-coconut-milkflax-sail-brown-66b497326da01.jpg',
-        'https://images.vegnonveg.com/resized/400X328/11408/dunk-low-game-royalblack-white-multicolor-66b4784782d8e.jpg',
-        'https://images.vegnonveg.com/resized/400X328/11397/dunk-low-retro-whitedragon-red-black-white-66b3667e7b69f.jpg',
-    ];
+        document.title = 'Buy Nike Dunks for Men, women, and kids | LuxeLayers';
+    }, []);
 
-    const dunkLowModels = [
-        "DUNK LOW RETRO 'WHITE/BLACK'",
-        "DUNK LOW 'WHITE/BLACK' Womens",
-        "DUNK LOW RETRO 'WHITE/GREY FOG'",
-        "DUNK LOW 'DARK CURRY/WHITE'",
-        "DUNK LOW NN 'SUMMIT WHITE/KHAKI-BAROQUE BROWN-PHANTOM'",
-        "DUNK LOW NN 'BAROQUE BROWN/BLACK-WHITE-SAIL'",
-        "DUNK LOW 'BLACK/MIDNIGHT NAVY-WHITE-UNIVERSITY RED'",
-        "DUNK LOW RETRO 'WHITE/DENIM TURQ'",
-        "DUNK LOW 'COCONUT MILK/FLAX-SAIL'",
-        "DUNK LOW 'GAME ROYAL/BLACK-WHITE'",
-        "DUNK LOW RETRO 'WHITE/DRAGON RED-BLACK'",
-        "DUNK LOW NN 'PHANTOM/OBSIDIAN-PALE IVORY'",
-        "DUNK LOW PREMIUM 'PHANTOM/PHOTON DUST-LIGHT SMOKE GREY'",
-        "DUNK LOW PREMIUM 'OIL GREEN/TREELINE-SAIL'",
-        "DUNK LOW RETRO PREMIUM 'MEDIUM OLIVE/HEMP-SUMMIT WHITE-SAIL'",
-        "DUNK LOW LX 'PHOTON DUST/METALLIC SILVER-PINK FOAM'",
-        "DUNK LOW 'CACAO WOW/PALE IVORY-PINK FOAM'",
-        "DUNK HIGH RETRO SE 'PHANTOM/RACER BLUE-PALE IVORY-GUM YELLOW'",
-        "DUNK LOW RETRO 'WHITE/VIOTECH'",
-        "DUNK LOW 'SAIL/PACIFIC MOSS-CREAM-LIMESTONE'",
-        "DUNK LOW NN 'PHOTON DUST/OBSIDIAN-WHITE-PHANTOM'",
-        "DUNK LOW NN 'WHITE/DUSTY CACTUS'",
-        "DUNK LOW 'WHITE/BLACK-FOOTBALL GREY-GREEN STRIKE'",
-        "DUNK LOW RETRO SE 'PHANTOM/KHAKI-LIGHT BONE-SUMMIT WHITE'"
-    ];
+    const [documentNames, setDocumentNames] = useState([]);
+    const [fetchedAjName, setFetchedAjName] = useState([]);
+    const [fetchedAjPic, setFetchedAjPic] = useState([]);
+    const [loading, setLoading] = useState(true); // Loading state
 
+    useEffect(() => {
+        const auth = getAuth();
+        const db = getFirestore(app); // Initialize Firestore with the Firestore instance
+        const currentUser = auth.currentUser;
+
+        const fetchDocumentNames = async () => {
+            try {
+                setLoading(true); // Start loading
+                // Fetch the collection
+                const colRef = collection(db, 'Dunks');
+                const querySnapshot = await getDocs(colRef);
+
+                // Extract document IDs and add them to the list
+                const names = querySnapshot.docs.map(doc => doc.id);
+                setDocumentNames(names);
+
+                // Fetch additional data for each document
+                const ajName = [];
+                const ajPic = [];
+                
+                for (const docId of names) {
+                    const docRef = doc(db, 'Dunks', docId);
+                    const docSnap = await getDoc(docRef);
+                    if (docSnap.exists()) {
+                        ajName.push(docSnap.data()?.name);
+                        ajPic.push(docSnap.data()?.['Product Image']);
+                    }
+                }
+
+                setFetchedAjName(ajName);
+                setFetchedAjPic(ajPic);
+                
+            } catch (e) {
+                if (process.env.NODE_ENV === 'development') {
+                    console.error("Error fetching document names:", e);
+                }
+            } finally {
+                setLoading(false); // End loading
+            }
+        };
+
+        fetchDocumentNames();
+    }, []);
+
+    // Lazy load images
+    const LazyImage = ({ src, alt }) => {
+        const [loading, setLoading] = useState(true);
+        const imgRef = useRef(null);
+
+        useEffect(() => {
+            const observer = new IntersectionObserver(
+                ([entry]) => {
+                    if (entry.isIntersecting) {
+                        setLoading(false);
+                        observer.unobserve(imgRef.current);
+                    }
+                },
+                { threshold: 0.1 }
+            );
+            if (imgRef.current) {
+                observer.observe(imgRef.current);
+            }
+            return () => {
+                if (imgRef.current) {
+                    observer.unobserve(imgRef.current);
+                }
+            };
+        }, []);
+
+        return (
+            <div ref={imgRef} className="lazy-image-container">
+                {loading && <div className="loading-placeholder">Loading...</div>}
+                <img
+                    src={!loading ? src : undefined}
+                    alt={alt}
+                    className={loading ? 'hidden' : ''}
+                />
+            </div>
+        );
+    };
 
     return (
         <>
             <div className="webbody">
                 <div className="headersection">
-                    {/* <div className="logo">
-                        <div className="searchform">
-
-                            <svg focusable="false" width="18" height="18" className="icon icon--header-search" viewBox="0 0 18 18">
-                                <path d="M12.336 12.336c2.634-2.635 2.682-6.859.106-9.435-2.576-2.576-6.8-2.528-9.435.106C.373 5.642.325 9.866 2.901 12.442c2.576 2.576 6.8 2.528 9.435-.106zm0 0L17 17" fill="none" stroke="currentColor" strokeWidth="2"></path>
-                            </svg>
-                        </div>
-                        <div className="searchform">
-
-                            <svg focusable="false" width="18" height="18" class="icon icon--header-cart   " viewBox="0 0 20 18">
-                                <path d="M3 1h14l1 16H2L3 1z" fill="none" stroke="currentColor" stroke-width="2"></path>
-                                <path d="M7 4v0a3 3 0 003 3v0a3 3 0 003-3v0" fill="none" stroke="currentColor" stroke-width="2"></path>
-                            </svg>
-                        </div>
-                        <div className="searchform">
-
-                            <svg focusable="false" width="18" height="18" class="icon icon--header-customer   " viewBox="0 0 18 17">
-                                <circle cx="9" cy="5" r="4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></circle>
-                                <path d="M1 17v0a4 4 0 014-4h8a4 4 0 014 4v0" fill="none" stroke="currentColor" stroke-width="2"></path>
-                            </svg>
-                        </div>
-                        {/* <div className="logoimage">
-                            <img src="https://g1uudlawy6t63z36.public.blob.vercel-storage.com/_fa24086d-6873-4c24-9ff6-0aceb7380333-QyUF9bBdbH9jERIGwpyEPhaZ2HcKZL.jpg" alt="" className='logoimg' onClick={() => window.location.href = "/"} />
-                        </div> */}
-                    {/* </div>  */}
                     <div className="headeroptions">
                         <div className="options">
                             <Link to="/footwear" style={{ textDecoration: "none", color: "black" }} className='headerlink'>Footwear</Link>
@@ -92,21 +129,24 @@ export default function Dunks() {
                     </div>
                 </div>
                 <img src="https://images.vegnonveg.com/media/collections/101/17198391211016682a991ee9b7.png" alt="" width={"100%"} />
-                <div className="fgfhhgjjh">
-                    {
-                        imageUrls.map((url, index) => (
-                            <div className="jenfkjfrf">
-                                <img src={imageUrls[index]} alt="" />
-                                <div className="ejfjf">
-                                    {dunkLowModels[index]}
+                {loading ? (
+                    <div className="loading">Loading...</div>
+                ) : (
+                    <div className="fgfhhgjjh">
+                        {
+                            fetchedAjName.map((name, index) => (
+                                <div className="jenfkjfrf" key={index}>
+                                    <LazyImage src={fetchedAjPic[index]} alt={name} />
+                                    <div className="ejfjf">
+                                        {name}
+                                    </div>
                                 </div>
-                                {/* <br /><br /> */}
-                            </div>
-                        ))
-                    }
-                </div>
+                            ))
+                        }
+                    </div>
+                )}
                 <br /><br />
             </div>
         </>
-    )
+    );
 }
