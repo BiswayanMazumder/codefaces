@@ -1,84 +1,119 @@
-import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getFirestore, collection, getDocs, doc, getDoc } from 'firebase/firestore';
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
+    authDomain: "luxelayers.firebaseapp.com",
+    projectId: "luxelayers",
+    storageBucket: "luxelayers.appspot.com",
+    messagingSenderId: "293993080821",
+    appId: "1:293993080821:web:713b6779443a50ac0922bc",
+    measurementId: "G-PKC7WSY6LG"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 export default function Slides() {
     useEffect(() => {
-        document.title = 'Shop the Latest Collection of Slides and Sandals Online at LuxeLayers';
-    })
-    const imageUrls = [
-        "https://images.vegnonveg.com/resized/400X328/11240/jordan-jumpman-slide-neutral-greymetallic-silver-grey-667d41362b384.jpg",
-        "https://images.vegnonveg.com/resized/400X328/11225/calm-sandal-light-bone-cream-666a83e84e6a9.jpg",
-        "https://images.vegnonveg.com/resized/400X328/11225/calm-sandal-light-bone-cream-666a83e87116a.jpg",
-        "https://images.vegnonveg.com/resized/400X328/11244/calm-slide-se-glacier-blue-blue-66865e0f385b4.jpg",
-        "https://images.vegnonveg.com/resized/400X328/11244/calm-slide-se-glacier-blue-blue-66865e0f57cce.jpg",
-        "https://images.vegnonveg.com/resized/400X328/11245/icon-classic-sandal-blackwhite-black-66865eb998bb6.jpg",
-        "https://images.vegnonveg.com/resized/400X328/11191/calm-slide-game-royal-blue-66508c815106c.jpg",
-        "https://images.vegnonveg.com/resized/400X328/10916/jordan-super-play-slide-blackphantom-anthracite-black-660ff53055b50.jpg",
-        "https://images.vegnonveg.com/resized/400X328/10916/jordan-super-play-slide-blackphantom-anthracite-black-660ff5308138c.jpg",
-        "https://images.vegnonveg.com/resized/400X328/11060/calm-sandal-black-black_1-6634824205ed5.jpg",
-        "https://images.vegnonveg.com/resized/400X328/11060/calm-sandal-black-black_1-663482421f859.jpg",
-        "https://images.vegnonveg.com/resized/400X328/10901/air-max-1-slide-whiteroyal-blue-black-light-neutral-grey-blue-660e942f103d7.jpg",
-        "https://images.vegnonveg.com/resized/400X328/11474/calm-slide-flat-pewter-grey-66c71665c9e1c.jpg",
-        "https://images.vegnonveg.com/resized/400X328/11436/chuck-70-mule-slip-egretblack-black-66c6d00abb1b9.jpg",
-        "https://images.vegnonveg.com/resized/400X328/11439/run-star-utility-sandal-cx-ox-egret-cream-66c6d2efece41.jpg",
-    ];
+        document.title = 'Buy slides for Men, women, and kids | LuxeLayers';
+    }, []);
 
-    const slidesnames = [
-        'JORDAN JUMPMAN SLIDE NEUTRAL GREY/METALLIC SILVER',
-        'CALM SANDAL LIGHT BONE',
-        'CALM SLIDE SE GLACIER BLUE',
-        'ICON CLASSIC SANDAL BLACK/WHITE',
-        'CALM SLIDE GAME ROYAL',
-        'SUPER PLAY SLIDE BLACK/PHANTOM-ANTHRACITE',
-        'CALM SANDAL BLACK',
-        'AIR MAX 1 SLIDE WHITE/ROYAL BLUE-BLACK-LIGHT NEUTRAL GREY',
-        'CALM SLIDE FLAT PEWTER',
-        'CHUCK 70 MULE SLIP EGRET/BLACK',
-        'RUN STAR UTILITY SANDAL CX OX EGRET',
-        'RUN STAR UTILITY SANDAL CX OX BLACK',
-        'AIR MAX CIRRO SLIDE DARK SMOKE GREY/COOL GREY',
-        'CALM MULE FLAX',
-        'ICON CLASSIC SANDAL SE ARMORY NAVY/FLAX-SAIL',
-        'AIR MAX KOKO SANDAL SANDDRIFT',
-        'CALM MULE FLAT PEWTER',
-        'CALM MULE SAIL',
-        'ROAM WHITE/SAIL',
-        'ROAM BLACK/IRON GREY',
-        'HYDRO III RETRO SUMMIT WHITE/FIRE RED-CEMENT GREY-BLACK',
-        'AIR MORE UPTEMPO SLIDE MIDNIGHT NAVY/UNIVERSITY RED-WHITE-CLEAR',
-        'AIR MAX CIRRO SLIDE BLACK/CYBER-BLACK',
-        'AIR MORE UPTEMPO SLIDE UNIVERSITY BLUE/WHITE'
-    ];
+    const [documentNames, setDocumentNames] = useState([]);
+    const [fetchedAjName, setFetchedAjName] = useState([]);
+    const [fetchedAjPic, setFetchedAjPic] = useState([]);
+    const [loading, setLoading] = useState(true); // Loading state
+
+    useEffect(() => {
+        const auth = getAuth();
+        const db = getFirestore(app); // Initialize Firestore with the Firestore instance
+        const currentUser = auth.currentUser;
+
+        const fetchDocumentNames = async () => {
+            try {
+                setLoading(true); // Start loading
+                // Fetch the collection
+                const colRef = collection(db, 'Slides');
+                const querySnapshot = await getDocs(colRef);
+
+                // Extract document IDs and add them to the list
+                const names = querySnapshot.docs.map(doc => doc.id);
+                setDocumentNames(names);
+
+                // Fetch additional data for each document
+                const ajName = [];
+                const ajPic = [];
+                
+                for (const docId of names) {
+                    const docRef = doc(db, 'Slides', docId);
+                    const docSnap = await getDoc(docRef);
+                    if (docSnap.exists()) {
+                        ajName.push(docSnap.data()?.name);
+                        ajPic.push(docSnap.data()?.['Product Image']);
+                    }
+                }
+
+                setFetchedAjName(ajName);
+                setFetchedAjPic(ajPic);
+                
+            } catch (e) {
+                if (process.env.NODE_ENV === 'development') {
+                    console.error("Error fetching document names:", e);
+                }
+            } finally {
+                setLoading(false); // End loading
+            }
+        };
+
+        fetchDocumentNames();
+    }, []);
+
+    // Lazy load images
+    const LazyImage = ({ src, alt }) => {
+        const [loading, setLoading] = useState(true);
+        const imgRef = useRef(null);
+
+        useEffect(() => {
+            const observer = new IntersectionObserver(
+                ([entry]) => {
+                    if (entry.isIntersecting) {
+                        setLoading(false);
+                        observer.unobserve(imgRef.current);
+                    }
+                },
+                { threshold: 0.1 }
+            );
+            if (imgRef.current) {
+                observer.observe(imgRef.current);
+            }
+            return () => {
+                if (imgRef.current) {
+                    observer.unobserve(imgRef.current);
+                }
+            };
+        }, []);
+
+        return (
+            <div ref={imgRef} className="lazy-image-container">
+                {loading && <div className="loading-placeholder">Loading...</div>}
+                <img
+                    src={!loading ? src : undefined}
+                    alt={alt}
+                    className={loading ? 'hidden' : ''}
+                />
+            </div>
+        );
+    };
 
     return (
         <>
             <div className="webbody">
                 <div className="headersection">
-                    {/* <div className="logo">
-                        <div className="searchform">
-
-                            <svg focusable="false" width="18" height="18" className="icon icon--header-search" viewBox="0 0 18 18">
-                                <path d="M12.336 12.336c2.634-2.635 2.682-6.859.106-9.435-2.576-2.576-6.8-2.528-9.435.106C.373 5.642.325 9.866 2.901 12.442c2.576 2.576 6.8 2.528 9.435-.106zm0 0L17 17" fill="none" stroke="currentColor" strokeWidth="2"></path>
-                            </svg>
-                        </div>
-                        <div className="searchform">
-
-                            <svg focusable="false" width="18" height="18" class="icon icon--header-cart   " viewBox="0 0 20 18">
-                                <path d="M3 1h14l1 16H2L3 1z" fill="none" stroke="currentColor" stroke-width="2"></path>
-                                <path d="M7 4v0a3 3 0 003 3v0a3 3 0 003-3v0" fill="none" stroke="currentColor" stroke-width="2"></path>
-                            </svg>
-                        </div>
-                        <div className="searchform">
-
-                            <svg focusable="false" width="18" height="18" class="icon icon--header-customer   " viewBox="0 0 18 17">
-                                <circle cx="9" cy="5" r="4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></circle>
-                                <path d="M1 17v0a4 4 0 014-4h8a4 4 0 014 4v0" fill="none" stroke="currentColor" stroke-width="2"></path>
-                            </svg>
-                        </div> */}
-                        {/* <div className="logoimage">
-                            <img src="https://g1uudlawy6t63z36.public.blob.vercel-storage.com/_fa24086d-6873-4c24-9ff6-0aceb7380333-QyUF9bBdbH9jERIGwpyEPhaZ2HcKZL.jpg" alt="" className='logoimg' onClick={() => window.location.href = "/"} />
-                        </div> */}
-                    {/* </div> */}
                     <div className="headeroptions">
                         <div className="options">
                             <Link to="/footwear" style={{ textDecoration: "none", color: "black" }} className='headerlink'>Footwear</Link>
@@ -94,21 +129,24 @@ export default function Slides() {
                     </div>
                 </div>
                 <img src="https://images.vegnonveg.com/media/collections/75/171955723875667e5c76f082e.png" alt="" width={"100%"} />
-                <div className="fgfhhgjjh">
-                    {
-                        imageUrls.map((url, index) => (
-                            <div className="jenfkjfrf">
-                                <img src={imageUrls[index]} alt="" />
-                                <div className="ejfjf">
-                                    {slidesnames[index]}
+                {loading ? (
+                    <div className="loading">Loading...</div>
+                ) : (
+                    <div className="fgfhhgjjh">
+                        {
+                            fetchedAjName.map((name, index) => (
+                                <div className="jenfkjfrf" key={index}>
+                                    <LazyImage src={fetchedAjPic[index]} alt={name} />
+                                    <div className="ejfjf">
+                                        {name}
+                                    </div>
                                 </div>
-                                {/* <br /><br /> */}
-                            </div>
-                        ))
-                    }
-                </div>
+                            ))
+                        }
+                    </div>
+                )}
                 <br /><br />
             </div>
         </>
-    )
+    );
 }
