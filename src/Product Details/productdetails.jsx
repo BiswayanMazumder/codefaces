@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { collection, doc, getDoc, getDocs, getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
-import { initializeApp } from 'firebase/app';
+import { initializeApp, } from 'firebase/app';
 const firebaseConfig = {
     apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
     authDomain: "luxelayers.firebaseapp.com",
@@ -78,7 +78,92 @@ export default function ProductDetails() {
             fetchSizes();
         }
     }, [sneakerid]);
+    const [documentNames, setDocumentNames] = useState([]);
+    const [fetchedAjName, setFetchedAjName] = useState([]);
+    const [fetchedAjPic, setFetchedAjPic] = useState([]);
+    const [loading, setLoading] = useState(true); // Loading state
+    const [fetchedAjPrice, setFetchedAjprice] = useState([]);
+    useEffect(() => {
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const db = getFirestore(app); // Initialize Firestore with the Firestore instance
+        const currentUser = auth.currentUser;
 
+        const fetchDocumentNames = async () => {
+            try {
+                setLoading(true); // Start loading
+                // Fetch the collection
+                const colRef = collection(db, sneakertype);
+                const querySnapshot = await getDocs(colRef);
+
+                // Extract document IDs and add them to the list
+                const names = querySnapshot.docs.map(doc => doc.id);
+                setDocumentNames(names);
+
+                // Fetch additional data for each document
+                const ajName = [];
+                const ajPic = [];
+                const ajprice = [];
+                for (const docId of names) {
+                    const docRef = doc(db, sneakertype, docId);
+                    const docSnap = await getDoc(docRef);
+                    if (docSnap.exists()) {
+                        ajName.push(docSnap.data()?.name);
+                        ajPic.push(docSnap.data()?.['Product Image']);
+                        ajprice.push(docSnap.data()?.Price);
+                    }
+                }
+
+                setFetchedAjName(ajName);
+                setFetchedAjPic(ajPic);
+                setFetchedAjprice(ajprice);
+                console.log(fetchedAjPic);
+            } catch (e) {
+                if (process.env.NODE_ENV === 'development') {
+                    console.error("Error fetching document names:", e);
+                }
+            } finally {
+                setLoading(false); // End loading
+            }
+        };
+
+        fetchDocumentNames();
+    }, []);
+    const LazyImage = ({ src, alt }) => {
+        const [loading, setLoading] = useState(true);
+        const imgRef = useRef(null);
+
+        useEffect(() => {
+            const observer = new IntersectionObserver(
+                ([entry]) => {
+                    if (entry.isIntersecting) {
+                        setLoading(false);
+                        observer.unobserve(imgRef.current);
+                    }
+                },
+                { threshold: 0.1 }
+            );
+            if (imgRef.current) {
+                observer.observe(imgRef.current);
+            }
+            return () => {
+                if (imgRef.current) {
+                    observer.unobserve(imgRef.current);
+                }
+            };
+        }, []);
+
+        return (
+            <div ref={imgRef} className="lazy-image-container">
+                {loading && <div className="loading-placeholder">Loading...</div>}
+                <img
+                    src={!loading ? src : undefined}
+                    alt={alt}
+                    className={loading ? 'hidden' : ''}
+                />
+            </div>
+        );
+    };
     return (
         <div className="webbody">
             <div className="headersection">
@@ -149,9 +234,37 @@ export default function ProductDetails() {
                                 {/* <center>ADD TO CART</center> */}
                             </div>
                         </Link>
+                        <br /><br />
                     </div>
                 </div>
             </div>
+            <div className="jefkeklf" style={{fontWeight:"bold",left:"20px",position:"relative",top:"100px"}}>
+                YOU MAY ALSO LIKE 
+            </div>
+            <div className="fgfhhgjjh">
+                        {
+                            fetchedAjName.slice(0, 3).map((name, index) => (
+                                <Link to={"/product"}
+                                    className="jenfkjfrf"
+                                    style={{ textDecoration: "none", color: "black" }}
+                                    key={index}
+                                    onClick={() => {
+                                        localStorage.setItem('producttype', 'Slides');
+                                        localStorage.setItem('productname', fetchedAjName[index]);
+                                        localStorage.setItem('productprice', fetchedAjPrice[index]);
+                                        localStorage.setItem('productimage', fetchedAjPic[index]);
+                                        localStorage.setItem('PID',documentNames[index]);
+                                        console.log(documentNames[index]);
+                                    }}
+                                >
+                                    <LazyImage src={fetchedAjPic[index]} alt={name} />
+                                    <div className="ejfjf">
+                                        {name}
+                                    </div>
+                                </Link>
+                            ))
+                        }
+                    </div>
         </div>
     );
 }
