@@ -143,7 +143,7 @@ export default function Jordan() {
                                     style={{ textDecoration: "none", color: "black" }}
                                     key={index}
                                     onClick={() => {
-                                        localStorage.setItem('producttype', 'AIr Jordan');
+                                        localStorage.setItem('producttype', 'Air Jordan');
                                         localStorage.setItem('productname', fetchedAjName[index]);
                                         localStorage.setItem('productprice', fetchedAjPrice[index]);
                                         localStorage.setItem('productimage', fetchedAjPic[index]);
