@@ -1,15 +1,40 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export default function ProductDetails() {
     let sneakername = localStorage.getItem("productname");
     let sneakerimage = localStorage.getItem("productimage");
     let sneakerprice = localStorage.getItem("productprice");
     let sneakertype = localStorage.getItem("producttype");
+    const [productdetails, setproductdetails] = useState('');
     useEffect(() => {
         // sneakername=localStorage.setItem("productname")
         document.title = sneakername + ' | LuxeLayers';
     })
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const genAI = new GoogleGenerativeAI('AIzaSyC0kDunLTQWxNPZCVLTAKMa6ce9mvR0hd0');
+                const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+                const prompt = `About ${sneakername} in 100 words`;
+
+                const result = await model.generateContent(prompt);
+                // console.log(result.response.text());
+                setproductdetails(result.response.text());
+            } catch (error) {
+                console.error('Error generating content:', error);
+            }
+        };
+
+        fetchData();
+
+        // Optional cleanup logic if needed
+        return () => {
+            // Cleanup code, if any
+        };
+    }, []);
     return (
         <>
             <div className="webbody">
@@ -35,6 +60,7 @@ export default function ProductDetails() {
                         <div className="sneakerprice" style={{ position: "relative", top: "30px", fontWeight: "300" }}>
                             {sneakertype}
                         </div>
+                        {/* AIzaSyC0kDunLTQWxNPZCVLTAKMa6ce9mvR0hd0 */}
                         <br /><br />
                         <div className="sneakername">
                             {sneakername}
@@ -42,9 +68,18 @@ export default function ProductDetails() {
                         <div className="sneakerprice">
                             ₹{sneakerprice}
                         </div>
-                        <div className="sneakerprice" style={{ fontSize: "12px", position: "relative", top: "30px" }}>
+                        {/* <div className="sneakerprice" style={{ fontSize: "12px", position: "relative", top: "30px" }}>
                             MRP inclusive of all taxes
+                        </div> */}
+                        <div className="sneakerprice" style={{
+                            fontSize: "15px",
+                            position: "relative",
+                            top: "30px",
+                            whiteSpace: "wrap",
+                        }}>
+                            {productdetails}
                         </div>
+
                     </div>
                 </div>
             </div>

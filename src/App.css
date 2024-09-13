@@ -481,6 +481,8 @@ body{
   position: relative;
   top: 80px;
   display: flex;
+  width: 300px;
+  /* background-color: red; */
   flex-direction: column;
 }
 .sneakername{
