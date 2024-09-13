@@ -128,6 +128,7 @@ export default function Footwear() {
                         </div>
                     </div>
                 </div>
+                <video src="https://images.vegnonveg.com/media/collections/140/172623524714066e4426f7646c.mp4" width={"100%"} autoPlay loop muted></video>
                 {/* <img src="https://images.vegnonveg.com/media/collections/101/17198391211016682a991ee9b7.png" alt="" width={"100%"} /> */}
                 {loading ? (
                     <div className="loading">Loading...</div>
