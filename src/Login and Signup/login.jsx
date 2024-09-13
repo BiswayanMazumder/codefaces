@@ -57,7 +57,7 @@ export default function Login() {
         <>
             <div className="webbody">
                 <div className="headersection">
-                    <div className="logo">
+                    {/* <div className="logo">
                         <div className="searchform">
 
                             <svg focusable="false" width="18" height="18" className="icon icon--header-search" viewBox="0 0 18 18">
@@ -77,11 +77,9 @@ export default function Login() {
                                 <path d="M1 17v0a4 4 0 014-4h8a4 4 0 014 4v0" fill="none" stroke="currentColor" stroke-width="2"></path>
                             </svg>
                         </div>
-                        {/* <div className="logoimage">
-                            <img src="https://g1uudlawy6t63z36.public.blob.vercel-storage.com/_fa24086d-6873-4c24-9ff6-0aceb7380333-QyUF9bBdbH9jERIGwpyEPhaZ2HcKZL.jpg" alt="" className='logoimg' />
-                        </div> */}
+                        
 
-                    </div>
+                    </div> */}
                     <div className="headeroptions">
                         <div className="options">
                             {/* <Link to="/" style={{ textDecoration: "none", color: "black" }}>SS24</Link> */}
