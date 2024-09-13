@@ -143,10 +143,11 @@ export default function AirMax() {
                                     style={{ textDecoration: "none", color: "black" }}
                                     key={index}
                                     onClick={() => {
-                                        localStorage.setItem('producttype', 'Air Max');
+                                        localStorage.setItem('producttype', 'airmax');
                                         localStorage.setItem('productname', fetchedAjName[index]);
                                         localStorage.setItem('productprice', fetchedAjPrice[index]);
                                         localStorage.setItem('productimage', fetchedAjPic[index]);
+                                        localStorage.setItem('PID',documentNames[index]);
                                         console.log(documentNames[index]);
                                     }}
                                 >

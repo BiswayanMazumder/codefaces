@@ -146,6 +146,7 @@ export default function Slides() {
                                         localStorage.setItem('productname', fetchedAjName[index]);
                                         localStorage.setItem('productprice', fetchedAjPrice[index]);
                                         localStorage.setItem('productimage', fetchedAjPic[index]);
+                                        localStorage.setItem('PID',documentNames[index]);
                                         console.log(documentNames[index]);
                                     }}
                                 >
