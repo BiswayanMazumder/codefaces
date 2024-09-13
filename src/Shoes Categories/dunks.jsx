@@ -27,6 +27,7 @@ export default function Dunks() {
     const [documentNames, setDocumentNames] = useState([]);
     const [fetchedAjName, setFetchedAjName] = useState([]);
     const [fetchedAjPic, setFetchedAjPic] = useState([]);
+    const [fetchedAjPrice, setFetchedAjprice] = useState([]);
     const [loading, setLoading] = useState(true); // Loading state
 
     useEffect(() => {
@@ -48,6 +49,7 @@ export default function Dunks() {
                 // Fetch additional data for each document
                 const ajName = [];
                 const ajPic = [];
+                const ajprice = [];
 
                 for (const docId of names) {
                     const docRef = doc(db, 'Dunks', docId);
@@ -55,11 +57,13 @@ export default function Dunks() {
                     if (docSnap.exists()) {
                         ajName.push(docSnap.data()?.name);
                         ajPic.push(docSnap.data()?.['Product Image']);
+                        ajprice.push(docSnap.data()?.Price);
                     }
                 }
 
                 setFetchedAjName(ajName);
                 setFetchedAjPic(ajPic);
+                setFetchedAjprice(ajprice);
 
             } catch (e) {
                 if (process.env.NODE_ENV === 'development') {
@@ -135,16 +139,22 @@ export default function Dunks() {
                     <div className="fgfhhgjjh">
                         {
                             fetchedAjName.map((name, index) => (
-                                <div
+                                <Link to={"/product"}
                                     className="jenfkjfrf"
+                                    style={{ textDecoration: "none", color: "black" }}
                                     key={index}
-                                    onClick={() => console.log(documentNames[index])} // Added onClick event handler
+                                    onClick={() => {
+                                        localStorage.setItem('productname', fetchedAjName[index]);
+                                        localStorage.setItem('productprice', fetchedAjPrice[index]);
+                                        localStorage.setItem('productimage', fetchedAjPic[index]);
+                                        console.log(documentNames[index]);
+                                    }}
                                 >
                                     <LazyImage src={fetchedAjPic[index]} alt={name} />
                                     <div className="ejfjf">
                                         {name}
                                     </div>
-                                </div>
+                                </Link>
                             ))
                         }
                     </div>

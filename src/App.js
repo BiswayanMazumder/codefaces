@@ -18,6 +18,7 @@ import SS24 from './Shoes Categories/ss24';
 import Login from './Login and Signup/login';
 import Cart from './Cart Page/cart';
 import Profilepage from './Profile Page/profilepage';
+import ProductDetails from './Product Details/productdetails';
 function App() {
   return (
     <BrowserRouter>
@@ -53,6 +54,9 @@ function App() {
       </Routes>
       <Routes>
         <Route path="/account/profile" element={<Profilepage />} />
+      </Routes>
+      <Routes>
+        <Route path="/product" element={<ProductDetails />} />
       </Routes>
       <SpeedInsights />
       <Analytics />
