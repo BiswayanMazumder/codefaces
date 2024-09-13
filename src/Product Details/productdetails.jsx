@@ -2,12 +2,13 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 export default function ProductDetails() {
-    let sneakername=localStorage.getItem("productname");
-        let sneakerimage=localStorage.getItem("productimage");
-        let sneakerprice=localStorage.getItem("productprice");
+    let sneakername = localStorage.getItem("productname");
+    let sneakerimage = localStorage.getItem("productimage");
+    let sneakerprice = localStorage.getItem("productprice");
+    let sneakertype = localStorage.getItem("producttype");
     useEffect(() => {
         // sneakername=localStorage.setItem("productname")
-        document.title =  sneakername + ' | LuxeLayers';
+        document.title = sneakername + ' | LuxeLayers';
     })
     return (
         <>
@@ -29,15 +30,20 @@ export default function ProductDetails() {
                 </div>
                 <div className="sneakerdetails">
                     <img src={sneakerimage} alt="" />
+
                     <div className="jjenfkmdcm">
+                        <div className="sneakerprice" style={{ position: "relative", top: "30px", fontWeight: "300" }}>
+                            {sneakertype}
+                        </div>
+                        <br /><br />
                         <div className="sneakername">
                             {sneakername}
                         </div>
                         <div className="sneakerprice">
-                        ₹{sneakerprice}
+                            ₹{sneakerprice}
                         </div>
-                        <div className="sneakerprice" style={{fontSize:"12px",position:"relative",top:"30px"}}>
-                        MRP inclusive of all taxes
+                        <div className="sneakerprice" style={{ fontSize: "12px", position: "relative", top: "30px" }}>
+                            MRP inclusive of all taxes
                         </div>
                     </div>
                 </div>

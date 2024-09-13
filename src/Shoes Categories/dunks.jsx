@@ -144,6 +144,7 @@ export default function Dunks() {
                                     style={{ textDecoration: "none", color: "black" }}
                                     key={index}
                                     onClick={() => {
+                                        localStorage.setItem('producttype', 'DUNKS');
                                         localStorage.setItem('productname', fetchedAjName[index]);
                                         localStorage.setItem('productprice', fetchedAjPrice[index]);
                                         localStorage.setItem('productimage', fetchedAjPic[index]);
