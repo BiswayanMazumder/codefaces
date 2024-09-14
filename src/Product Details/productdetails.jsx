@@ -13,7 +13,10 @@ const firebaseConfig = {
     appId: "1:293993080821:web:713b6779443a50ac0922bc",
     measurementId: "G-PKC7WSY6LG"
 };
-
+const app = initializeApp(firebaseConfig);
+const auth = getAuth();
+const db = getFirestore(app); // Initialize Firestore with the Firestore instance
+const currentUser = auth.currentUser;
 export default function ProductDetails() {
     const sneakername = localStorage.getItem("productname");
     const sneakerimage = localStorage.getItem("productimage");
@@ -47,11 +50,11 @@ export default function ProductDetails() {
 
     useEffect(() => {
         const fetchSizes = async () => {
+            console.log('PID',sneakerid);
             const app = initializeApp(firebaseConfig);
             const auth = getAuth();
             const db = getFirestore(app);
             const docRef = doc(db, sneakertype, sneakerid);
-
             try {
                 const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) {
@@ -84,10 +87,7 @@ export default function ProductDetails() {
     const [loading, setLoading] = useState(true); // Loading state
     const [fetchedAjPrice, setFetchedAjprice] = useState([]);
     useEffect(() => {
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth();
-        const db = getFirestore(app); // Initialize Firestore with the Firestore instance
-        const currentUser = auth.currentUser;
+
 
         const fetchDocumentNames = async () => {
             try {
@@ -129,6 +129,45 @@ export default function ProductDetails() {
 
         fetchDocumentNames();
     }, []);
+    const [cartItems, setCartItems] = useState(false);
+    useEffect(() => {
+        const fetchDocumentName = async () => {
+            console.log('Fetching document names...');
+            try {
+
+                const currentUser = auth.currentUser;
+                if (currentUser) {
+                    const UID = currentUser.uid;
+                    let pid = [];  // Changed to let
+                    console.log('Current UID:', UID);
+                    const cartDocRef = doc(db, 'Cart Items', UID);
+                    const cartDocSnap = await getDoc(cartDocRef);
+                    if (cartDocSnap.exists()) {
+                        const cartData = cartDocSnap.data();
+                        pid = cartData?.['Product ID'] || [];
+                        console.log('PID',sneakerid);
+                        console.log('Product IDs:', pid);
+                        // console.log('Cart Items', pid);
+                        for(var num in pid){
+                            if(num==pid){
+                               setCartItems(true);
+                            }               
+                       }
+                       console.log(cartItems);
+                    } else {
+                        console.log('No cart items document found');
+                    }
+                } else {
+                    console.log('No current user');
+                }
+            } catch (error) {
+                console.error('Error fetching document names:', error);
+            }
+        };
+        
+        fetchDocumentName();
+    }, []);
+
     const LazyImage = ({ src, alt }) => {
         const [loading, setLoading] = useState(true);
         const imgRef = useRef(null);
@@ -230,7 +269,7 @@ export default function ProductDetails() {
                         </select>
                         <Link style={{ textDecoration: "none" }}>
                             <div className="ejnfdmvkdmv">
-                            ADD TO CART
+                                {cartItems?'REMOVE FROM CART':"ADD TO CART"}
                                 {/* <center>ADD TO CART</center> */}
                             </div>
                         </Link>
@@ -238,33 +277,33 @@ export default function ProductDetails() {
                     </div>
                 </div>
             </div>
-            <div className="jefkeklf" style={{fontWeight:"bold",left:"20px",position:"relative",top:"100px"}}>
-                YOU MAY ALSO LIKE 
+            <div className="jefkeklf" style={{ fontWeight: "bold", left: "20px", position: "relative", top: "100px" }}>
+                YOU MAY ALSO LIKE
             </div>
             <div className="fgfhhgjjh">
-                        {
-                            fetchedAjName.slice(0, 3).map((name, index) => (
-                                <Link to={"/product"}
-                                    className="jenfkjfrf"
-                                    style={{ textDecoration: "none", color: "black" }}
-                                    key={index}
-                                    onClick={() => {
-                                        localStorage.setItem('producttype', 'Slides');
-                                        localStorage.setItem('productname', fetchedAjName[index]);
-                                        localStorage.setItem('productprice', fetchedAjPrice[index]);
-                                        localStorage.setItem('productimage', fetchedAjPic[index]);
-                                        localStorage.setItem('PID',documentNames[index]);
-                                        console.log(documentNames[index]);
-                                    }}
-                                >
-                                    <LazyImage src={fetchedAjPic[index]} alt={name} />
-                                    <div className="ejfjf">
-                                        {name}
-                                    </div>
-                                </Link>
-                            ))
-                        }
-                    </div>
+                {
+                    fetchedAjName.slice(0, 3).map((name, index) => (
+                        <Link to={"/product"}
+                            className="jenfkjfrf"
+                            style={{ textDecoration: "none", color: "black" }}
+                            key={index}
+                            onClick={() => {
+                                localStorage.setItem('producttype', 'Slides');
+                                localStorage.setItem('productname', fetchedAjName[index]);
+                                localStorage.setItem('productprice', fetchedAjPrice[index]);
+                                localStorage.setItem('productimage', fetchedAjPic[index]);
+                                localStorage.setItem('PID', documentNames[index]);
+                                console.log(documentNames[index]);
+                            }}
+                        >
+                            <LazyImage src={fetchedAjPic[index]} alt={name} />
+                            <div className="ejfjf">
+                                {name}
+                            </div>
+                        </Link>
+                    ))
+                }
+            </div>
         </div>
     );
 }

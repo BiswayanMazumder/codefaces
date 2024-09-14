@@ -154,6 +154,7 @@ export default function Cart() {
                         fetchedAjName.map((name, index) => (
                             <Link key={index} className="cart-item"  to={"/product"} onClick={() => {
                                         localStorage.setItem('producttype', 'sneakers');
+                                        localStorage.setItem('iscart', true);
                                         localStorage.setItem('productname', fetchedAjName[index]);
                                         localStorage.setItem('productprice', fetchedAjPrice[index]);
                                         localStorage.setItem('productimage', fetchedAjPic[index]);
