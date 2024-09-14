@@ -56,7 +56,7 @@ export default function Cart() {
                 const currentUser = auth.currentUser;
                 if (currentUser) {
                     const UID = currentUser.uid;
-                    console.log('Current UID:', UID);
+                    // console.log('Current UID:', UID);
                     const cartDocRef = doc(db, 'Cart Items', UID);
                     const cartDocSnap = await getDoc(cartDocRef);
                     if (cartDocSnap.exists()) {
