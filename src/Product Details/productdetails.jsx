@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { collection, doc, getDoc, getDocs, getFirestore } from 'firebase/firestore';
+import { arrayRemove, arrayUnion, collection, doc, getDoc, getDocs, getFirestore, updateDoc } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { initializeApp, } from 'firebase/app';
 const firebaseConfig = {
@@ -168,7 +168,48 @@ export default function ProductDetails() {
 
         fetchDocumentName();
     }, []);
-
+    const AddToCart = async () => {
+        try {
+            // Get current user
+            const currentUser = auth.currentUser;
+            if (!currentUser) {
+                throw new Error('No user is currently signed in.');
+            }
+    
+            const UID = currentUser.uid;
+            const cartDocRef = doc(db, 'Cart Items', UID);
+    
+            // Update the document by adding the product ID to the array
+            await updateDoc(cartDocRef, {
+                'Product ID': arrayUnion(sneakerid)
+            });
+            setCartItems(true);
+            console.log('Product added to cart successfully.');
+        } catch (error) {
+            console.error('Error adding product to cart:', error);
+        }
+    };
+    const RemoveFromCart = async () => {
+        try {
+            // Get current user
+            const currentUser = auth.currentUser;
+            if (!currentUser) {
+                throw new Error('No user is currently signed in.');
+            }
+    
+            const UID = currentUser.uid;
+            const cartDocRef = doc(db, 'Cart Items', UID);
+    
+            // Update the document by removing the product ID from the array
+            await updateDoc(cartDocRef, {
+                'Product ID': arrayRemove(sneakerid)
+            });
+            setCartItems(false);
+            console.log('Product removed from cart successfully.');
+        } catch (error) {
+            console.error('Error removing product from cart:', error);
+        }
+    };
     const LazyImage = ({ src, alt }) => {
         const [loading, setLoading] = useState(true);
         const imgRef = useRef(null);
@@ -309,7 +350,7 @@ export default function ProductDetails() {
                                 ))
                             }
                         </select>
-                        <Link style={{ textDecoration: "none" }}>
+                        <Link style={{ textDecoration: "none" }} onClick={cartItems?RemoveFromCart:AddToCart}>
                             <div className="ejnfdmvkdmv">
                                 {cartItems ? 'REMOVE FROM CART' : "ADD TO CART"}
                                 {/* <center>ADD TO CART</center> */}
