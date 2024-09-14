@@ -139,7 +139,7 @@ export default function ProductDetails() {
                 if (currentUser) {
                     const UID = currentUser.uid;
                     let pid = [];  // Changed to let
-                    console.log('Current UID:', UID);
+                    // console.log('Current UID:', UID);
                     const cartDocRef = doc(db, 'Cart Items', UID);
                     const cartDocSnap = await getDoc(cartDocRef);
                     if (cartDocSnap.exists()) {
