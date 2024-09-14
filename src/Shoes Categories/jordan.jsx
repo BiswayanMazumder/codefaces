@@ -63,7 +63,7 @@ export default function Jordan() {
                 setFetchedAjName(ajName);
                 setFetchedAjPic(ajPic);
                 setFetchedAjprice(ajprice);
-                
+
             } catch (e) {
                 if (process.env.NODE_ENV === 'development') {
                     console.error("Error fetching document names:", e);
@@ -119,8 +119,8 @@ export default function Jordan() {
                 }
             };
         }, []);
-        
-    
+
+
         return (
             <div ref={imgRef} className="lazy-image-container">
                 {loading && <div className="loading-placeholder">Loading...</div>}
@@ -137,7 +137,7 @@ export default function Jordan() {
         <>
             <div className="webbody">
                 <div className="headersection">
-                {user?<div className="logo">
+                    {user ? <div className="logo">
                         <div className="searchform">
                             <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/" : '/account/login'}>
                                 <svg focusable="false" width="18" height="18" className="icon icon--header-search" viewBox="0 0 18 18">
@@ -155,14 +155,14 @@ export default function Jordan() {
                         </div>
                         <div className="searchform">
                             <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/profile" : '/account/login'}>
-                            <svg focusable="false" width="18" height="18" class="icon icon--header-customer   " viewBox="0 0 18 17">
+                                <svg focusable="false" width="18" height="18" class="icon icon--header-customer   " viewBox="0 0 18 17">
                                     <circle cx="9" cy="5" r="4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></circle>
                                     <path d="M1 17v0a4 4 0 014-4h8a4 4 0 014 4v0" fill="none" stroke="currentColor" stroke-width="2"></path>
                                 </svg>
                             </Link>
                         </div>
-                        
-                    </div>:<></>}
+
+                    </div> : <></>}
                     <div className="headeroptions">
                         <div className="options">
                             <Link to="/footwear" style={{ textDecoration: "none", color: "black" }} className='headerlink'>Footwear</Link>
@@ -175,8 +175,8 @@ export default function Jordan() {
                             <Link to="/slides" style={{ textDecoration: "none", color: "black" }}>Slides</Link>
                             {/* <Link to="/account/login" style={{ textDecoration: "none", color: "black" }}>Login</Link> */}
                             {
-                                user?<Link  style={{ textDecoration: "none", color: "red" }}>Logout</Link>:
-                                <Link to={'/account/login'} style={{ textDecoration: "none", color: "black" }}>Login</Link>
+                                user ? <Link style={{ textDecoration: "none", color: "red" }}>Logout</Link> :
+                                    <Link to={'/account/login'} style={{ textDecoration: "none", color: "black" }}>Login</Link>
                             }
                         </div>
                     </div>
@@ -197,7 +197,7 @@ export default function Jordan() {
                                         localStorage.setItem('productname', fetchedAjName[index]);
                                         localStorage.setItem('productprice', fetchedAjPrice[index]);
                                         localStorage.setItem('productimage', fetchedAjPic[index]);
-                                        localStorage.setItem('PID',documentNames[index]);
+                                        localStorage.setItem('PID', documentNames[index]);
                                         console.log(documentNames[index]);
                                     }}
                                 >
