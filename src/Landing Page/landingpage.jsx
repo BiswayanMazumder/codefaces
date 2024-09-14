@@ -59,7 +59,7 @@ export default function Landingpage() {
         <>
             <div className="webbody">
                 <div className="headersection">
-                    {/* <div className="logo">
+                    {user?<div className="logo">
                         <div className="searchform">
                             <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/" : '/account/login'}>
                                 <svg focusable="false" width="18" height="18" className="icon icon--header-search" viewBox="0 0 18 18">
@@ -84,7 +84,7 @@ export default function Landingpage() {
                             </Link>
                         </div>
                         
-                    </div> */}
+                    </div>:<></>}
                     <div className="headeroptions">
                         <div className="options">
                             {/* <Link to="/" style={{ textDecoration: "none", color: "black" }}>SS24</Link> */}

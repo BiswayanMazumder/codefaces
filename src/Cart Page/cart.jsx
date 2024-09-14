@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc, getFirestore } from 'firebase/firestore';
 const firebaseConfig = {
     apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
     authDomain: "luxelayers.firebaseapp.com",
@@ -18,7 +19,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 export default function Cart() {
     useEffect(() => {
-        document.title='Shopping Cart | luxelayers.com'
+        document.title = 'Shopping Cart | luxelayers.com'
     })
     const [user, setUser] = useState(false);
     useEffect(() => {
@@ -41,6 +42,63 @@ export default function Cart() {
         });
         // console.log(user);
     });
+    const [documentNames, setDocumentNames] = useState([]);
+    const [fetchedAjName, setFetchedAjName] = useState([]);
+    const [fetchedAjPic, setFetchedAjPic] = useState([]);
+    const [loading, setLoading] = useState(true); // Loading state
+    const [fetchedAjPrice, setFetchedAjprice] = useState([]);
+    useEffect(() => {
+        const fetchDocumentNames = async () => {
+            console.log('Fetching document names...');
+            try {
+                const auth = getAuth();
+                const db = getFirestore(app);
+                const currentUser = auth.currentUser;
+                if (currentUser) {
+                    const UID = currentUser.uid;
+                    console.log('Current UID:', UID);
+                    const cartDocRef = doc(db, 'Cart Items', UID);
+                    const cartDocSnap = await getDoc(cartDocRef);
+                    if (cartDocSnap.exists()) {
+                        const cartData = cartDocSnap.data();
+                        // console.log('Cart Items data:', cartData);
+                        const pid = cartData?.['Product ID'] || [];
+                        // console.log('Product IDs:', pid);
+
+                        const ajName = [];
+                        const ajPic = [];
+                        const ajprice = [];
+
+                        for (let i = 0; i < pid.length; i++) {
+                            const productDocRef = doc(db, 'sneakers', pid[i]);
+                            const productDocSnap = await getDoc(productDocRef);
+                            if (productDocSnap.exists()) {
+                                const productData = productDocSnap.data();
+                                // console.log('Product data:', productData);
+                                ajName.push(productData?.name || 'No Name');
+                                ajPic.push(productData?.['Product Image'] || 'No Image');
+                                ajprice.push(productData?.Price || 0);
+                            } else {
+                                console.log(`No product data found for ID: ${pid[i]}`);
+                            }
+                        }
+                        setFetchedAjName(ajName);
+                        setFetchedAjPic(ajPic);
+                        setFetchedAjprice(ajprice);
+                    } else {
+                        console.log('No cart items document found');
+                    }
+                } else {
+                    console.log('No current user');
+                }
+            } catch (error) {
+                console.error('Error fetching document names:', error);
+            }
+        };
+
+        fetchDocumentNames();
+    }, []);
+
     return (
         <>
             <div className="webbody">
@@ -85,12 +143,28 @@ export default function Cart() {
                             <Link to="/airmax" style={{ textDecoration: "none", color: "black" }}>Air Max</Link>
                             <Link to="/slides" style={{ textDecoration: "none", color: "black" }}>Slides</Link>
                             {
-                                user?<Link  style={{ textDecoration: "none", color: "red" }}>Logout</Link>:
-                                <Link to={'/account/login'} style={{ textDecoration: "none", color: "black" }}>Login</Link>
+                                user ? <Link style={{ textDecoration: "none", color: "red" }}>Logout</Link> :
+                                    <Link to={'/account/login'} style={{ textDecoration: "none", color: "black" }}>Login</Link>
                             }
                         </div>
                     </div>
                 </div>
+                <Link className="cart-items" style={{ textDecoration: "none", color: "black" }}>
+                    {fetchedAjName.length > 0 ? (
+                        fetchedAjName.map((name, index) => (
+                            <div key={index} className="cart-item">
+                                <img src={fetchedAjPic[index]} alt={name} className="cart-item-image" />
+                                <div className="cart-item-details">
+                                    <h3 className="cart-item-name">{name}</h3>
+                                    <br /><br />
+                                    <p className="cart-item-price">₹{fetchedAjPrice[index]}</p>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No items in cart</p>
+                    )}
+                </Link>
             </div>
         </>
     )

@@ -518,3 +518,50 @@ body{
 .ejnfdmvkdmv:hover{
   box-shadow: 2px 2px 8px 2px rgba(0, 0, 0, 0.5);
 }
+.jjefjkd{
+  width: 100vw;
+  height: 100vh;
+}
+.cart-items {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  gap: 20px; /* Space between each cart item */
+  padding: 20px; /* Padding around the container */
+}
+
+.cart-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 20px; /* Space between image and text */
+  border-bottom: 1px solid #ddd; /* Optional: Add a border between items */
+  padding: 10px 20px; /* 10px top and bottom, 20px left and right */
+  background-color: #f9f9f9; /* Optional: Background color for better visibility */
+  border-radius: 8px; /* Optional: Rounded corners */
+  margin: 0 20px; /* Space on the left and right of each cart item */
+  
+}
+
+.cart-item-image {
+  width: 200px; /* Adjust width as needed */
+  height: 200px; /* Adjust height as needed to ensure uniformity */
+  object-fit: cover; /* Ensure the image covers the area */
+  border-radius: 8px; /* Optional: Rounded corners */
+}
+
+.cart-item-details {
+  flex: 1; /* Allow text container to take remaining space */
+}
+
+.cart-item-name {
+  font-size: 18px;
+  margin: 0; /* Remove default margin */
+  font-weight: bold;
+}
+
+.cart-item-price {
+  font-size: 16px;
+  color: #888; /* Gray color for price */
+  margin: 0; /* Remove default margin */
+}
