@@ -64,7 +64,7 @@ export default function Cart() {
                         // console.log('Cart Items data:', cartData);
                         const pid = cartData?.['Product ID'] || [];
                         // console.log('Product IDs:', pid);
-
+                        setDocumentNames(pid);
                         const ajName = [];
                         const ajPic = [];
                         const ajprice = [];
@@ -152,14 +152,21 @@ export default function Cart() {
                 <Link className="cart-items" style={{ textDecoration: "none", color: "black" }}>
                     {fetchedAjName.length > 0 ? (
                         fetchedAjName.map((name, index) => (
-                            <div key={index} className="cart-item">
+                            <Link key={index} className="cart-item"  to={"/product"} onClick={() => {
+                                        localStorage.setItem('producttype', 'sneakers');
+                                        localStorage.setItem('productname', fetchedAjName[index]);
+                                        localStorage.setItem('productprice', fetchedAjPrice[index]);
+                                        localStorage.setItem('productimage', fetchedAjPic[index]);
+                                        localStorage.setItem('PID',documentNames[index]);
+                                        console.log(documentNames[index]);
+                                    }} style={{ textDecoration: "none", color: "black" }}>
                                 <img src={fetchedAjPic[index]} alt={name} className="cart-item-image" />
                                 <div className="cart-item-details">
                                     <h3 className="cart-item-name">{name}</h3>
                                     <br /><br />
                                     <p className="cart-item-price" style={{fontWeight: "500"}}>₹{fetchedAjPrice[index]}</p>
                                 </div>
-                            </div>
+                            </Link>
                         ))
                     ) : (
                         <p>No items in cart</p>
