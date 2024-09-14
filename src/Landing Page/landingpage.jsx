@@ -100,7 +100,7 @@ export default function Landingpage() {
                         setFetchedAjName(ajName);
                         setFetchedAjPic(ajPic);
                         setFetchedAjprice(ajprice);
-                        console.log('Name ', ajName);
+                        // console.log('Name ', ajName);
                     } else {
                         console.log('No cart items document found');
                     }
