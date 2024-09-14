@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc, getFirestore } from 'firebase/firestore';
 const firebaseConfig = {
     apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
     authDomain: "luxelayers.firebaseapp.com",
@@ -54,12 +55,71 @@ export default function Landingpage() {
 
         return () => clearInterval(interval); // Clean up the interval on component unmount
     }, []);
+    const [documentNames, setDocumentNames] = useState([]);
+    const [fetchedAjName, setFetchedAjName] = useState([]);
+    const [fetchedAjPic, setFetchedAjPic] = useState([]);
+    const [loading, setLoading] = useState(true); // Loading state
+    const [fetchedAjPrice, setFetchedAjprice] = useState([]);
+    const [loggeduser, setuser] = useState(false);
+    useEffect(() => {
+        const fetchDocumentNames = async () => {
+            console.log('Fetching document names...');
+            try {
+                const auth = getAuth();
+                const db = getFirestore(app);
+                const currentUser = auth.currentUser;
+                setuser(currentUser);
+                if (currentUser) {
+                    const UID = currentUser.uid;
+                    // console.log('Current UID:', UID);
+                    const cartDocRef = doc(db, 'Recently Viewed', UID);
+                    const cartDocSnap = await getDoc(cartDocRef);
+                    if (cartDocSnap.exists()) {
+                        const cartData = cartDocSnap.data();
+                        // console.log('Cart Items data:', cartData);
+                        const pid = cartData?.['Product ID'] || [];
+                        // console.log('Product IDs:', pid);
+                        setDocumentNames(pid);
+                        const ajName = [];
+                        const ajPic = [];
+                        const ajprice = [];
+
+                        for (let i = 0; i < pid.length; i++) {
+                            const productDocRef = doc(db, 'sneakers', pid[i]);
+                            const productDocSnap = await getDoc(productDocRef);
+                            if (productDocSnap.exists()) {
+                                const productData = productDocSnap.data();
+                                // console.log('Product data:', productData);
+                                ajName.push(productData?.name || 'No Name');
+                                ajPic.push(productData?.['Product Image'] || 'No Image');
+                                ajprice.push(productData?.Price || 0);
+                            } else {
+                                console.log(`No product data found for ID: ${pid[i]}`);
+                            }
+                        }
+                        setFetchedAjName(ajName);
+                        setFetchedAjPic(ajPic);
+                        setFetchedAjprice(ajprice);
+                        console.log('Name ', ajName);
+                    } else {
+                        console.log('No cart items document found');
+                    }
+                } else {
+                    console.log('No current user');
+                }
+            } catch (error) {
+                console.error('Error fetching document names:', error);
+            }
+        };
+
+        fetchDocumentNames();
+    }, []);
 
     return (
         <>
             <div className="webbody">
                 <div className="headersection">
-                    {user?<div className="logo">
+                    {user ? <div className="logo">
                         <div className="searchform">
                             <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/" : '/account/login'}>
                                 <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/orders-bfe8c4.svg" alt="" />
@@ -72,11 +132,11 @@ export default function Landingpage() {
                         </div>
                         <div className="searchform">
                             <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/profile" : '/account/login'}>
-                            <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/profile-52e0dc.svg" alt="" />
+                                <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/profile-52e0dc.svg" alt="" />
                             </Link>
                         </div>
-                        
-                    </div>:<></>}
+
+                    </div> : <></>}
                     <div className="headeroptions">
                         <div className="options">
                             {/* <Link to="/" style={{ textDecoration: "none", color: "black" }}>SS24</Link> */}
@@ -89,8 +149,8 @@ export default function Landingpage() {
                             <Link to="/airmax" style={{ textDecoration: "none", color: "black" }}>Air Max</Link>
                             <Link to="/slides" style={{ textDecoration: "none", color: "black" }}>Slides</Link>
                             {
-                                user?<Link  style={{ textDecoration: "none", color: "red" }}>Logout</Link>:
-                                <Link to={'/account/login'} style={{ textDecoration: "none", color: "black" }}>Login</Link>
+                                user ? <Link style={{ textDecoration: "none", color: "red" }}>Logout</Link> :
+                                    <Link to={'/account/login'} style={{ textDecoration: "none", color: "black" }}>Login</Link>
                             }
                         </div>
                     </div>
@@ -450,6 +510,43 @@ export default function Landingpage() {
                         </div>
                     </Link>
                 </div>
+                {
+                    loggeduser?<Link style={{ textDecoration: "none" }}>
+                    <div className="jjehfjnfjd">
+                        <video src="https://images.vegnonveg.com/media/collections/140/172623524714066e4426f7646c.mp4" autoPlay muted loop className='promotionalvideo'></video>
+                    </div>
+                </Link>:<></>
+                }
+                {
+                    loggeduser?<div className="jefkeklf" style={{ fontWeight: "bold", left: "25px", position: "relative", top: "100px" }}>
+                Recently Viewed Items
+            </div>:<></>
+                }
+                {
+                    loggeduser?<div className="dhifjkfjlf"  style={{ height: '500px', color: "black" }}>
+                    {
+                        fetchedAjName.map((name, index) => (
+                            <Link style={{ textDecoration: "none", color: "black" }} key={index}
+                            onClick={() => {
+                                        localStorage.setItem('producttype', 'sneakers');
+                                        localStorage.setItem('productname', fetchedAjName[index]);
+                                        localStorage.setItem('productprice', fetchedAjPrice[index]);
+                                        localStorage.setItem('productimage', fetchedAjPic[index]);
+                                        localStorage.setItem('PID',documentNames[index]);
+                                        console.log(documentNames[index]);
+                                    }}
+                                    to={"/product"}
+                            >
+                                <div className="gallery" >
+                                    <img src={fetchedAjPic[index]} alt="" className='newstockimages' />
+                                    <br /><br />
+                                    {fetchedAjName[index]}
+                                </div>
+                            </Link>
+                        ))
+                    }
+                </div>:<></>
+                }
             </div>
         </>
     );
