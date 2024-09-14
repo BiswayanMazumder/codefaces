@@ -157,7 +157,7 @@ export default function Cart() {
                                 <div className="cart-item-details">
                                     <h3 className="cart-item-name">{name}</h3>
                                     <br /><br />
-                                    <p className="cart-item-price">₹{fetchedAjPrice[index]}</p>
+                                    <p className="cart-item-price" style={{fontWeight: "500"}}>₹{fetchedAjPrice[index]}</p>
                                 </div>
                             </div>
                         ))
