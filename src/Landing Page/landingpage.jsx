@@ -523,7 +523,7 @@ export default function Landingpage() {
             </div>:<></>
                 }
                 {
-                    loggeduser?<div className="dhifjkfjlf"  style={{ height: '500px', color: "black" }}>
+                    loggeduser && fetchedAjName.length>0?<div className="dhifjkfjlf"  style={{ height: '500px', color: "black" }}>
                     {
                         fetchedAjName.map((name, index) => (
                             <Link style={{ textDecoration: "none", color: "black" }} key={index}
