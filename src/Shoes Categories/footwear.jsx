@@ -135,7 +135,7 @@ export default function Footwear() {
                 <div className="headersection">
                 {user?<div className="logo">
                         <div className="searchform">
-                            <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/" : '/account/login'}>
+                            <Link style={{ textDecoration: "none", color: "black" }} to={user ?"/account/order" : '/account/login'}>
                                 <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/orders-bfe8c4.svg" alt="" />
                             </Link>
                         </div>
