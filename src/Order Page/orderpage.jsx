@@ -21,7 +21,6 @@ const analytics = getAnalytics(app);
 export default function Orderpage() {
     const [user, setUser] = useState(null);
     const [name, setName] = useState('');
-    const [documentNames, setDocumentNames] = useState([]);
     const [orderDetails, setOrderDetails] = useState([]); // New state for order details
 
     useEffect(() => {
@@ -65,18 +64,23 @@ export default function Orderpage() {
             if (orderDocSnap.exists()) {
                 const orderData = orderDocSnap.data();
                 const pid = orderData?.['IDs'] || [];
-                setDocumentNames(pid); // Store or process product IDs
 
-                const details = [];
+                const allOrderDetails = [];
+
                 for (let i = 0; i < pid.length; i++) {
                     const orderDetailsRef = doc(db, 'Order Details', pid[i]);
                     const orderDetailSnap = await getDoc(orderDetailsRef);
                     if (orderDetailSnap.exists()) {
-                        details.push(orderDetailSnap.data());
+                        const order = orderDetailSnap.data();
+                        const itemCount = order["Name"].length;
+                        for (let j = 0; j < itemCount; j++) {
+                            allOrderDetails.push({ ...order, OrderID: pid[i], Index: j });
+                        }
                     }
                 }
-                setOrderDetails(details);
-                console.log(orderDetails);
+
+                setOrderDetails(allOrderDetails);
+                console.log('Order Details:', allOrderDetails); // Debugging line
             } else {
                 console.log('No such document!');
             }
@@ -84,6 +88,7 @@ export default function Orderpage() {
             console.error(`Error getting document: ${e.message}`);
         }
     };
+
     const formatDate = (seconds) => {
         const date = new Date(seconds * 1000);
         return date.toLocaleDateString(undefined, {
@@ -91,6 +96,7 @@ export default function Orderpage() {
             day: 'numeric', // Day of the month
         });
     };
+
     return (
         <div className="webbody">
             <div className="headersection">
@@ -127,37 +133,36 @@ export default function Orderpage() {
                 </div>
             </div>
             {orderDetails.length > 0 ? (
-                    orderDetails.map((order, index) => (
-                        <div key={index} className="order">
-                            {order["Product Image"].map((image, imgIndex) => (
-                                <Link
-                                    key={imgIndex}
-                                    className="cart-item"
-                                    to={"/product"}
-                                    onClick={() => {
-                                        localStorage.setItem('producttype', 'sneakers');
-                                        localStorage.setItem('iscart', true);
-                                        localStorage.setItem('productname', order["Name"][imgIndex]);
-                                        localStorage.setItem('productprice', order["Price"][imgIndex]);
-                                        localStorage.setItem('productimage', image);
-                                        localStorage.setItem('PID', order["Product ID"][imgIndex]);
-                                        console.log(order["Product ID"][imgIndex]);
-                                    }}
-                                    style={{ textDecoration: "none", color: "black" }}
-                                >
-                                    <img src={image} alt={order["Name"][imgIndex]} className="cart-item-image" />
-                                    <div className="cart-item-details">
-                                    <p style={{color:order.Delivered?'green':'red'}}>{order.Delivered ? `Delivered on ${formatDate(order["Delivery Date"].seconds)} ` : "Order yet to be Delivered"}</p>
-                                        <h3 className="cart-item-name">{order["Name"][imgIndex]}</h3>
-                                        <p className="cart-item-price" style={{ fontWeight: "500" }}>₹{order["Price"][imgIndex]}</p>
-                                    </div>
-                                </Link>
-                            ))}
-                        </div>
-                    ))
-                ) : (
-                    <p>No orders found</p>
-                )}
+                orderDetails.map((order, index) => (
+                    <div key={index} className="order">
+                        <Link
+                            className="cart-item"
+                            to={"/account/orderdetails"}
+                            onClick={() => {
+                                localStorage.setItem('producttype', 'sneakers');
+                                localStorage.setItem('iscart', true);
+                                localStorage.setItem('productname', order["Name"][order.Index]);
+                                localStorage.setItem('productprice', order["Price"][order.Index]);
+                                localStorage.setItem('productimage', order["Product Image"][order.Index]);
+                                localStorage.setItem('PID', order["Product ID"][order.Index]);
+                                localStorage.setItem('OID',order.OrderID) // Access OrderID directly from the order object
+                            }}
+                            style={{ textDecoration: "none", color: "black" }}
+                        >
+                            <img src={order["Product Image"][order.Index]} alt={order["Name"][order.Index]} className="cart-item-image" />
+                            <div className="cart-item-details">
+                                <p style={{ color: order.Delivered ? 'green' : 'red' }}>
+                                    {order.Delivered ? `Delivered on ${formatDate(order["Delivery Date"].seconds)}` : "Order yet to be Delivered"}
+                                </p>
+                                <h3 className="cart-item-name">{order["Name"][order.Index]}</h3>
+                                <p className="cart-item-price" style={{ fontWeight: "500" }}>₹{order["Price"][order.Index]}</p>
+                            </div>
+                        </Link>
+                    </div>
+                ))
+            ) : (
+                <p>No orders found</p>
+            )}
         </div>
     );
 }

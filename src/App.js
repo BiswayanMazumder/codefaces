@@ -20,6 +20,7 @@ import Cart from './Cart Page/cart';
 import Profilepage from './Profile Page/profilepage';
 import ProductDetails from './Product Details/productdetails';
 import Orderpage from './Order Page/orderpage';
+import Orderdetailspage from './Order Page/orderdetailspage';
 function App() {
   return (
     <BrowserRouter>
@@ -61,6 +62,9 @@ function App() {
       </Routes>
       <Routes>
         <Route path="/account/order" element={<Orderpage />} />
+      </Routes>
+      <Routes>
+        <Route path="/account/orderdetails" element={<Orderdetailspage />} />
       </Routes>
       <SpeedInsights />
       <Analytics />
