@@ -518,8 +518,9 @@ export default function Landingpage() {
                 </Link>:<></>
                 }
                 {
-                    loggeduser?<div className="jefkeklf" style={{ fontWeight: "bold", left: "25px", position: "relative", top: "100px" }}>
+                    loggeduser?<div className="jefkeklf" style={{ fontWeight: "bold", left: "25px", position: "relative", top: "50px" }}>
                 Recently Viewed Items
+                
             </div>:<></>
                 }
                 {
