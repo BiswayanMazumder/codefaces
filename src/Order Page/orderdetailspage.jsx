@@ -61,7 +61,7 @@ export default function Orderdetailspage() {
             if (orderDetailSnap.exists()) {
                 const order = orderDetailSnap.data();
                 setOrderDetails(order);
-                console.log('Order Details', order);
+                // console.log('Order Details', order);
             } else {
                 console.log('No such document!');
             }
@@ -152,7 +152,8 @@ export default function Orderdetailspage() {
                             </div>
                             <div className="djhd">
                                 
-                            </div>
+                            </div> 
+                            {/* page left to make */}
                             <div className="shippedcircle">
                                 
                             </div>
