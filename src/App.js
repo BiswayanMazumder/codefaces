@@ -19,6 +19,7 @@ import Login from './Login and Signup/login';
 import Cart from './Cart Page/cart';
 import Profilepage from './Profile Page/profilepage';
 import ProductDetails from './Product Details/productdetails';
+import Orderpage from './Order Page/orderpage';
 function App() {
   return (
     <BrowserRouter>
@@ -57,6 +58,9 @@ function App() {
       </Routes>
       <Routes>
         <Route path="/product" element={<ProductDetails />} />
+      </Routes>
+      <Routes>
+        <Route path="/account/order" element={<Orderpage />} />
       </Routes>
       <SpeedInsights />
       <Analytics />

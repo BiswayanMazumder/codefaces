@@ -103,24 +103,24 @@ export default function Cart() {
         <>
             <div className="webbody">
                 <div className="headersection">
-                {user?<div className="logo">
+                    {user ? <div className="logo">
                         <div className="searchform">
-                            <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/" : '/account/login'}>
+                            <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/order" : '/'}>
                                 <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/orders-bfe8c4.svg" alt="" />
                             </Link>
                         </div>
-                        <div className="searchform">
+                        {/* <div className="searchform">
                             <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/viewcart" : '/account/login'}>
                                 <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/header_cart-eed150.svg" alt="" />
                             </Link>
-                        </div>
+                        </div> */}
                         <div className="searchform">
                             <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/profile" : '/account/login'}>
-                            <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/profile-52e0dc.svg" alt="" />
+                                <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/profile-52e0dc.svg" alt="" />
                             </Link>
                         </div>
-                        
-                    </div>:<></>}
+
+                    </div> : <></>}
                     <div className="headeroptions">
                         <div className="options">
                             {/* <Link to="/" style={{ textDecoration: "none", color: "black" }}>SS24</Link> */}
@@ -142,20 +142,20 @@ export default function Cart() {
                 <Link className="cart-items" style={{ textDecoration: "none", color: "black" }}>
                     {fetchedAjName.length > 0 ? (
                         fetchedAjName.map((name, index) => (
-                            <Link key={index} className="cart-item"  to={"/product"} onClick={() => {
-                                        localStorage.setItem('producttype', 'sneakers');
-                                        localStorage.setItem('iscart', true);
-                                        localStorage.setItem('productname', fetchedAjName[index]);
-                                        localStorage.setItem('productprice', fetchedAjPrice[index]);
-                                        localStorage.setItem('productimage', fetchedAjPic[index]);
-                                        localStorage.setItem('PID',documentNames[index]);
-                                        console.log(documentNames[index]);
-                                    }} style={{ textDecoration: "none", color: "black" }}>
+                            <Link key={index} className="cart-item" to={"/product"} onClick={() => {
+                                localStorage.setItem('producttype', 'sneakers');
+                                localStorage.setItem('iscart', true);
+                                localStorage.setItem('productname', fetchedAjName[index]);
+                                localStorage.setItem('productprice', fetchedAjPrice[index]);
+                                localStorage.setItem('productimage', fetchedAjPic[index]);
+                                localStorage.setItem('PID', documentNames[index]);
+                                console.log(documentNames[index]);
+                            }} style={{ textDecoration: "none", color: "black" }}>
                                 <img src={fetchedAjPic[index]} alt={name} className="cart-item-image" />
                                 <div className="cart-item-details">
                                     <h3 className="cart-item-name">{name}</h3>
                                     <br /><br />
-                                    <p className="cart-item-price" style={{fontWeight: "500"}}>₹{fetchedAjPrice[index]}</p>
+                                    <p className="cart-item-price" style={{ fontWeight: "500" }}>₹{fetchedAjPrice[index]}</p>
                                 </div>
                             </Link>
                         ))
