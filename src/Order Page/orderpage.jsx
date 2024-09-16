@@ -80,7 +80,7 @@ export default function Orderpage() {
                 }
 
                 setOrderDetails(allOrderDetails);
-                console.log('Order Details:', allOrderDetails); // Debugging line
+                // console.log('Order Details:', allOrderDetails); // Debugging line
             } else {
                 console.log('No such document!');
             }

@@ -52,24 +52,46 @@ export default function Orderdetailspage() {
             console.error(`Error getting document: ${e.message}`);
         }
     };
-    const [orderDetails, setOrderDetails] = useState([]);
+    const [shipped, setShipped] = useState(true);
+    const [outfordelivery,setoutfordelivery]=useState(false);
+    const [delivered,setdelivered]=useState(false);
     useEffect(() => {
         const fetchOrderDetails = async () => {
+            console.log('Fetching');
             const db = getFirestore(app);
+            const allOrderDetails = [];
             const orderDetailsRef = doc(db, 'Order Details', localStorage.getItem('OID'));
             const orderDetailSnap = await getDoc(orderDetailsRef);
             if (orderDetailSnap.exists()) {
                 const order = orderDetailSnap.data();
-                setOrderDetails(order);
-                // console.log('Order Details', order);
+                setShipped(order["Shipped"]);
+                setoutfordelivery(order["Out_Delivery"]); 
+                setdelivered(order["Delivered"]);
+                allOrderDetails.push(order);
             } else {
                 console.log('No such document!');
             }
+            
+            // Log allOrderDetails here if needed
+            // console.log('Order Details', allOrderDetails);
         };
 
         fetchOrderDetails();
-    }, []); // Empty dependency array ensures this runs only once when the component mounts
+    }, []);
 
+    // Use this effect to log the shipped state when it changes
+    useEffect(() => {
+        // console.log('Shipped state updated:', shipped);
+        
+    }, [shipped]);
+    useEffect(() => {
+        // console.log('Shipped state updated ofd:', outfordelivery);
+        
+    }, [outfordelivery]);
+    useEffect(() => {
+        // console.log('Shipped state updated deli:', delivered);
+        
+    }, [delivered]);
     return (
         <>
             <div className="webbody">
@@ -141,23 +163,24 @@ export default function Orderdetailspage() {
                             </div>
                         </div>
                         <div className="deliverydetails">
-                            <div className="shippedcircle">
+                            <div className="shippedcircle" style={{backgroundColor:"green"}}>
 
                             </div>
-                            <div className="djhd">
+                            <div className="djhd" style={{backgroundColor:outfordelivery? "green":"red"}} >
 
                             </div>
-                            <div className="shippedcircle">
+                            <div className="shippedcircle" style={{backgroundColor:outfordelivery? "green":"red"}}>
                                 
                             </div>
-                            <div className="djhd">
+                            <div className="djhd" style={{backgroundColor:delivered?"green":"red"}}>
                                 
                             </div> 
                             {/* page left to make */}
-                            <div className="shippedcircle">
+                            <div className="shippedcircle" style={{backgroundColor:delivered?"green":"red"}} >
                                 
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
