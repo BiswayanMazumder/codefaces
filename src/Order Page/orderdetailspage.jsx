@@ -152,7 +152,7 @@ export default function Orderdetailspage() {
                     <div className="orderdetails">
                         <img src={localStorage.getItem('productimage')} alt={localStorage.getItem('OID')} height={250} width={250} />
                         <div className="details">
-                            <div className="names" style={{fontSize:"15px"}}>
+                            <div className="names" style={{ fontSize: "15px" }}>
                                 {localStorage.getItem('productname')}
                             </div>
                             <div className="names" style={{ fontWeight: "bold" }}>
@@ -162,39 +162,38 @@ export default function Orderdetailspage() {
                                 Seller-LuxeLayers
                             </div>
                         </div>
-                        <div className="details">
-                        <div className="deliverydetails">
-                            <div className="kjkvfmvs" style={{ color: "green" ,fontWeight:"600",fontSize:"12px"}}>
-                                Shipped
-                            </div>
-                            
-                            <div className="kjkvfmv" style={{ color: outfordelivery ? "green" : "red",fontWeight:"600",fontSize:"12px" }} >
-                                {outfordelivery? "Out For Delivery":"Waiting for nearest hub"}
-                            </div>
-                            
-                            <div className="kjkvfmv" style={{ color: delivered ? "green" : "red",fontWeight:"600" ,fontSize:"12px"}} >
-                                {delivered? "Delivery Completed":"Not Delivered"}
-                            </div>
+
+                    </div>
+                </div>
+                <br /><br /><br />
+                <div className="deliverydetails">
+                    <div className="ejfkmvdv">
+                        <div className="shippingcircle" style={{ backgroundColor: "green" }}>
+
                         </div>
-                            <div className="deliverydetails">
-                                <div className="shippedcircle" style={{ backgroundColor: "green" }}>
+                        <div className="shippingline" style={{ backgroundColor: "green" }}>
 
-                                </div>
-                                <div className="djhd" style={{ backgroundColor: outfordelivery ? "green" : "red" }} >
-
-                                </div>
-                                <div className="shippedcircle" style={{ backgroundColor: outfordelivery ? "green" : "red" }}>
-
-                                </div>
-                                <div className="djhd" style={{ backgroundColor: delivered ? "green" : "red" }}>
-
-                                </div>
-                                <div className="shippedcircle" style={{ backgroundColor: delivered ? "green" : "red" }} >
-
-                                </div>
-                            </div>
                         </div>
+                        <div className="shippingcircle" style={{ backgroundColor: outfordelivery ? "green" : "red" }}>
 
+                        </div>
+                        <div className="shippingline" style={{ backgroundColor: delivered ? "green" : "red" }}>
+
+                        </div>
+                        <div className="shippingcircle" style={{ backgroundColor: delivered ? "green" : "red" }}>
+
+                        </div>
+                    </div>
+                    <div className="ejfkmvdvs">
+                        <div className="shippedtext" style={{color:"green"}}>
+                            Shipped
+                        </div>
+                        <div className="shippedtext" style={{color: outfordelivery?"green":"red"}}>
+                            {outfordelivery?"Out For Delivery":"Yet to be out"}
+                        </div>
+                        <div className="shippedtext" style={{color: delivered?"green":"red"}}>
+                            {delivered?"Out For Delivery":"Yet to be delivered"}
+                        </div>
                     </div>
                 </div>
             </div>
