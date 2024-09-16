@@ -53,8 +53,8 @@ export default function Orderdetailspage() {
         }
     };
     const [shipped, setShipped] = useState(true);
-    const [outfordelivery,setoutfordelivery]=useState(false);
-    const [delivered,setdelivered]=useState(false);
+    const [outfordelivery, setoutfordelivery] = useState(false);
+    const [delivered, setdelivered] = useState(false);
     useEffect(() => {
         const fetchOrderDetails = async () => {
             console.log('Fetching');
@@ -65,13 +65,13 @@ export default function Orderdetailspage() {
             if (orderDetailSnap.exists()) {
                 const order = orderDetailSnap.data();
                 setShipped(order["Shipped"]);
-                setoutfordelivery(order["Out_Delivery"]); 
+                setoutfordelivery(order["Out_Delivery"]);
                 setdelivered(order["Delivered"]);
                 allOrderDetails.push(order);
             } else {
                 console.log('No such document!');
             }
-            
+
             // Log allOrderDetails here if needed
             // console.log('Order Details', allOrderDetails);
         };
@@ -82,15 +82,15 @@ export default function Orderdetailspage() {
     // Use this effect to log the shipped state when it changes
     useEffect(() => {
         // console.log('Shipped state updated:', shipped);
-        
+
     }, [shipped]);
     useEffect(() => {
         // console.log('Shipped state updated ofd:', outfordelivery);
-        
+
     }, [outfordelivery]);
     useEffect(() => {
         // console.log('Shipped state updated deli:', delivered);
-        
+
     }, [delivered]);
     return (
         <>
@@ -152,7 +152,7 @@ export default function Orderdetailspage() {
                     <div className="orderdetails">
                         <img src={localStorage.getItem('productimage')} alt={localStorage.getItem('OID')} height={250} width={250} />
                         <div className="details">
-                            <div className="names">
+                            <div className="names" style={{fontSize:"15px"}}>
                                 {localStorage.getItem('productname')}
                             </div>
                             <div className="names" style={{ fontWeight: "bold" }}>
@@ -162,25 +162,39 @@ export default function Orderdetailspage() {
                                 Seller-LuxeLayers
                             </div>
                         </div>
+                        <div className="details">
                         <div className="deliverydetails">
-                            <div className="shippedcircle" style={{backgroundColor:"green"}}>
-
+                            <div className="kjkvfmvs" style={{ color: "green" ,fontWeight:"600",fontSize:"12px"}}>
+                                Shipped
                             </div>
-                            <div className="djhd" style={{backgroundColor:outfordelivery? "green":"red"}} >
-
+                            
+                            <div className="kjkvfmv" style={{ color: outfordelivery ? "green" : "red",fontWeight:"600",fontSize:"12px" }} >
+                                {outfordelivery? "Out For Delivery":"Waiting for nearest hub"}
                             </div>
-                            <div className="shippedcircle" style={{backgroundColor:outfordelivery? "green":"red"}}>
-                                
-                            </div>
-                            <div className="djhd" style={{backgroundColor:delivered?"green":"red"}}>
-                                
-                            </div> 
-                            {/* page left to make */}
-                            <div className="shippedcircle" style={{backgroundColor:delivered?"green":"red"}} >
-                                
+                            
+                            <div className="kjkvfmv" style={{ color: delivered ? "green" : "red",fontWeight:"600" ,fontSize:"12px"}} >
+                                {delivered? "Delivery Completed":"Not Delivered"}
                             </div>
                         </div>
-                        
+                            <div className="deliverydetails">
+                                <div className="shippedcircle" style={{ backgroundColor: "green" }}>
+
+                                </div>
+                                <div className="djhd" style={{ backgroundColor: outfordelivery ? "green" : "red" }} >
+
+                                </div>
+                                <div className="shippedcircle" style={{ backgroundColor: outfordelivery ? "green" : "red" }}>
+
+                                </div>
+                                <div className="djhd" style={{ backgroundColor: delivered ? "green" : "red" }}>
+
+                                </div>
+                                <div className="shippedcircle" style={{ backgroundColor: delivered ? "green" : "red" }} >
+
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
