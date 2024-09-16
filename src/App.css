@@ -738,6 +738,13 @@ body {
   /* gap: 200px; */
   flex-wrap: wrap;
 }
+.djfkdklckd{
+  padding-left: 50px;
+  font-weight: bold;
+}
+.shippedtext{
+  font-weight: 600;
+}
 @media screen and (max-width: 1439px) {
 
   .orderdetails {

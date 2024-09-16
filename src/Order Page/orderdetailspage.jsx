@@ -20,6 +20,7 @@ const analytics = getAnalytics(app);
 export default function Orderdetailspage() {
     const [user, setUser] = useState(null);
     const [name, setName] = useState('');
+
     const productname = localStorage.getItem('productname');
     useEffect(() => {
         document.title = `Orders Information for ${productname} | luxelayers.com`;
@@ -166,6 +167,10 @@ export default function Orderdetailspage() {
                     </div>
                 </div>
                 <br /><br /><br />
+                <div className="djfkdklckd">
+                    Track your delivery
+                    </div>
+                    {/* <br /><br /><br /> */}
                 <div className="deliverydetails">
                     <div className="ejfkmvdv">
                         <div className="shippingcircle" style={{ backgroundColor: "green" }}>
@@ -184,15 +189,16 @@ export default function Orderdetailspage() {
 
                         </div>
                     </div>
+                    
                     <div className="ejfkmvdvs">
                         <div className="shippedtext" style={{color:"green"}}>
-                            Shipped
+                            Item confirmed
                         </div>
                         <div className="shippedtext" style={{color: outfordelivery?"green":"red"}}>
                             {outfordelivery?"Out For Delivery":"Yet to be out"}
                         </div>
                         <div className="shippedtext" style={{color: delivered?"green":"red"}}>
-                            {delivered?"Out For Delivery":"Yet to be delivered"}
+                            {delivered?"Delivered Successfully":"Yet to be delivered"}
                         </div>
                     </div>
                 </div>
