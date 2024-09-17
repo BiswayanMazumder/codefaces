@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc, getFirestore } from 'firebase/firestore';
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth"; // Import signOut
+
 const firebaseConfig = {
     apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
     authDomain: "luxelayers.firebaseapp.com",
@@ -18,31 +18,36 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+const auth = getAuth(); // Initialize auth here
+
 const Menu = () => {
     const [user, setUser] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+
     useEffect(() => {
-        const auth = getAuth();
-        onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
-                // User is signed in, see docs for a list of available properties
-                // https://firebase.google.com/docs/reference/js/auth.user
-                const uid = user.uid;
-                // console.log('User is signed in');
                 setUser(true);
-                // ...
             } else {
-                // User is signed out
-                // ...
-                // console.log('User is not signed')
-                // setUser(false);
+                setUser(false);
             }
         });
-        console.log(user);
-    });
-    const [isOpen, setIsOpen] = useState(false);
+
+        return () => unsubscribe(); // Clean up the subscription on unmount
+    }, []);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
+    };
+
+    const handleLogout = async () => {
+        try {
+            await signOut(auth); // Use signOut function from Firebase Auth
+            console.log('User signed out');
+            window.location.replace('/');
+        } catch (error) {
+            console.error('Error signing out:', error);
+        }
     };
 
     return (
@@ -79,13 +84,13 @@ const Menu = () => {
                         <Link style={{ textDecoration: 'none', color: 'black' }} to={'/slides'}>
                             <li>Slides</li>
                         </Link>
-                        {
-                            user ? <Link style={{ textDecoration: 'none', color: 'black' }}>
-                                <li>Logout</li>
-                            </Link> : <Link style={{ textDecoration: 'none', color: 'black' }} to={'/account/login'}>
+                        {user ? (
+                            <li onClick={handleLogout} style={{ cursor: 'pointer' }} >Logout</li>
+                        ) : (
+                            <Link style={{ textDecoration: 'none', color: 'black' }} to={'/account/login'}>
                                 <li>Login</li>
-                            </Link> 
-                        }
+                            </Link>
+                        )}
                     </ul>
                 </div>
             )}
