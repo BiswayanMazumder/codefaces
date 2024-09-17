@@ -56,6 +56,9 @@ export default function Orderdetailspage() {
     const [shipped, setShipped] = useState(true);
     const [outfordelivery, setoutfordelivery] = useState(false);
     const [delivered, setdelivered] = useState(false);
+    const [shippedate, setshippeddate] = useState('');
+    const [outfordeliverydate, setoutfordeliverydate] = useState('');
+    const [delivereddate, setdelivereddate] = useState('');
     useEffect(() => {
         const fetchOrderDetails = async () => {
             console.log('Fetching');
@@ -67,8 +70,12 @@ export default function Orderdetailspage() {
                 const order = orderDetailSnap.data();
                 setShipped(order["Shipped"]);
                 setoutfordelivery(order["Out_Delivery"]);
+                setshippeddate(order["shipped"]);
+                setoutfordeliverydate(order["Out_Delivery_Time"]);
+                setdelivereddate(order["Delivery Date"]);
                 setdelivered(order["Delivered"]);
                 allOrderDetails.push(order);
+                // console.log(order);
             } else {
                 console.log('No such document!');
             }
@@ -93,6 +100,25 @@ export default function Orderdetailspage() {
         // console.log('Shipped state updated deli:', delivered);
 
     }, [delivered]);
+    useEffect(() => {
+        // console.log('Shipped state updated shiped:', shippedate);
+
+    }, [shippedate]);
+    useEffect(() => {
+        // console.log('Shipped state updated ofd:', outfordeliverydate);
+
+    }, [outfordeliverydate]);
+    useEffect(() => {
+        // console.log('Shipped state updated deli:', delivereddate);
+
+    }, [delivereddate]);
+    const formatDate = (seconds) => {
+        const date = new Date(seconds * 1000);
+        return date.toLocaleDateString(undefined, {
+            month: 'long',  // Full month name
+            day: 'numeric', // Day of the month
+        });
+    };
     return (
         <>
             <div className="webbody">
@@ -192,13 +218,13 @@ export default function Orderdetailspage() {
                     
                     <div className="ejfkmvdvs">
                         <div className="shippedtext" style={{color:"green"}}>
-                            Item confirmed
+                            {`Item confirmed`}
                         </div>
                         <div className="shippedtext" style={{color: outfordelivery?"green":"red"}}>
-                            {outfordelivery?"Out For Delivery":"Yet to be out"}
+                            {outfordelivery? `Out For Delivery on ${formatDate(outfordeliverydate.seconds)}`:"Yet to be out"}
                         </div>
                         <div className="shippedtext" style={{color: delivered?"green":"red"}}>
-                            {delivered?"Delivered Successfully":"Yet to be delivered"}
+                            {delivered?`Delivered on ${formatDate(delivereddate.seconds)}`:"Yet to be delivered"}
                         </div>
                     </div>
                 </div>
