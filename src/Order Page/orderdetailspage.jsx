@@ -205,7 +205,7 @@ export default function Orderdetailspage() {
                 </div>
                 <br /><br /><br />
                 <div className="djfkdklckd">
-                    Track your delivery
+                    Track your order
                     </div>
                     {/* <br /><br /><br /> */}
                 <div className="deliverydetails">
