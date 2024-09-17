@@ -4,6 +4,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
+import Menu from '../Menu for mobile/menu';
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -100,20 +101,29 @@ export default function Orderpage() {
     return (
         <div className="webbody">
             <div className="headersection">
-                {user && (
+                <div className="jdjvkklv">
+
                     <div className="logo">
                         <div className="searchform">
-                            <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/viewcart" : '/account/login'}>
-                                <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/header_cart-eed150.svg" alt="Cart" />
-                            </Link>
+                            <Menu />
                         </div>
-                        <div className="searchform">
-                            <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/profile" : '/account/login'}>
-                                <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/profile-52e0dc.svg" alt="Profile" />
-                            </Link>
-                        </div>
+                        {
+                            user ? <div className="searchform">
+                                <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/viewcart" : '/account/login'}>
+                                    <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/header_cart-eed150.svg" alt="" />
+                                </Link>
+                            </div> : <></>
+                        }
+                        {
+                            user ? <div className="searchform">
+                                <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/profile" : '/account/login'}>
+                                    <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/profile-52e0dc.svg" alt="" />
+                                </Link>
+                            </div> : <></>
+                        }
+
                     </div>
-                )}
+                </div>
                 <div className="headeroptions">
                     <div className="options">
                         <Link to="/footwear" style={{ textDecoration: "none", color: "black" }} className='headerlink'>Footwear</Link>
@@ -145,7 +155,7 @@ export default function Orderpage() {
                                 localStorage.setItem('productprice', order["Price"][order.Index]);
                                 localStorage.setItem('productimage', order["Product Image"][order.Index]);
                                 localStorage.setItem('PID', order["Product ID"][order.Index]);
-                                localStorage.setItem('OID',order.OrderID) // Access OrderID directly from the order object
+                                localStorage.setItem('OID', order.OrderID) // Access OrderID directly from the order object
                             }}
                             style={{ textDecoration: "none", color: "black" }}
                         >
