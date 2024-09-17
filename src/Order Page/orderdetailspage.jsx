@@ -70,7 +70,7 @@ export default function Orderdetailspage() {
                 const order = orderDetailSnap.data();
                 setShipped(order["Shipped"]);
                 setoutfordelivery(order["Out_Delivery"]);
-                setshippeddate(order["shipped"]);
+                setshippeddate(order["Order Date"]);
                 setoutfordeliverydate(order["Out_Delivery_Time"]);
                 setdelivereddate(order["Delivery Date"]);
                 setdelivered(order["Delivered"]);
@@ -179,13 +179,24 @@ export default function Orderdetailspage() {
                     <div className="orderdetails">
                         <img src={localStorage.getItem('productimage')} alt={localStorage.getItem('OID')} height={250} width={250} />
                         <div className="details">
-                            <div className="names" style={{ fontSize: "15px" }}>
+                            <Link className="names" style={{ fontSize: "15px",marginBottom:"10px",textDecoration: "none", color: "black" }} to={'/product'} onClick={()=>
+                            {
+                                localStorage.setItem('producttype', 'sneakers');
+                                        localStorage.setItem('productname',localStorage.getItem('productname') );
+                                        localStorage.setItem('productprice', localStorage.getItem('productprice'));
+                                        localStorage.setItem('productimage', localStorage.getItem('productimage'));
+                                        localStorage.setItem('PID', localStorage.getItem('PID'));
+                                        console.log(localStorage.getItem('PID'));
+                            }
+                            }>
                                 {localStorage.getItem('productname')}
-                            </div>
-                            <div className="names" style={{ fontWeight: "bold" }}>
+                            </Link>
+                            <br />
+                            <div className="namess" style={{ fontWeight: "bold" }}>
                                 ₹{localStorage.getItem('productprice')}
                             </div>
-                            <div className="names" style={{ fontWeight: "300", color: "gray" }}>
+                            <br />
+                            <div className="nameds" style={{ fontWeight: "300", color: "gray" }}>
                                 Seller-LuxeLayers
                             </div>
                         </div>
@@ -218,7 +229,7 @@ export default function Orderdetailspage() {
                     
                     <div className="ejfkmvdvs">
                         <div className="shippedtext" style={{color:"green"}}>
-                            {`Item confirmed`}
+                            {`Item confirmed on ${formatDate(shippedate.seconds)}`}
                         </div>
                         <div className="shippedtext" style={{color: outfordelivery?"green":"red"}}>
                             {outfordelivery? `Out For Delivery on ${formatDate(outfordeliverydate.seconds)}`:"Yet to be out"}
