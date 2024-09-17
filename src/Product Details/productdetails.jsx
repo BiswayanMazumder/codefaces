@@ -81,6 +81,8 @@ export default function ProductDetails() {
             fetchSizes();
         }
     }, [sneakerid]);
+    const [reviews, setreviews] = useState([]);
+    const [reviewimages, setreviewimages] = useState([]);
     const [documentNames, setDocumentNames] = useState([]);
     const [fetchedAjName, setFetchedAjName] = useState([]);
     const [fetchedAjPic, setFetchedAjPic] = useState([]);
@@ -168,6 +170,31 @@ export default function ProductDetails() {
 
         fetchDocumentName();
     }, []);
+    useEffect(() => {
+        const fetchReviews = async () => {
+            console.log('Reviews fetching')
+            try {
+                console.log('sneaker id', sneakerid);
+                console.log('fetching reviews');
+                const docRef = doc(db, 'Reviews', sneakerid);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    const reviewData = docSnap.data();
+                    setreviews(reviewData?.Review || []);
+                    setreviewimages(reviewData?.["Review Image"] || []);
+                    console.log('Review', reviewData?.Review);
+                } else {
+                    console.log('No reviews document found');
+                }
+            } catch (error) {
+                console.error('Error fetching reviews:', error);
+            }
+        };
+
+        if (sneakerid) {
+            fetchReviews();
+        }
+    }, []);
     const AddToCart = async () => {
         try {
             // Get current user
@@ -175,15 +202,15 @@ export default function ProductDetails() {
             if (!currentUser) {
                 throw new Error('No user is currently signed in.');
             }
-    
+
             const UID = currentUser.uid;
             const cartDocRef = doc(db, 'Cart Items', UID);
-    
+
             // Use setDoc with merge to handle both create and update scenarios
             await setDoc(cartDocRef, {
                 'Product ID': arrayUnion(sneakerid)
             }, { merge: true });
-    
+
             // On success
             setCartItems(true);  // Indicate success
             console.log('Product added to cart successfully.');
@@ -200,10 +227,10 @@ export default function ProductDetails() {
             if (!currentUser) {
                 throw new Error('No user is currently signed in.');
             }
-    
+
             const UID = currentUser.uid;
             const cartDocRef = doc(db, 'Cart Items', UID);
-    
+
             // Update the document by removing the product ID from the array
             await updateDoc(cartDocRef, {
                 'Product ID': arrayRemove(sneakerid)
@@ -237,7 +264,7 @@ export default function ProductDetails() {
                 }
             };
         }, []);
-        
+
         useEffect(() => {
             const auth = getAuth();
             onAuthStateChanged(auth, (user) => {
@@ -250,6 +277,9 @@ export default function ProductDetails() {
             });
             // console.log(user);
         });
+
+
+
         return (
             <div ref={imgRef} className="lazy-image-container">
                 {loading && <div className="loading-placeholder">Loading...</div>}
@@ -264,24 +294,24 @@ export default function ProductDetails() {
     return (
         <div className="webbody">
             <div className="headersection">
-            {user?<div className="logo">
-                        <div className="searchform">
-                            <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/" : '/account/login'}>
-                                <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/orders-bfe8c4.svg" alt="" />
-                            </Link>
-                        </div>
-                        <div className="searchform">
-                            <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/viewcart" : '/account/login'}>
-                                <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/header_cart-eed150.svg" alt="" />
-                            </Link>
-                        </div>
-                        <div className="searchform">
-                            <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/profile" : '/account/login'}>
+                {user ? <div className="logo">
+                    <div className="searchform">
+                        <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/" : '/account/login'}>
+                            <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/orders-bfe8c4.svg" alt="" />
+                        </Link>
+                    </div>
+                    <div className="searchform">
+                        <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/viewcart" : '/account/login'}>
+                            <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/header_cart-eed150.svg" alt="" />
+                        </Link>
+                    </div>
+                    <div className="searchform">
+                        <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/profile" : '/account/login'}>
                             <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/profile-52e0dc.svg" alt="" />
-                            </Link>
-                        </div>
-                        
-                    </div>:<></>}
+                        </Link>
+                    </div>
+
+                </div> : <></>}
                 <div className="headeroptions">
                     <div className="options">
                         <Link to="/footwear" style={{ textDecoration: "none", color: "black" }} className='headerlink'>Footwear</Link>
@@ -346,7 +376,7 @@ export default function ProductDetails() {
                                 ))
                             }
                         </select>
-                        <Link style={{ textDecoration: "none" }} onClick={cartItems?RemoveFromCart:AddToCart}>
+                        <Link style={{ textDecoration: "none" }} onClick={cartItems ? RemoveFromCart : AddToCart}>
                             <div className="ejnfdmvkdmv">
                                 {cartItems ? 'REMOVE FROM CART' : "ADD TO CART"}
                                 {/* <center>ADD TO CART</center> */}
@@ -356,10 +386,10 @@ export default function ProductDetails() {
                     </div>
                 </div>
             </div>
-            <div className="jefkeklf" style={{ fontWeight: "bold", left: "20px", position: "relative", top: "100px" }}>
+            {/* <div className="jefkeklf" style={{ fontWeight: "bold", left: "20px", position: "relative", top: "100px" }}>
                 YOU MAY ALSO LIKE
-            </div>
-            <div className="fgfhhgjjh">
+            </div> */}
+            {/* <div className="fgfhhgjjh">
                 {
                     fetchedAjName.slice(0, 3).map((name, index) => (
                         <Link to={"/product"}
@@ -382,7 +412,30 @@ export default function ProductDetails() {
                         </Link>
                     ))
                 }
-            </div>
+            </div> */}
+            {
+                reviews.length>0?<div className="jdvkflf">
+                <div className="elfjkmvkd">
+                    Ratings And Reviews
+                    <div className="jehfehjfhe">
+                        {reviews.length} reviews
+                    </div>
+                </div>
+                <div className="jkdndmv">
+                    Images uploaded by customers:
+                </div>
+                <div className="imagespreview">
+
+                    {/* {reviewimages[0]} */}
+                    {
+                        reviewimages.map((image, index) => (
+                            <img src={image} alt={`Review ${index}`} height={"100px"} width={"100px"} />
+                        ))
+                    }
+                </div>
+            </div>:<></>
+            }
+            
         </div>
     );
 }
