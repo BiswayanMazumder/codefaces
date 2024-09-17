@@ -4,6 +4,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
+import Menu from '../Menu for mobile/menu';
 const firebaseConfig = {
     apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
     authDomain: "luxelayers.firebaseapp.com",
@@ -119,24 +120,36 @@ export default function Landingpage() {
         <>
             <div className="webbody">
                 <div className="headersection">
-                    {user ? <div className="logo">
-                        <div className="searchform">
-                            <Link style={{ textDecoration: "none", color: "black" }} to={user ?"/account/order" : '/account/login'}>
-                                <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/orders-bfe8c4.svg" alt="" />
-                            </Link>
-                        </div>
-                        <div className="searchform">
-                            <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/viewcart" : '/account/login'}>
-                                <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/header_cart-eed150.svg" alt="" />
-                            </Link>
-                        </div>
-                        <div className="searchform">
-                            <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/profile" : '/account/login'}>
-                                <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/profile-52e0dc.svg" alt="" />
-                            </Link>
-                        </div>
+                    <div className="jdjvkklv">
 
-                    </div> : <></>}
+                        <div className="logo">
+                            <div className="searchform">
+                                <Menu />
+                            </div>
+                            {
+                                user ? <div className="searchform">
+                                    <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/order" : '/account/login'}>
+                                        <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/orders-bfe8c4.svg" alt="" />
+                                    </Link>
+                                </div> : <></>
+                            }
+                            {
+                                user ? <div className="searchform">
+                                    <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/viewcart" : '/account/login'}>
+                                        <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/header_cart-eed150.svg" alt="" />
+                                    </Link>
+                                </div> : <></>
+                            }
+                            {
+                                user ? <div className="searchform">
+                                    <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/profile" : '/account/login'}>
+                                        <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/profile-52e0dc.svg" alt="" />
+                                    </Link>
+                                </div> : <></>
+                            }
+
+                        </div>
+                    </div>
                     <div className="headeroptions">
                         <div className="options">
                             {/* <Link to="/" style={{ textDecoration: "none", color: "black" }}>SS24</Link> */}
@@ -511,42 +524,42 @@ export default function Landingpage() {
                     </Link>
                 </div>
                 {
-                    loggeduser?<Link style={{ textDecoration: "none" }}>
-                    <div className="jjehfjnfjd">
-                        <video src="https://images.vegnonveg.com/media/collections/140/172623524714066e4426f7646c.mp4" autoPlay muted loop className='promotionalvideo'></video>
-                    </div>
-                </Link>:<></>
+                    loggeduser ? <Link style={{ textDecoration: "none" }}>
+                        <div className="jjehfjnfjd">
+                            <video src="https://images.vegnonveg.com/media/collections/140/172623524714066e4426f7646c.mp4" autoPlay muted loop className='promotionalvideo'></video>
+                        </div>
+                    </Link> : <></>
                 }
                 {
-                    loggeduser?<div className="jefkeklf" style={{ fontWeight: "bold", left: "25px", position: "relative", top: "50px" }}>
-                Recently Viewed Items
-                
-            </div>:<></>
+                    loggeduser ? <div className="jefkeklf" style={{ fontWeight: "bold", left: "25px", position: "relative", top: "50px" }}>
+                        Recently Viewed Items
+
+                    </div> : <></>
                 }
                 {
-                    loggeduser && fetchedAjName.length>0?<div className="dhifjkfjlf"  style={{ height: '500px', color: "black" }}>
-                    {
-                        fetchedAjName.map((name, index) => (
-                            <Link style={{ textDecoration: "none", color: "black" }} key={index}
-                            onClick={() => {
+                    loggeduser && fetchedAjName.length > 0 ? <div className="dhifjkfjlf" style={{ height: '500px', color: "black" }}>
+                        {
+                            fetchedAjName.map((name, index) => (
+                                <Link style={{ textDecoration: "none", color: "black" }} key={index}
+                                    onClick={() => {
                                         localStorage.setItem('producttype', 'sneakers');
                                         localStorage.setItem('productname', fetchedAjName[index]);
                                         localStorage.setItem('productprice', fetchedAjPrice[index]);
                                         localStorage.setItem('productimage', fetchedAjPic[index]);
-                                        localStorage.setItem('PID',documentNames[index]);
+                                        localStorage.setItem('PID', documentNames[index]);
                                         console.log(documentNames[index]);
                                     }}
                                     to={"/product"}
-                            >
-                                <div className="gallery" >
-                                    <img src={fetchedAjPic[index]} alt="" className='newstockimages' />
-                                    <br /><br />
-                                    {fetchedAjName[index]}
-                                </div>
-                            </Link>
-                        ))
-                    }
-                </div>:<></>
+                                >
+                                    <div className="gallery" >
+                                        <img src={fetchedAjPic[index]} alt="" className='newstockimages' />
+                                        <br /><br />
+                                        {fetchedAjName[index]}
+                                    </div>
+                                </Link>
+                            ))
+                        }
+                    </div> : <></>
                 }
             </div>
         </>

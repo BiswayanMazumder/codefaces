@@ -4,6 +4,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { arrayRemove, arrayUnion, collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { initializeApp, } from 'firebase/app';
+import Menu from '../Menu for mobile/menu';
 const firebaseConfig = {
     apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
     authDomain: "luxelayers.firebaseapp.com",
@@ -294,24 +295,36 @@ export default function ProductDetails() {
     return (
         <div className="webbody">
             <div className="headersection">
-                {user ? <div className="logo">
-                    <div className="searchform">
-                        <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/" : '/account/login'}>
-                            <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/orders-bfe8c4.svg" alt="" />
-                        </Link>
-                    </div>
-                    <div className="searchform">
-                        <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/viewcart" : '/account/login'}>
-                            <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/header_cart-eed150.svg" alt="" />
-                        </Link>
-                    </div>
-                    <div className="searchform">
-                        <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/profile" : '/account/login'}>
-                            <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/profile-52e0dc.svg" alt="" />
-                        </Link>
-                    </div>
+            <div className="jdjvkklv">
 
-                </div> : <></>}
+<div className="logo">
+    <div className="searchform">
+        <Menu />
+    </div>
+    {
+        user ? <div className="searchform">
+            <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/order" : '/account/login'}>
+                <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/orders-bfe8c4.svg" alt="" />
+            </Link>
+        </div> : <></>
+    }
+    {
+        user ? <div className="searchform">
+            <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/viewcart" : '/account/login'}>
+                <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/header_cart-eed150.svg" alt="" />
+            </Link>
+        </div> : <></>
+    }
+    {
+        user ? <div className="searchform">
+            <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/profile" : '/account/login'}>
+                <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/profile-52e0dc.svg" alt="" />
+            </Link>
+        </div> : <></>
+    }
+
+</div>
+</div>
                 <div className="headeroptions">
                     <div className="options">
                         <Link to="/footwear" style={{ textDecoration: "none", color: "black" }} className='headerlink'>Footwear</Link>
@@ -428,7 +441,7 @@ export default function ProductDetails() {
 
                     {/* {reviewimages[0]} */}
                     {
-                        reviewimages.map((image, index) => (
+                        reviewimages.slice(0,4).map((image, index) => (
                             <img src={image} alt={`Review ${index}`} height={"100px"} width={"100px"} />
                         ))
                     }
