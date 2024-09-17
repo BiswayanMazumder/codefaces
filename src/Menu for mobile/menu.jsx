@@ -82,7 +82,7 @@ const Menu = () => {
                         {
                             user ? <Link style={{ textDecoration: 'none', color: 'black' }}>
                                 <li>Logout</li>
-                            </Link> : <Link style={{ textDecoration: 'none', color: 'black' }}>
+                            </Link> : <Link style={{ textDecoration: 'none', color: 'black' }} to={'/account/login'}>
                                 <li>Login</li>
                             </Link> 
                         }
