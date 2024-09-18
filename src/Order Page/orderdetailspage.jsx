@@ -5,7 +5,8 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
 import Menu from '../Menu for mobile/menu';
-
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 // Initialize Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
@@ -60,6 +61,8 @@ export default function Orderdetailspage() {
     const [shippedate, setshippeddate] = useState('');
     const [outfordeliverydate, setoutfordeliverydate] = useState('');
     const [delivereddate, setdelivereddate] = useState('');
+    const [orderDetails, setOrderDetails] = useState(null);
+
     useEffect(() => {
         const fetchOrderDetails = async () => {
             console.log('Fetching');
@@ -76,7 +79,8 @@ export default function Orderdetailspage() {
                 setdelivereddate(order["Delivery Date"]);
                 setdelivered(order["Delivered"]);
                 allOrderDetails.push(order);
-                // console.log(order);
+                setOrderDetails(order);
+                console.log(order);
             } else {
                 console.log('No such document!');
             }
@@ -120,6 +124,64 @@ export default function Orderdetailspage() {
             day: 'numeric', // Day of the month
         });
     };
+    const generateInvoice = async () => {
+        if (!orderDetails) return; // Ensure orderDetails is available
+    
+        const doc = new jsPDF();
+    
+        // Title
+        doc.setFontSize(22);
+        doc.text("LuxeLayers", 105, 20, { align: "center" });
+    
+        // Company Info
+        doc.setFontSize(12);
+        doc.text("LuxeLayers", 20, 40);
+        doc.text("123 Luxe Street, Fashion City, Kolkata", 20, 45);
+        doc.text("Phone: +91-234-567-890", 20, 50);
+        doc.text("Email: support@luxelayers.com", 20, 55);
+    
+        // Customer Info
+        doc.text(`Customer Name: ${name}`, 20, 70);
+        doc.text(`Order ID: ${orderDetails["Order ID"]}`, 20, 75);
+        doc.text(`Order Date: ${formatDate(orderDetails["Order Date"].seconds)}`, 20, 80);
+    
+        // Add a table for products
+        const tableStartY = 95;
+        const products = orderDetails["Name"].map((name, index) => [
+            name,
+            { content: '', styles: { halign: 'center' } },
+            `₹${orderDetails["Price"][index]}`
+        ]);
+    
+        doc.autoTable({
+            startY: tableStartY,
+            head: [['Item', 'Image', 'Price']],
+            body: products,
+            didParseCell: (data) => {
+                if (data.column.index === 1) {
+                    const img = new Image();
+                    img.src = orderDetails["Product Image"][data.row.index];
+                    img.onload = function () {
+                        doc.addImage(img, 'JPEG', data.cell.x + 3, data.cell.y + 1, 30, 30);
+                    };
+                }
+            },
+            styles: { cellPadding: 2, fontSize: 12 }, // Reduced cellPadding for closer digits
+            theme: 'grid'
+        });
+    
+        // Total Amount
+        const totalY = doc.autoTable.previous.finalY + 10;
+        doc.text(`Total Amount: ₹${orderDetails["Total"]}`, 20, totalY);
+    
+        // Footer
+        doc.text("Thank you for your purchase!", 105, totalY + 10, { align: "center" });
+    
+        // Save the PDF
+        doc.save("invoice.pdf");
+    };
+    
+    
     return (
         <>
             <div className="webbody">
@@ -210,6 +272,15 @@ export default function Orderdetailspage() {
                             <div className="nameds" style={{ fontWeight: "300", color: "gray" }}>
                                 Seller-LuxeLayers
                             </div>
+                            <br />
+                            {
+                                delivered?<div className="nameds" style={{ fontWeight: "300", color: "gray",display:"flex",flexDirection:"row",gap:"10px" }}>
+                                <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/downloadInvoice_e0f744.png" alt="" height={"30px"} width={"30px"} />
+                                <Link style={{textDecoration:"none",color:"black",paddingTop:"5px",fontWeight:"500"}} onClick={()=>generateInvoice()}>
+                                    Download Invoice
+                                </Link>
+                            </div>:<></>
+                            }
                         </div>
 
                     </div>
@@ -248,6 +319,16 @@ export default function Orderdetailspage() {
                         <div className="shippedtext" style={{ color: delivered ? "green" : "red" }}>
                             {delivered ? `Delivered on ${formatDate(delivereddate.seconds)}` : "Yet to be delivered"}
                         </div>
+                    </div>
+                    <div className="ejfkmvdvsss" style={{ paddingLeft: "35%", paddingTop: "20%", position: "relative" }}>
+                        <Link className="shippedtext" style={{ color: "#2874F1", textDecoration: "none" }}>
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMTYnIGhlaWdodD0nMTknIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTggMTgiPgoJPGcgZmlsbD0nbm9uZSc+CgkJPHBvbHlnb24gaWQ9IlNoYXBlIiBmaWxsPSIjMjg3NEYxIiBwb2ludHM9IjkgMTIuMDYyNSAxMy42Mzc1IDE1LjQzNzUgMTEuODYyNSA5Ljk4NzUgMTYuNSA2LjY4NzUgMTAuODEyNSA2LjY4NzUgOSAxLjA2MjUgNy4xODc1IDYuNjg3NSAxLjUgNi42ODc1IDYuMTM3NSA5Ljk4NzUgNC4zNjI1IDE1LjQzNzUiIC8+CgkJPHBvbHlnb24gaWQ9IlNoYXBlIiBwb2ludHM9IjAgMCAxOCAwIDE4IDE4IDAgMTgiIC8+Cgk8L2c+Cjwvc3ZnPg==" alt="" className='rateimage' />
+                            Rate & Review Product
+                        </Link>
+                        <Link className="shippedtext" style={{ color: "#2874F1", textDecoration: "none" }}>
+                        <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/chatWithUs_69d373.svg" alt="" className='rateimage'/>
+                            Chat with us
+                        </Link>
                     </div>
                 </div>
             </div>

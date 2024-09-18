@@ -731,6 +731,20 @@ body {
   gap: 200px;
   /* flex-wrap: wrap; */
 }
+.ejfkmvdvsss{
+display: flex;
+position: relative;
+/* top: 100px; */
+padding-top: 50px;
+/* padding: 50px; */
+flex-direction: column;
+gap: 30px;
+}
+.rateimage{
+  position: relative;
+  top: 5px;
+  padding-right: 5px;
+}
 .deliverydetails{
   display: flex;
   position: relative;
@@ -762,10 +776,15 @@ body {
     justify-content: center;
   }
   .ejfkmvdv{
-    padding-left: 20px;
+    padding-left: 25px;
+  }
+  
+}
+@media screen and (max-width: 767px) {
+  .ejfkmvdvsss{
+    display: none;
   }
 }
-
 .shippingcircle{
   height: 20px;
   width: 20px;
