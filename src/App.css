@@ -738,7 +738,7 @@ body {
   padding: 50px;
   flex-direction: row;
   /* gap: 200px; */
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
 }
 .djfkdklckd{
   padding-left: 50px;
@@ -747,6 +747,13 @@ body {
 .shippedtext{
   font-weight: 600;
   font-size: 15px;
+}
+@media screen and (max-width: 422px) {
+
+  .shippedtext{
+    font-weight: 600;
+    font-size: 10px;
+  }
 }
 @media screen and (max-width: 1439px) {
 
