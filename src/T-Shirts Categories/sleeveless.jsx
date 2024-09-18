@@ -21,6 +21,9 @@ const analytics = getAnalytics(app);
 export default function Sleeveless() {
     const [user, setUser] = useState(false);
     useEffect(() => {
+        document.title="Men's Tank Tops & Sleeveless Shirts | luxelayers.com";
+    })
+    useEffect(() => {
         const auth = getAuth();
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -144,19 +147,20 @@ export default function Sleeveless() {
                         </div>
                     </div>
                 </div>
-                <img src="https://overlaysnow.com/cdn/shop/files/Fearlessness_meets_greatness_Desktop_Banner.jpg?v=1725718330&width=2000" alt="" width={"100%"} />
+                <video src="https://cdn.shopify.com/videos/c/o/v/b1df145dd4814539bbac39d4771a7d0e.mp4" alt="" width={"100%"} muted autoPlay loop />
                 <div className="jdjfdjv">
                         {
                             fetchedAjName.map((name, index) => (
                                 <Link 
                                     className="jenfkjfrf"
                                     style={{ textDecoration: "none", color: "black" }}
-                                    key={index}
-                                    
-                                >
-                                    <LazyImage src={fetchedAjPic[index]} alt={name} className="lazy-image"/>
-                                    <div className="ejfjf">
+                                    key={index}>
+                                    <img src={fetchedAjPic[index]} alt={name} className="lazy-image" style={{marginTop: "20px"}}/>
+                                    <div className="ejfjf" style={{marginTop: "8px"}}>
                                         {name}
+                                    </div>
+                                    <div className="ejfjf" style={{marginTop: "8px"}}>
+                                    ₹1799.00
                                     </div>
                                 </Link>
                             ))

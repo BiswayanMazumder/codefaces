@@ -704,7 +704,9 @@ body {
   display: none;
 }
 }
-
+.lazy-image:hover{
+  border-radius: 20px;
+}
 .navs {
   display: flex;
   flex-direction: row;
