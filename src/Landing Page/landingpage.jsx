@@ -168,9 +168,9 @@ export default function Landingpage() {
                         </div>
                     </div>
                 </div>
-                <div className="bodyimage">
+                <Link className="bodyimage" to={'/sleveless'}>
                     <img src={currentImage} alt="" className='bodyimg' />
-                </div>
+                </Link>
                 <div className="dhifjkfjlf">
                     <Link style={{ textDecoration: "none" }}>
                         <div className="items" >

@@ -21,6 +21,7 @@ import Profilepage from './Profile Page/profilepage';
 import ProductDetails from './Product Details/productdetails';
 import Orderpage from './Order Page/orderpage';
 import Orderdetailspage from './Order Page/orderdetailspage';
+import Sleeveless from './T-Shirts Categories/sleeveless';
 function App() {
   return (
     <BrowserRouter>
@@ -65,6 +66,9 @@ function App() {
       </Routes>
       <Routes>
         <Route path="/account/orderdetails" element={<Orderdetailspage />} />
+      </Routes>
+      <Routes>
+        <Route path="/sleveless" element={<Sleeveless />} />
       </Routes>
       <SpeedInsights />
       <Analytics />
