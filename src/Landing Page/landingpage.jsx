@@ -44,8 +44,8 @@ export default function Landingpage() {
         document.title = "LuxeLayers : Shop T-shirts , Jackets , Shorts and Joggers Online";
 
         const images = [
-            'https://overlaysnow.com/cdn/shop/files/Free_spirit___The_ultimate_Textures_web_1.jpg?v=1723292870&width=2000',
-            'https://overlaysnow.com/cdn/shop/files/Regular_Fit_ultra_soft-web.jpg?v=1723730492&width=2000'
+            'https://overlaysnow.com/cdn/shop/files/Coming-Soon.jpg?v=1726651886&width=2000',
+            'https://overlaysnow.com/cdn/shop/files/Fearlessness_meets_greatness_Desktop_Banner.jpg?v=1725718330&width=2000'
         ];
 
         let currentIndex = 0;
