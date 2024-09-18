@@ -399,9 +399,9 @@ export default function ProductDetails() {
                     </div>
                 </div>
             </div>
-            <div className="jefkeklf" style={{ fontWeight: "bold", left: "20px", position: "relative", top: "100px" }}>
+            {<div className="jefkeklf" style={{ fontWeight: "bold", left: "20px", position: "relative", top: "100px" }}>
                 YOU MAY ALSO LIKE
-            </div>
+            </div>}
             <div className="fgfhhgjjh">
                 {
                     fetchedAjName.slice(0, 3).map((name, index) => (

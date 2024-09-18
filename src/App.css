@@ -687,6 +687,11 @@ body {
     display: flex;
   }
 }
+@media screen and (max-width: 1439px) {
+.jefkeklf,.fgfhhgjjh{
+  display: none;
+}
+}
 
 .navs {
   display: flex;
