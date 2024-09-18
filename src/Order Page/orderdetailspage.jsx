@@ -173,6 +173,7 @@ export default function Orderdetailspage() {
         // Total Amount
         const totalY = doc.autoTable.previous.finalY + 10;
         doc.text(`Total Amount: ₹${orderDetails["Total"]}`, 20, totalY);
+        // doc.text("Gateway Used-RazorPay",50, 15, { align: "center" });
     
         // Footer
         doc.text("Thank you for your purchase!", 105, totalY + 10, { align: "center" });
