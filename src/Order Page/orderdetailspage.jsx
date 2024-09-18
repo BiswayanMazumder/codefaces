@@ -4,6 +4,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
+import Menu from '../Menu for mobile/menu';
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -123,25 +124,36 @@ export default function Orderdetailspage() {
         <>
             <div className="webbody">
                 <div className="headersection">
-                    {user && (
+                    <div className="jdjvkklv">
+
                         <div className="logo">
                             <div className="searchform">
-                                <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/order" : '/'}>
-                                    <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/orders-bfe8c4.svg" alt="" />
-                                </Link>
+                                <Menu />
                             </div>
-                            <div className="searchform">
-                                <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/viewcart" : '/account/login'}>
-                                    <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/header_cart-eed150.svg" alt="Cart" />
-                                </Link>
-                            </div>
-                            <div className="searchform">
-                                <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/profile" : '/account/login'}>
-                                    <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/profile-52e0dc.svg" alt="Profile" />
-                                </Link>
-                            </div>
+                            {
+                                user ? <div className="searchform">
+                                    <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/order" : '/account/login'}>
+                                        <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/orders-bfe8c4.svg" alt="" />
+                                    </Link>
+                                </div> : <></>
+                            }
+                            {
+                                user ? <div className="searchform">
+                                    <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/viewcart" : '/account/login'}>
+                                        <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/header_cart-eed150.svg" alt="" />
+                                    </Link>
+                                </div> : <></>
+                            }
+                            {
+                                user ? <div className="searchform">
+                                    <Link style={{ textDecoration: "none", color: "black" }} to={user ? "/account/profile" : '/account/login'}>
+                                        <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/profile-52e0dc.svg" alt="" />
+                                    </Link>
+                                </div> : <></>
+                            }
+
                         </div>
-                    )}
+                    </div>
                     <div className="headeroptions">
                         <div className="options">
                             <Link to="/footwear" style={{ textDecoration: "none", color: "black" }} className='headerlink'>Footwear</Link>
@@ -179,14 +191,13 @@ export default function Orderdetailspage() {
                     <div className="orderdetails">
                         <img src={localStorage.getItem('productimage')} alt={localStorage.getItem('OID')} height={250} width={250} />
                         <div className="details">
-                            <Link className="names" style={{ fontSize: "15px",marginBottom:"10px",textDecoration: "none", color: "black" }} to={'/product'} onClick={()=>
-                            {
+                            <Link className="names" style={{ fontSize: "15px", marginBottom: "10px", textDecoration: "none", color: "black" }} to={'/product'} onClick={() => {
                                 localStorage.setItem('producttype', 'sneakers');
-                                        localStorage.setItem('productname',localStorage.getItem('productname') );
-                                        localStorage.setItem('productprice', localStorage.getItem('productprice'));
-                                        localStorage.setItem('productimage', localStorage.getItem('productimage'));
-                                        localStorage.setItem('PID', localStorage.getItem('PID'));
-                                        console.log(localStorage.getItem('PID'));
+                                localStorage.setItem('productname', localStorage.getItem('productname'));
+                                localStorage.setItem('productprice', localStorage.getItem('productprice'));
+                                localStorage.setItem('productimage', localStorage.getItem('productimage'));
+                                localStorage.setItem('PID', localStorage.getItem('PID'));
+                                console.log(localStorage.getItem('PID'));
                             }
                             }>
                                 {localStorage.getItem('productname')}
@@ -206,8 +217,8 @@ export default function Orderdetailspage() {
                 <br /><br /><br />
                 <div className="djfkdklckd">
                     Track your order
-                    </div>
-                    {/* <br /><br /><br /> */}
+                </div>
+                {/* <br /><br /><br /> */}
                 <div className="deliverydetails">
                     <div className="ejfkmvdv">
                         <div className="shippingcircle" style={{ backgroundColor: "green" }}>
@@ -226,16 +237,16 @@ export default function Orderdetailspage() {
 
                         </div>
                     </div>
-                    
+
                     <div className="ejfkmvdvs">
-                        <div className="shippedtext" style={{color:"green"}}>
+                        <div className="shippedtext" style={{ color: "green" }}>
                             {`Item confirmed on ${formatDate(shippedate.seconds)}`}
                         </div>
-                        <div className="shippedtext" style={{color: outfordelivery?"green":"red"}}>
-                            {outfordelivery? `Out For Delivery on ${formatDate(outfordeliverydate.seconds)}`:"Yet to be out"}
+                        <div className="shippedtext" style={{ color: outfordelivery ? "green" : "red" }}>
+                            {outfordelivery ? `Out For Delivery on ${formatDate(outfordeliverydate.seconds)}` : "Yet to be out"}
                         </div>
-                        <div className="shippedtext" style={{color: delivered?"green":"red"}}>
-                            {delivered?`Delivered on ${formatDate(delivereddate.seconds)}`:"Yet to be delivered"}
+                        <div className="shippedtext" style={{ color: delivered ? "green" : "red" }}>
+                            {delivered ? `Delivered on ${formatDate(delivereddate.seconds)}` : "Yet to be delivered"}
                         </div>
                     </div>
                 </div>
