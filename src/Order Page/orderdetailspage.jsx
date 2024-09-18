@@ -124,14 +124,24 @@ export default function Orderdetailspage() {
             day: 'numeric', // Day of the month
         });
     };
+    const generateInvoiceNumber = () => {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let invoiceNumber = 'INV-'; // Prefix for the invoice number
+        for (let i = 0; i < 8; i++) {
+            invoiceNumber += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return invoiceNumber;
+    };
+    
     const generateInvoice = async () => {
         if (!orderDetails) return; // Ensure orderDetails is available
     
         const doc = new jsPDF();
+        const invoiceNumber = generateInvoiceNumber(); // Generate a random invoice number
     
         // Title
         doc.setFontSize(22);
-        doc.text("LuxeLayers", 105, 20, { align: "center" });
+        doc.text("Invoice", 105, 20, { align: "center" });
     
         // Company Info
         doc.setFontSize(12);
@@ -142,15 +152,17 @@ export default function Orderdetailspage() {
     
         // Customer Info
         doc.text(`Customer Name: ${name}`, 20, 70);
-        doc.text(`Order ID: ${orderDetails["Order ID"]}`, 20, 75);
-        doc.text(`Order Date: ${formatDate(orderDetails["Order Date"].seconds)}`, 20, 80);
+        doc.text(`Invoice Number: ${invoiceNumber}`, 20, 75); // Display the random invoice number
+        doc.text(`Order ID: ${orderDetails["Order ID"]}`, 20, 80);
+        doc.text(`Order Date: ${formatDate(orderDetails["Order Date"].seconds)}`, 20, 85);
+        doc.text(`Delivery Date: ${formatDate(orderDetails["Delivery Date"].seconds)}`, 20, 90);
     
         // Add a table for products
-        const tableStartY = 95;
+        const tableStartY = 100;
         const products = orderDetails["Name"].map((name, index) => [
             name,
             { content: '', styles: { halign: 'center' } },
-            `₹${orderDetails["Price"][index]}`
+            `${orderDetails["Price"][index]} INR`
         ]);
     
         doc.autoTable({
@@ -166,21 +178,21 @@ export default function Orderdetailspage() {
                     };
                 }
             },
-            styles: { cellPadding: 2, fontSize: 12 }, // Reduced cellPadding for closer digits
+            styles: { cellPadding: 2, fontSize: 12 }, // Adjust cell padding
             theme: 'grid'
         });
     
         // Total Amount
         const totalY = doc.autoTable.previous.finalY + 10;
-        doc.text(`Total Amount: ₹${orderDetails["Total"]}`, 20, totalY);
-        // doc.text("Gateway Used-RazorPay",50, 15, { align: "center" });
+        doc.text(`Total Amount: ${orderDetails["Total"]} INR`, 20, totalY);
     
         // Footer
         doc.text("Thank you for your purchase!", 105, totalY + 10, { align: "center" });
     
         // Save the PDF
-        doc.save("invoice.pdf");
+        doc.save(`${orderDetails["Order ID"]}.pdf`);
     };
+    
     
     
     return (
