@@ -19,7 +19,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 export default function Landingpage() {
-    const [currentImage, setCurrentImage] = useState('https://overlaysnow.com/cdn/shop/files/Free_spirit___The_ultimate_Textures_web_1.jpg?v=1723292870&width=2000');
+    const [currentImage, setCurrentImage] = useState('https://overlaysnow.com/cdn/shop/files/Coming-Soon.jpg?v=1726651886&width=2000');
     const [user, setUser] = useState(false);
     useEffect(() => {
         const auth = getAuth();
