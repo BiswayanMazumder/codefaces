@@ -143,7 +143,7 @@ export default function TShirtProductDetails() {
                     const UID = currentUser.uid;
                     let pid = [];  // Changed to let
                     // console.log('Current UID:', UID);
-                    const cartDocRef = doc(db, 'Cart Items', UID);
+                    const cartDocRef = doc(db, 'Cart Items TShirt', UID);
                     const cartDocSnap = await getDoc(cartDocRef);
                     if (cartDocSnap.exists()) {
                         const cartData = cartDocSnap.data();
@@ -205,7 +205,7 @@ export default function TShirtProductDetails() {
             }
 
             const UID = currentUser.uid;
-            const cartDocRef = doc(db, 'Cart Items', UID);
+            const cartDocRef = doc(db, 'Cart Items TShirt', UID);
 
             // Use setDoc with merge to handle both create and update scenarios
             await setDoc(cartDocRef, {
@@ -230,7 +230,7 @@ export default function TShirtProductDetails() {
             }
 
             const UID = currentUser.uid;
-            const cartDocRef = doc(db, 'Cart Items', UID);
+            const cartDocRef = doc(db, 'Cart Items TShirt', UID);
 
             // Update the document by removing the product ID from the array
             await updateDoc(cartDocRef, {
