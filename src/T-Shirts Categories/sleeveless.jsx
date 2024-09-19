@@ -194,7 +194,7 @@ export default function Sleeveless() {
                                 <div className="ejfjf" style={{ marginTop: "8px" }}>
                                     {name}
                                 </div>
-                                <div className="ejfjf" style={{ marginTop: "8px" }}>
+                                <div className="ejfjf" style={{ marginTop: "8px",fontWeight: "bold" }}>
                                     ₹{fetchedAjPrice[index]}.00
                                 </div>
                             </Link>
