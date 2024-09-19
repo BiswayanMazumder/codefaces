@@ -22,6 +22,7 @@ import ProductDetails from './Product Details/productdetails';
 import Orderpage from './Order Page/orderpage';
 import Orderdetailspage from './Order Page/orderdetailspage';
 import Sleeveless from './T-Shirts Categories/sleeveless';
+import TShirtProductDetails from './Product Details/tshirtproductdetails';
 function App() {
   return (
     <BrowserRouter>
@@ -69,6 +70,9 @@ function App() {
       </Routes>
       <Routes>
         <Route path="/sleveless" element={<Sleeveless />} />
+      </Routes>
+      <Routes>
+        <Route path="/products/tshirts" element={<TShirtProductDetails />} />
       </Routes>
       <SpeedInsights />
       <Analytics />

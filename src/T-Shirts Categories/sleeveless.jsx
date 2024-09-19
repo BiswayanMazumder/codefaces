@@ -179,11 +179,18 @@ export default function Sleeveless() {
                 <div className="jdjfdjv">
                     {
                         fetchedAjName.map((name, index) => (
-                            <Link
+                            <Link to="/products/tshirts"
                                 className="jenfkjfrf"
                                 style={{ textDecoration: "none", color: "black" }}
                                 key={index}>
-                                <img src={fetchedAjPic[index]} alt={name} className="lazy-image" style={{ marginTop: "20px" }} />
+                                <img src={fetchedAjPic[index]} alt={name} className="lazy-image" style={{ marginTop: "20px" }} onClick={() => {
+                                        localStorage.setItem('producttype', 'Sleveless');
+                                        localStorage.setItem('productname', fetchedAjName[index]);
+                                        localStorage.setItem('productprice', fetchedAjPrice[index]);
+                                        localStorage.setItem('productimage', fetchedAjPic[index]);
+                                        localStorage.setItem('PID', documentNames[index]);
+                                        // console.log(documentNames[index]);
+                                    }} />
                                 <div className="ejfjf" style={{ marginTop: "8px" }}>
                                     {name}
                                 </div>
