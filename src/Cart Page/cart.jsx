@@ -43,10 +43,18 @@ export default function Cart() {
         });
         // console.log(user);
     });
+    const sneakerzone = true;
+    const [activeZone, setActiveZone] = useState('sneakerzone');
+    const tshirtzone = false;
     const [documentNames, setDocumentNames] = useState([]);
     const [fetchedAjName, setFetchedAjName] = useState([]);
     const [fetchedAjPic, setFetchedAjPic] = useState([]);
     const [loading, setLoading] = useState(true); // Loading state
+    const [fetchedAjPrices, setFetchedAjprices] = useState([]);
+    const [documentNamess, setDocumentNamess] = useState([]);
+    const [fetchedAjNames, setFetchedAjNames] = useState([]);
+    const [fetchedAjPics, setFetchedAjPics] = useState([]);
+    const [loadings, setLoadings] = useState(true); // Loading state
     const [fetchedAjPrice, setFetchedAjprice] = useState([]);
     useEffect(() => {
         const fetchDocumentNames = async () => {
@@ -99,7 +107,57 @@ export default function Cart() {
 
         fetchDocumentNames();
     }, []);
+    useEffect(() => {
+        const fetchDocumentNames = async () => {
+            console.log('Fetching document names...');
+            try {
+                const auth = getAuth();
+                const db = getFirestore(app);
+                const currentUser = auth.currentUser;
+                if (currentUser) {
+                    const UID = currentUser.uid;
+                    // console.log('Current UID:', UID);
+                    const cartDocRef = doc(db, 'Cart Items TShirt', UID);
+                    const cartDocSnap = await getDoc(cartDocRef);
+                    if (cartDocSnap.exists()) {
+                        const cartData = cartDocSnap.data();
+                        // console.log('Cart Items data:', cartData);
+                        const pid = cartData?.['Product ID'] || [];
+                        // console.log('Product IDs:', pid);
+                        setDocumentNamess(pid);
+                        const ajName = [];
+                        const ajPic = [];
+                        const ajprice = [];
 
+                        for (let i = 0; i < pid.length; i++) {
+                            const productDocRef = doc(db, 'Sleeveless', pid[i]);
+                            const productDocSnap = await getDoc(productDocRef);
+                            if (productDocSnap.exists()) {
+                                const productData = productDocSnap.data();
+                                // console.log('Product data:', productData);
+                                ajName.push(productData?.name || 'No Name');
+                                ajPic.push(productData?.['Product Image'] || 'No Image');
+                                ajprice.push(productData?.Price || 0);
+                            } else {
+                                console.log(`No product data found for ID: ${pid[i]}`);
+                            }
+                        }
+                        setFetchedAjNames(ajName);
+                        setFetchedAjPics(ajPic);
+                        setFetchedAjprices(ajprice);
+                    } else {
+                        console.log('No cart items document found');
+                    }
+                } else {
+                    console.log('No current user');
+                }
+            } catch (error) {
+                console.error('Error fetching document names:', error);
+            }
+        };
+
+        fetchDocumentNames();
+    }, []);
     return (
         <>
             <div className="webbody">
@@ -145,7 +203,21 @@ export default function Cart() {
                         </div>
                     </div>
                 </div>
-                <Link className="cart-items" style={{ textDecoration: "none", color: "black" }}>
+                <div className="cart-items" style={{ display: "flex", flexDirection: "row", gap: "20px" }}>
+                    <Link
+                        style={{ textDecoration: "none", color: activeZone === 'sneakerzone' ? "orangered" : "black" }}
+                        onClick={() => setActiveZone('sneakerzone')}
+                    >
+                        Sneakers Zone
+                    </Link>
+                    <Link
+                        style={{ textDecoration: "none", color: activeZone === 'tshirtzone' ? "orangered" : "black" }}
+                        onClick={() => setActiveZone('tshirtzone')}
+                    >
+                        TShirts Zone
+                    </Link>
+                </div>
+                {activeZone === 'sneakerzone'?<Link className="cart-items" style={{ textDecoration: "none", color: "black" }}>
                     {fetchedAjName.length > 0 ? (
                         fetchedAjName.map((name, index) => (
                             <Link key={index} className="cart-item" to={"/product"} onClick={() => {
@@ -168,7 +240,31 @@ export default function Cart() {
                     ) : (
                         <p>No items in cart</p>
                     )}
-                </Link>
+                </Link>:<></>}
+                {activeZone === 'tshirtzone'?<Link className="cart-items" style={{ textDecoration: "none", color: "black" }}>
+                    {fetchedAjNames.length > 0 ? (
+                        fetchedAjNames.map((name, index) => (
+                            <Link key={index} className="cart-item" to={"/products/tshirts"} onClick={() => {
+                                localStorage.setItem('producttype', 'Sleeveless');
+                                localStorage.setItem('iscart', true);
+                                localStorage.setItem('productname', fetchedAjNames[index]);
+                                localStorage.setItem('productprice', fetchedAjPrices[index]);
+                                localStorage.setItem('productimage', fetchedAjPics[index]);
+                                localStorage.setItem('PID', documentNamess[index]);
+                                console.log('DOc name',documentNamess[index]);
+                            }} style={{ textDecoration: "none", color: "black" }}>
+                                <img src={fetchedAjPics[index]} alt={name} className="cart-item-image" />
+                                <div className="cart-item-details">
+                                    <h3 className="cart-item-name">{fetchedAjNames[index]}</h3>
+                                    <br /><br />
+                                    <p className="cart-item-price" style={{ fontWeight: "500" }}>₹{fetchedAjPrices[index]}</p>
+                                </div>
+                            </Link>
+                        ))
+                    ) : (
+                        <p>No items in cart</p>
+                    )}
+                </Link>:<></>}
             </div>
         </>
     )
