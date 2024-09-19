@@ -74,7 +74,7 @@ export default function Sleeveless() {
 
         fetchDocumentNames();
     }, []);
-
+    
     const LazyImage = ({ src, alt }) => {
         const [loading, setLoading] = useState(true);
         const imgRef = useRef(null);
@@ -108,8 +108,8 @@ export default function Sleeveless() {
         );
     };
 
-    const generateAlphanumericString = (index) => {
-        const db = getFirestore(app);
+    const generateAlphanumericString = (index) => {  //donot call this function its for first time use only
+        const db = getFirestore(app); 
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         let result = '';
         for (let i = 0; i < 10; i++) {
