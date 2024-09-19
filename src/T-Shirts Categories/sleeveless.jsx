@@ -74,7 +74,7 @@ export default function Sleeveless() {
 
         fetchDocumentNames();
     }, []);
-    
+
     const LazyImage = ({ src, alt }) => {
         const [loading, setLoading] = useState(true);
         const imgRef = useRef(null);
@@ -108,8 +108,8 @@ export default function Sleeveless() {
         );
     };
 
-    const generateAlphanumericString = (index) => {  //donot call this function its for first time use only
-        const db = getFirestore(app); 
+    const generateAlphanumericString = (index) => {
+        const db = getFirestore(app);
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         let result = '';
         for (let i = 0; i < 10; i++) {
@@ -177,17 +177,22 @@ export default function Sleeveless() {
                 </div>
                 <video src="https://cdn.shopify.com/videos/c/o/v/b1df145dd4814539bbac39d4771a7d0e.mp4" alt="" width={"100%"} muted autoPlay loop />
                 <div className="jdjfdjv">
-                    {loading ? (
-                        <div className="loading-placeholder">Loading products...</div>
-                    ) : (
+                    {
                         fetchedAjName.map((name, index) => (
-                            <Link className="jenfkjfrf" style={{ textDecoration: "none", color: "black" }} key={index}>
-                                <LazyImage src={fetchedAjPic[index]} alt={name} />
-                                <div className="ejfjf" style={{ marginTop: "8px" }}>{name}</div>
-                                <div className="ejfjf" style={{ marginTop: "8px" }}>₹1799.00</div>
+                            <Link
+                                className="jenfkjfrf"
+                                style={{ textDecoration: "none", color: "black" }}
+                                key={index}>
+                                <img src={fetchedAjPic[index]} alt={name} className="lazy-image" style={{ marginTop: "20px" }} onClick={() => generateAlphanumericString(index)} />
+                                <div className="ejfjf" style={{ marginTop: "8px" }}>
+                                    {name}
+                                </div>
+                                <div className="ejfjf" style={{ marginTop: "8px" }}>
+                                    ₹1799.00
+                                </div>
                             </Link>
                         ))
-                    )}
+                    }
                 </div>
             </div>
         </>
