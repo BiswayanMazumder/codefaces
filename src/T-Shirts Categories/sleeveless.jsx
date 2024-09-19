@@ -183,12 +183,12 @@ export default function Sleeveless() {
                                 className="jenfkjfrf"
                                 style={{ textDecoration: "none", color: "black" }}
                                 key={index}>
-                                <img src={fetchedAjPic[index]} alt={name} className="lazy-image" style={{ marginTop: "20px" }} onClick={() => generateAlphanumericString(index)} />
+                                <img src={fetchedAjPic[index]} alt={name} className="lazy-image" style={{ marginTop: "20px" }} />
                                 <div className="ejfjf" style={{ marginTop: "8px" }}>
                                     {name}
                                 </div>
                                 <div className="ejfjf" style={{ marginTop: "8px" }}>
-                                    ₹1799.00
+                                    ₹{fetchedAjPrice[index]}.00
                                 </div>
                             </Link>
                         ))
