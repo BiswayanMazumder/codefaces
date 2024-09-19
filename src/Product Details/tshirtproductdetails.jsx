@@ -347,7 +347,7 @@ export default function TShirtProductDetails() {
 
                 <div className="jjenfkmdcm">
                     <div className="sneakerprice" style={{ position: "relative", top: "30px", fontWeight: "300" }}>
-                        LuxeLayers
+                        NIKE
                     </div>
                     <br /><br />
                     <div className="sneakername">

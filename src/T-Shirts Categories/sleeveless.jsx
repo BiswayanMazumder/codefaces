@@ -175,7 +175,7 @@ export default function Sleeveless() {
                         </div>
                     </div>
                 </div>
-                <video src="https://cdn.shopify.com/videos/c/o/v/b1df145dd4814539bbac39d4771a7d0e.mp4" alt="" width={"100%"} muted autoPlay loop />
+                <video src="https://vod.freecaster.com/louisvuitton/9d07bef3-470a-4055-b7d5-61367469eb43/ne9rE3V5nNi47f4tUESV7WB1_9.mp4" alt="" width={"100%"} muted autoPlay loop />
                 <div className="jdjfdjv">
                     {
                         fetchedAjName.map((name, index) => (
@@ -190,7 +190,7 @@ export default function Sleeveless() {
                                         localStorage.setItem('productimage', fetchedAjPic[index]);
                                         localStorage.setItem('PID', documentNames[index]);
                                         // console.log(documentNames[index]);
-                                    }} />
+                                    }} height={"350px"} width={"350px"} />
                                 <div className="ejfjf" style={{ marginTop: "8px" }}>
                                     {name}
                                 </div>
