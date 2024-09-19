@@ -291,21 +291,42 @@ export default function Landingpage() {
                     </div>
                 </Link>
                 <div className="dhifjkfjlf" style={{ height: '500px', color: "black" }}>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
+                    <Link style={{ textDecoration: "none", color: "black" }} onClick={() => {
+                                        localStorage.setItem('producttype', 'sneakers');
+                                        localStorage.setItem('productname', "AIR JORDAN 5 RETRO 'WHITE/BLACK-SAIL-METALLIC SILVER'");
+                                        localStorage.setItem('productprice', "12500");
+                                        localStorage.setItem('productimage', "https://images.vegnonveg.com/resized/700X573/11395/air-jordan-5-retro-whiteblack-sail-metallic-silver-white-66b365aa44059.jpg");
+                                        localStorage.setItem('PID', "7uzaT6u7As");
+                                        // console.log(documentNames[index]);
+                                    }} to={'/product'}>
                         <div className="gallery" >
                             <img src="https://images.vegnonveg.com/resized/700X573/11395/air-jordan-5-retro-whiteblack-sail-metallic-silver-white-66b365aa44059.jpg" alt="" className='newstockimages' />
                             <br /><br />
                             AIR JORDAN 5 RETRO 'WHITE/BLACK-SAIL-METALLIC SILVER'
                         </div>
                     </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
+                    <Link style={{ textDecoration: "none", color: "black" }} onClick={() => {
+                                        localStorage.setItem('producttype', 'sneakers');
+                                        localStorage.setItem('productname', "AIR JORDAN 1 LOW 'WHITE/BORDEAUX-SAIL'");
+                                        localStorage.setItem('productprice', "12500");
+                                        localStorage.setItem('productimage', "https://images.vegnonveg.com/resized/700X573/11394/air-jordan-1-low-whitebordeaux-sail-purple-66b364fe14e20.jpg");
+                                        localStorage.setItem('PID', "OJTlHLl2IN");
+                                        // console.log(documentNames[index]);
+                                    }} to={'/product'}>
                         <div className="gallery">
                             <img src="https://images.vegnonveg.com/resized/700X573/11394/air-jordan-1-low-whitebordeaux-sail-purple-66b364fe14e20.jpg" alt="" className='newstockimages' />
                             <br /><br />
                             AIR JORDAN 1 LOW 'WHITE/BORDEAUX-SAIL'
                         </div>
                     </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
+                    <Link style={{ textDecoration: "none", color: "black" }} onClick={() => {
+                                        localStorage.setItem('producttype', 'sneakers');
+                                        localStorage.setItem('productname', "AIR MAX 1 ESSENTIAL PREMIUM 'NEUTRAL OLIVE/BLACK-CARGO KHAKI'");
+                                        localStorage.setItem('productprice', "12500");
+                                        localStorage.setItem('productimage', "https://images.vegnonveg.com/resized/700X573/11404/air-max-1-essential-premium-neutral-oliveblack-cargo-khaki-green-66b495cfd64d0.jpg");
+                                        localStorage.setItem('PID', "Qi7tr8647e");
+                                        // console.log(documentNames[index]);
+                                    }} to={'/product'}>
                         <div className="gallery">
                             <img src="https://images.vegnonveg.com/resized/700X573/11404/air-max-1-essential-premium-neutral-oliveblack-cargo-khaki-green-66b495cfd64d0.jpg" alt="" className='newstockimages' />
                             <br /><br />
@@ -319,25 +340,46 @@ export default function Landingpage() {
                             KILLSHOT 2 'DARK RUSSET/PHANTOM-GUM MEDIUM BROWN-BLACK'
                         </div>
                     </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
+                    <Link style={{ textDecoration: "none", color: "black" }} onClick={() => {
+                                        localStorage.setItem('producttype', 'sneakers');
+                                        localStorage.setItem('productname', "AIR JORDAN 3 RETRO TEX 'DARK DRIFTWOOD/SAIL-HEMP-VELVET BROWN'");
+                                        localStorage.setItem('productprice', "12500");
+                                        localStorage.setItem('productimage', "https://images.vegnonveg.com/resized/700X573/9805/air-jordan-1-mid-whiteblack-white-64dcc2a91c4af.jpg");
+                                        localStorage.setItem('PID', "L0xXIoM5Gl");
+                                        // console.log(documentNames[index]);
+                                    }} to={'/product'}>
                         <div className="gallery">
                             <img src="https://images.vegnonveg.com/resized/700X573/9805/air-jordan-1-mid-whiteblack-white-64dcc2a91c4af.jpg" alt="" className='newstockimages' />
                             <br /><br />
-                            AIR JORDAN 1 MID 'WHITE/BLACK'
+                            AIR JORDAN 3 RETRO TEX 'DARK DRIFTWOOD/SAIL-HEMP-VELVET BROWN'
                         </div>
                     </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
+                    <Link style={{ textDecoration: "none", color: "black" }} onClick={() => {
+                                        localStorage.setItem('producttype', 'sneakers');
+                                        localStorage.setItem('productname', "AIR JORDAN 1 LOW SE 'OXIDIZED GREEN/WHITE-SAIL'");
+                                        localStorage.setItem('productprice', "12500");
+                                        localStorage.setItem('productimage', "https://images.vegnonveg.com/resized/700X573/11425/air-jordan-1-low-whitemetallic-gold-black-white-66bb4992d8cb4.jpg");
+                                        localStorage.setItem('PID', "9uyQCfovvA");
+                                        // console.log(documentNames[index]);
+                                    }} to={'/product'}>
                         <div className="gallery">
                             <img src="https://images.vegnonveg.com/resized/700X573/11425/air-jordan-1-low-whitemetallic-gold-black-white-66bb4992d8cb4.jpg" alt="" className='newstockimages' />
                             <br /><br />
-                            AIR JORDAN 1 LOW 'WHITE/METALLIC GOLD-BLACK'
+                            AIR JORDAN 1 LOW SE 'OXIDIZED GREEN/WHITE-SAIL'
                         </div>
                     </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
+                    <Link style={{ textDecoration: "none", color: "black" }} onClick={() => {
+                                        localStorage.setItem('producttype', 'sneakers');
+                                        localStorage.setItem('productname', "AIR JORDAN 4 RETRO GS 'BLACK/WHITE'");
+                                        localStorage.setItem('productprice', "12500");
+                                        localStorage.setItem('productimage', "https://images.vegnonveg.com/resized/700X573/11381/air-jordan-1-mid-se-whiteoxidized-green-sail-neutral-grey-white-66a8c651cc6f3.jpg");
+                                        localStorage.setItem('PID', "RpR8VJGvRc");
+                                        // console.log(documentNames[index]);
+                                    }} to={'/product'}>
                         <div className="gallery">
                             <img src="https://images.vegnonveg.com/resized/700X573/11381/air-jordan-1-mid-se-whiteoxidized-green-sail-neutral-grey-white-66a8c651cc6f3.jpg" alt="" className='newstockimages' />
                             <br /><br />
-                            AIR JORDAN 1 MID SE 'WHITE/OXIDIZED GREEN-SAIL-NEUTRAL GREY'
+                            AIR JORDAN 4 RETRO GS 'BLACK/WHITE'
                         </div>
                     </Link>
                 </div>
