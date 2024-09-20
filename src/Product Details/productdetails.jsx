@@ -69,7 +69,7 @@ export default function ProductDetails() {
                     if (data["UK 11"]) sizes.push('UK 11');
                     if (data["UK 12"]) sizes.push('UK 12');
                     setFilteredSizes(sizes);
-                    console.log(sizes);
+                    // console.log(sizes);
                 } else {
                     console.log('No such document!');
                 }
@@ -148,7 +148,7 @@ export default function ProductDetails() {
                     if (cartDocSnap.exists()) {
                         const cartData = cartDocSnap.data();
                         pid = cartData?.['Product ID'] || [];
-                        console.log('Product IDs:', pid);
+                        // console.log('Product IDs:', pid);
 
                         // Update state based on the presence of items
                         if (pid.includes(sneakerid)) {
