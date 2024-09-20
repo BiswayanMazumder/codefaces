@@ -88,7 +88,7 @@ export default function Cart() {
                                 ajPic.push(productData?.['Product Image'] || 'No Image');
                                 ajprice.push(productData?.Price || 0);
                             } else {
-                                console.log(`No product data found for ID: ${pid[i]}`);
+                                // console.log(`No product data found for ID: ${pid[i]}`);
                             }
                         }
                         setFetchedAjName(ajName);
