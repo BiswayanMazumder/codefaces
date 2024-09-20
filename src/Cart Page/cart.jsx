@@ -20,7 +20,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 export default function Cart() {
     useEffect(() => {
-        document.title = 'Shopping Cart | luxelayers.com'
+        document.title =activeZone === 'sneakerzone'? 'Shopping Cart for Sneakers | luxelayers.com':activeZone === 'tshirtzone'?'Shopping Cart for TShirts | luxelayers.com':'Prebooked Sneakers | luxelayers.com'
     })
     const [user, setUser] = useState(false);
     useEffect(() => {
@@ -158,6 +158,62 @@ export default function Cart() {
 
         fetchDocumentNames();
     }, []);
+    const [fetchedAjPricess, setFetchedAjpricess] = useState([]);
+    const [documentNamesss, setDocumentNamesss] = useState([]);
+    const [fetchedAjNamess, setFetchedAjNamess] = useState([]);
+    const [fetchedAjPicss, setFetchedAjPicss] = useState([]);
+    const [loadingss, setLoadingss] = useState(true); // Loading state
+    useEffect(() => {
+        const fetchDocumentNames = async () => {
+            console.log('Fetching document names...');
+            try {
+                const auth = getAuth();
+                const db = getFirestore(app);
+                const currentUser = auth.currentUser;
+                if (currentUser) {
+                    const UID = currentUser.uid;
+                    // console.log('Current UID:', UID);
+                    const cartDocRef = doc(db, 'Prebook Items', UID);
+                    const cartDocSnap = await getDoc(cartDocRef);
+                    if (cartDocSnap.exists()) {
+                        const cartData = cartDocSnap.data();
+                        // console.log('Cart Items data:', cartData);
+                        const pid = cartData?.['Product ID'] || [];
+                        // console.log('Product IDs:', pid);
+                        setDocumentNamesss(pid);
+                        const ajName = [];
+                        const ajPic = [];
+                        const ajprice = [];
+
+                        for (let i = 0; i < pid.length; i++) {
+                            const productDocRef = doc(db, 'Coming Soon', pid[i]);
+                            const productDocSnap = await getDoc(productDocRef);
+                            if (productDocSnap.exists()) {
+                                const productData = productDocSnap.data();
+                                // console.log('Product data:', productData);
+                                ajName.push(productData?.name || 'No Name');
+                                ajPic.push(productData?.['Product Image'] || 'No Image');
+                                ajprice.push(productData?.Price || 0);
+                            } else {
+                                console.log(`No product data found for ID: ${pid[i]}`);
+                            }
+                        }
+                        setFetchedAjNamess(ajName);
+                        setFetchedAjPicss(ajPic);
+                        setFetchedAjpricess(ajprice);
+                    } else {
+                        console.log('No cart items document found');
+                    }
+                } else {
+                    console.log('No current user');
+                }
+            } catch (error) {
+                console.error('Error fetching document names:', error);
+            }
+        };
+
+        fetchDocumentNames();
+    }, []);
     return (
         <>
             <div className="webbody">
@@ -220,6 +276,14 @@ export default function Cart() {
                             TShirts Zone ({fetchedAjNames.length})
                         </Link>
                     </div>
+                    <div className="enfemdv" style={{ borderBottom:activeZone === 'preebokzone' ? '2px solid blue':'2px solid transparent' }}>
+                        <Link
+                            style={{ textDecoration: "none", color: activeZone === 'preebokzone' ? "orangered" : "black" }}
+                            onClick={() => setActiveZone('preebokzone')}
+                        >
+                            Prebooked Sneakers ({fetchedAjNamess.length})
+                        </Link>
+                    </div>
                 </div>
                 {activeZone === 'sneakerzone' ? <Link className="cart-items" style={{ textDecoration: "none", color: "black" }}>
                     {fetchedAjName.length > 0 ? (
@@ -242,7 +306,7 @@ export default function Cart() {
                             </Link>
                         ))
                     ) : (
-                        <p>No items in cart</p>
+                        <p>No sneakers in cart</p>
                     )}
                 </Link> : <></>}
                 {activeZone === 'tshirtzone' ? <Link className="cart-items" style={{ textDecoration: "none", color: "black" }}>
@@ -266,7 +330,31 @@ export default function Cart() {
                             </Link>
                         ))
                     ) : (
-                        <p>No items in cart</p>
+                        <p>No tshirts in cart</p>
+                    )}
+                </Link> : <></>}
+                {activeZone === 'preebokzone' ? <Link className="cart-items" style={{ textDecoration: "none", color: "black" }}>
+                    {fetchedAjNamess.length > 0 ? (
+                        fetchedAjNamess.map((name, index) => (
+                            <Link key={index} className="cart-item" to={"/products/comingsoon"} onClick={() => {
+                                localStorage.setItem('producttype', 'Coming Soon');
+                                localStorage.setItem('iscart', true);
+                                localStorage.setItem('productname', fetchedAjNamess[index]);
+                                localStorage.setItem('productprice', fetchedAjPricess[index]);
+                                localStorage.setItem('productimage', fetchedAjPicss[index]);
+                                localStorage.setItem('PID', documentNamess[index]);
+                                console.log(documentNamess[index]);
+                            }} style={{ textDecoration: "none", color: "black" }}>
+                                <img src={fetchedAjPicss[index]} alt={name} className="cart-item-image" />
+                                <div className="cart-item-details">
+                                    <h3 className="cart-item-name">{fetchedAjNamess[index]}</h3>
+                                    <br /><br />
+                                    <p className="cart-item-price" style={{ fontWeight: "500" }}>₹{fetchedAjPricess[index]}</p>
+                                </div>
+                            </Link>
+                        ))
+                    ) : (
+                        <p>No items prebooked</p>
                     )}
                 </Link> : <></>}
             </div>
