@@ -196,6 +196,36 @@ export default function ComingSoonProductDetails() {
             fetchReviews();
         }
     }, []);
+    const handlePayment = async () => {
+        const options = {
+            key: 'rzp_test_5ujtbmUNWVYysI', // Your Razorpay Key ID
+            amount: (sneakerprice * 100) / 2, // Amount in paise
+            currency: 'INR',
+            name: 'LuxeLayers',
+            description: `Prebook for ${sneakername}`,
+            image: 'https://luxelayers.vercel.app/favicon.ico', // Your logo URL
+            handler: async (response) => {
+                // Handle payment success
+                console.log(response);
+    
+                try {
+                    // Call the AddToCart function
+                    await AddToCart();
+                    alert('Payment Successful and added to cart!');
+                } catch (error) {
+                    console.error('Error adding to cart:', error);
+                    alert('Payment Successful, but failed to add to cart.');
+                }
+            },
+            theme: {
+                color: '#F37254'
+            }
+        };
+    
+        const razorpay = new window.Razorpay(options);
+        razorpay.open();
+    };
+    
     const AddToCart = async () => {
         try {
             // Get current user
@@ -389,7 +419,7 @@ export default function ComingSoonProductDetails() {
                                 ))
                             }
                         </select>
-                        <Link style={{ textDecoration: "none" }} onClick={cartItems ? RemoveFromCart : AddToCart}>
+                        <Link style={{ textDecoration: "none" }} onClick={cartItems ? RemoveFromCart : handlePayment}>
                             <div className="ejnfdmvkdmv" style={{backgroundColor:cartItems?'grey':'black',color:cartItems?'black':'white'}}>
                                 {cartItems ? 'ALREADY PREBOOKED' : "PREBOOK NOW"}
                                 {/* <center>ADD TO CART</center> */}
