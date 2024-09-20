@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc, getFirestore } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, getFirestore, setDoc } from 'firebase/firestore';
 import Menu from '../Menu for mobile/menu';
 const firebaseConfig = {
     apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
@@ -56,10 +56,10 @@ export default function Landingpage() {
 
         return () => clearInterval(interval); // Clean up the interval on component unmount
     }, []);
+    const [loading, setLoading] = useState(true);
     const [documentNames, setDocumentNames] = useState([]);
     const [fetchedAjName, setFetchedAjName] = useState([]);
     const [fetchedAjPic, setFetchedAjPic] = useState([]);
-    const [loading, setLoading] = useState(true); // Loading state
     const [fetchedAjPrice, setFetchedAjprice] = useState([]);
     const [loggeduser, setuser] = useState(false);
     useEffect(() => {
@@ -115,7 +115,46 @@ export default function Landingpage() {
 
         fetchDocumentNames();
     }, []);
+    const [documentNamess, setDocumentNamess] = useState([]);
+    const [fetchedAjNames, setFetchedAjNames] = useState([]);
+    const [fetchedAjPics, setFetchedAjPics] = useState([]);
+    const [fetchedAjPrices, setFetchedAjprices] = useState([]);
+    const [loggedusers, setusers] = useState(false);
+    useEffect(() => {
+        const db = getFirestore(app);
+        const fetchDocumentNames = async () => {
+            setLoading(true);
+            try {
+                const colRef = collection(db, 'Coming Soon');
+                const querySnapshot = await getDocs(colRef);
+                const names = querySnapshot.docs.map(doc => doc.id);
+                setDocumentNamess(names);
 
+                const ajName = [];
+                const ajPic = [];
+                const ajprice = [];
+                for (const docId of names) {
+                    const docRef = doc(db, 'Coming Soon', docId);
+                    const docSnap = await getDoc(docRef);
+                    if (docSnap.exists()) {
+                        ajName.push(docSnap.data()?.name);
+                        ajPic.push(docSnap.data()?.['Product Image']);
+                        ajprice.push(docSnap.data()?.Price);
+                    }
+                }
+
+                setFetchedAjNames(ajName);
+                setFetchedAjPics(ajPic);
+                setFetchedAjprices(ajprice);
+            } catch (e) {
+                console.error("Error fetching document names:", e);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchDocumentNames();
+    }, []);
     return (
         <>
             <div className="webbody">
@@ -292,13 +331,13 @@ export default function Landingpage() {
                 </Link>
                 <div className="dhifjkfjlf" style={{ height: '500px', color: "black" }}>
                     <Link style={{ textDecoration: "none", color: "black" }} onClick={() => {
-                                        localStorage.setItem('producttype', 'sneakers');
-                                        localStorage.setItem('productname', "AIR JORDAN 5 RETRO 'WHITE/BLACK-SAIL-METALLIC SILVER'");
-                                        localStorage.setItem('productprice', "12500");
-                                        localStorage.setItem('productimage', "https://images.vegnonveg.com/resized/700X573/11395/air-jordan-5-retro-whiteblack-sail-metallic-silver-white-66b365aa44059.jpg");
-                                        localStorage.setItem('PID', "7uzaT6u7As");
-                                        // console.log(documentNames[index]);
-                                    }} to={'/product'}>
+                        localStorage.setItem('producttype', 'sneakers');
+                        localStorage.setItem('productname', "AIR JORDAN 5 RETRO 'WHITE/BLACK-SAIL-METALLIC SILVER'");
+                        localStorage.setItem('productprice', "12500");
+                        localStorage.setItem('productimage', "https://images.vegnonveg.com/resized/700X573/11395/air-jordan-5-retro-whiteblack-sail-metallic-silver-white-66b365aa44059.jpg");
+                        localStorage.setItem('PID', "7uzaT6u7As");
+                        // console.log(documentNames[index]);
+                    }} to={'/product'}>
                         <div className="gallery" >
                             <img src="https://images.vegnonveg.com/resized/700X573/11395/air-jordan-5-retro-whiteblack-sail-metallic-silver-white-66b365aa44059.jpg" alt="" className='newstockimages' />
                             <br /><br />
@@ -306,13 +345,13 @@ export default function Landingpage() {
                         </div>
                     </Link>
                     <Link style={{ textDecoration: "none", color: "black" }} onClick={() => {
-                                        localStorage.setItem('producttype', 'sneakers');
-                                        localStorage.setItem('productname', "AIR JORDAN 1 LOW 'WHITE/BORDEAUX-SAIL'");
-                                        localStorage.setItem('productprice', "12500");
-                                        localStorage.setItem('productimage', "https://images.vegnonveg.com/resized/700X573/11394/air-jordan-1-low-whitebordeaux-sail-purple-66b364fe14e20.jpg");
-                                        localStorage.setItem('PID', "OJTlHLl2IN");
-                                        // console.log(documentNames[index]);
-                                    }} to={'/product'}>
+                        localStorage.setItem('producttype', 'sneakers');
+                        localStorage.setItem('productname', "AIR JORDAN 1 LOW 'WHITE/BORDEAUX-SAIL'");
+                        localStorage.setItem('productprice', "12500");
+                        localStorage.setItem('productimage', "https://images.vegnonveg.com/resized/700X573/11394/air-jordan-1-low-whitebordeaux-sail-purple-66b364fe14e20.jpg");
+                        localStorage.setItem('PID', "OJTlHLl2IN");
+                        // console.log(documentNames[index]);
+                    }} to={'/product'}>
                         <div className="gallery">
                             <img src="https://images.vegnonveg.com/resized/700X573/11394/air-jordan-1-low-whitebordeaux-sail-purple-66b364fe14e20.jpg" alt="" className='newstockimages' />
                             <br /><br />
@@ -320,13 +359,13 @@ export default function Landingpage() {
                         </div>
                     </Link>
                     <Link style={{ textDecoration: "none", color: "black" }} onClick={() => {
-                                        localStorage.setItem('producttype', 'sneakers');
-                                        localStorage.setItem('productname', "AIR MAX 1 ESSENTIAL PREMIUM 'NEUTRAL OLIVE/BLACK-CARGO KHAKI'");
-                                        localStorage.setItem('productprice', "12500");
-                                        localStorage.setItem('productimage', "https://images.vegnonveg.com/resized/700X573/11404/air-max-1-essential-premium-neutral-oliveblack-cargo-khaki-green-66b495cfd64d0.jpg");
-                                        localStorage.setItem('PID', "Qi7tr8647e");
-                                        // console.log(documentNames[index]);
-                                    }} to={'/product'}>
+                        localStorage.setItem('producttype', 'sneakers');
+                        localStorage.setItem('productname', "AIR MAX 1 ESSENTIAL PREMIUM 'NEUTRAL OLIVE/BLACK-CARGO KHAKI'");
+                        localStorage.setItem('productprice', "12500");
+                        localStorage.setItem('productimage', "https://images.vegnonveg.com/resized/700X573/11404/air-max-1-essential-premium-neutral-oliveblack-cargo-khaki-green-66b495cfd64d0.jpg");
+                        localStorage.setItem('PID', "Qi7tr8647e");
+                        // console.log(documentNames[index]);
+                    }} to={'/product'}>
                         <div className="gallery">
                             <img src="https://images.vegnonveg.com/resized/700X573/11404/air-max-1-essential-premium-neutral-oliveblack-cargo-khaki-green-66b495cfd64d0.jpg" alt="" className='newstockimages' />
                             <br /><br />
@@ -341,13 +380,13 @@ export default function Landingpage() {
                         </div>
                     </Link>
                     <Link style={{ textDecoration: "none", color: "black" }} onClick={() => {
-                                        localStorage.setItem('producttype', 'sneakers');
-                                        localStorage.setItem('productname', "AIR JORDAN 3 RETRO TEX 'DARK DRIFTWOOD/SAIL-HEMP-VELVET BROWN'");
-                                        localStorage.setItem('productprice', "12500");
-                                        localStorage.setItem('productimage', "https://images.vegnonveg.com/resized/700X573/9805/air-jordan-1-mid-whiteblack-white-64dcc2a91c4af.jpg");
-                                        localStorage.setItem('PID', "L0xXIoM5Gl");
-                                        // console.log(documentNames[index]);
-                                    }} to={'/product'}>
+                        localStorage.setItem('producttype', 'sneakers');
+                        localStorage.setItem('productname', "AIR JORDAN 3 RETRO TEX 'DARK DRIFTWOOD/SAIL-HEMP-VELVET BROWN'");
+                        localStorage.setItem('productprice', "12500");
+                        localStorage.setItem('productimage', "https://images.vegnonveg.com/resized/700X573/9805/air-jordan-1-mid-whiteblack-white-64dcc2a91c4af.jpg");
+                        localStorage.setItem('PID', "L0xXIoM5Gl");
+                        // console.log(documentNames[index]);
+                    }} to={'/product'}>
                         <div className="gallery">
                             <img src="https://images.vegnonveg.com/resized/700X573/9805/air-jordan-1-mid-whiteblack-white-64dcc2a91c4af.jpg" alt="" className='newstockimages' />
                             <br /><br />
@@ -355,13 +394,13 @@ export default function Landingpage() {
                         </div>
                     </Link>
                     <Link style={{ textDecoration: "none", color: "black" }} onClick={() => {
-                                        localStorage.setItem('producttype', 'sneakers');
-                                        localStorage.setItem('productname', "AIR JORDAN 1 LOW SE 'OXIDIZED GREEN/WHITE-SAIL'");
-                                        localStorage.setItem('productprice', "12500");
-                                        localStorage.setItem('productimage', "https://images.vegnonveg.com/resized/700X573/11425/air-jordan-1-low-whitemetallic-gold-black-white-66bb4992d8cb4.jpg");
-                                        localStorage.setItem('PID', "9uyQCfovvA");
-                                        // console.log(documentNames[index]);
-                                    }} to={'/product'}>
+                        localStorage.setItem('producttype', 'sneakers');
+                        localStorage.setItem('productname', "AIR JORDAN 1 LOW SE 'OXIDIZED GREEN/WHITE-SAIL'");
+                        localStorage.setItem('productprice', "12500");
+                        localStorage.setItem('productimage', "https://images.vegnonveg.com/resized/700X573/11425/air-jordan-1-low-whitemetallic-gold-black-white-66bb4992d8cb4.jpg");
+                        localStorage.setItem('PID', "9uyQCfovvA");
+                        // console.log(documentNames[index]);
+                    }} to={'/product'}>
                         <div className="gallery">
                             <img src="https://images.vegnonveg.com/resized/700X573/11425/air-jordan-1-low-whitemetallic-gold-black-white-66bb4992d8cb4.jpg" alt="" className='newstockimages' />
                             <br /><br />
@@ -369,13 +408,13 @@ export default function Landingpage() {
                         </div>
                     </Link>
                     <Link style={{ textDecoration: "none", color: "black" }} onClick={() => {
-                                        localStorage.setItem('producttype', 'sneakers');
-                                        localStorage.setItem('productname', "AIR JORDAN 4 RETRO GS 'BLACK/WHITE'");
-                                        localStorage.setItem('productprice', "12500");
-                                        localStorage.setItem('productimage', "https://images.vegnonveg.com/resized/700X573/11381/air-jordan-1-mid-se-whiteoxidized-green-sail-neutral-grey-white-66a8c651cc6f3.jpg");
-                                        localStorage.setItem('PID', "RpR8VJGvRc");
-                                        // console.log(documentNames[index]);
-                                    }} to={'/product'}>
+                        localStorage.setItem('producttype', 'sneakers');
+                        localStorage.setItem('productname', "AIR JORDAN 4 RETRO GS 'BLACK/WHITE'");
+                        localStorage.setItem('productprice', "12500");
+                        localStorage.setItem('productimage', "https://images.vegnonveg.com/resized/700X573/11381/air-jordan-1-mid-se-whiteoxidized-green-sail-neutral-grey-white-66a8c651cc6f3.jpg");
+                        localStorage.setItem('PID', "RpR8VJGvRc");
+                        // console.log(documentNames[index]);
+                    }} to={'/product'}>
                         <div className="gallery">
                             <img src="https://images.vegnonveg.com/resized/700X573/11381/air-jordan-1-mid-se-whiteoxidized-green-sail-neutral-grey-white-66a8c651cc6f3.jpg" alt="" className='newstockimages' />
                             <br /><br />
@@ -417,76 +456,24 @@ export default function Landingpage() {
                     </div>
                 </Link>
                 <div className="dhifjkfjlf" style={{ height: '500px', color: "black" }}>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
-                        <div className="gallery" >
-                            <img src="https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_466,c_limit/0b024371-2a62-4df8-bdb3-5786c1bde198/v2k-run-shoes-zJV8TV.png" alt="" className='newstockimages' />
-                            <br /><br />
-                            NIKE V2K RUN
-                        </div>
-                    </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
-                        <div className="gallery" >
-                            <img src="https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_466,c_limit/71521bad-30ec-4ffb-8776-9deb56556c96/p-6000-shoes-kGDH2V.png" alt="" className='newstockimages' />
-                            <br /><br />
-                            NIKE P-6000 PREMIUM
-                        </div>
-                    </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
-                        <div className="gallery" >
-                            <img src="https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_466,c_limit/df4a60dc-5801-4897-96b6-218643b5b4e8/v2k-run-shoes-jqDSBb.png" alt="" className='newstockimages' />
-                            <br /><br />
-                            NIKE V2K RUN
-                        </div>
-                    </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
-                        <div className="gallery" >
-                            <img src="https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_466,c_limit/18f80bc9-88ac-450f-8f85-fbe2f68fa810/zoom-vomero-5-shoes-pTGjFN.png" alt="" className='newstockimages' />
-                            <br /><br />
-                            NIKE ZOOM VOMERO 5
-                        </div>
-                    </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
-                        <div className="gallery" >
-                            <img src="https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_466,c_limit/da1c5a0e-0d65-4b72-8e99-b65e1062b7d7/p-6000-shoes-QcQbpx.png" alt="" className='newstockimages' />
-                            <br /><br />
-                            NIKE P-6000
-                        </div>
-                    </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
-                        <div className="gallery" >
-                            <img src="https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_466,c_limit/6b5f86ee-d9eb-4e78-89a3-4f3978503ce2/air-max-dn-shoes-PWPh7h.png" alt="" className='newstockimages' />
-                            <br /><br />
-                            NIKE AIR MAX DN PREMIUM
-                        </div>
-                    </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
-                        <div className="gallery" >
-                            <img src="https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_466,c_limit/e9dc7d31-f2ad-4577-bd3f-33ed7c34dfab/zoom-vomero-5-shoes-1DsLmz.png" alt="" className='newstockimages' />
-                            <br /><br />
-                            NIKE ZOOM VOMERO 5
-                        </div>
-                    </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
-                        <div className="gallery" >
-                            <img src="https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_466,c_limit/03f2c10f-64e4-4f6f-9cbc-a954d1ce0678/v2k-run-shoes-k4c8Dd.png" alt="" className='newstockimages' />
-                            <br /><br />
-                            NIKE V2K RUN
-                        </div>
-                    </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
-                        <div className="gallery" >
-                            <img src="https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_466,c_limit/31a17614-4755-48c0-95ed-2023ebfaaf38/initiator-shoes-FXHpRJ.png" alt="" className='newstockimages' />
-                            <br /><br />
-                            NIKE INITIATOR
-                        </div>
-                    </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
-                        <div className="gallery" >
-                            <img src="https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_466,c_limit/425cc1ec-1c70-48fc-a531-d329065ae364/zoom-vomero-5-shoes-C5jXXx.png" alt="" className='newstockimages' />
-                            <br /><br />
-                            NIKE ZOOM VOMERO 5
-                        </div>
-                    </Link>
+                    {
+                        fetchedAjNames.map((name, index) => (
+                            <Link style={{ textDecoration: "none", color: "black" }} key={index} onClick={() => {
+                                        localStorage.setItem('producttypeupcoming', 'Coming Soon');
+                                        localStorage.setItem('productnameupcoming', fetchedAjNames[index]);
+                                        localStorage.setItem('productpriceupcoming', fetchedAjPrices[index]);
+                                        localStorage.setItem('productimageupcoming', fetchedAjPics[index]);
+                                        localStorage.setItem('PIDupcoming', documentNamess[index]);
+                                        // console.log(documentNames[index]);
+                                    }} to={'/products/comingsoon'}>
+                                <div className="gallery">
+                                    <img src={fetchedAjPics[index]} alt="" className='newstockimages' />
+                                    <br /><br />
+                                    {fetchedAjNames[index]}
+                                </div>
+                            </Link>
+                        ))
+                    }
                 </div>
                 <Link style={{ textDecoration: "none" }}>
                     <div className="jjehfjnfjd">
