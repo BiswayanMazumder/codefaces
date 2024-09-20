@@ -211,10 +211,10 @@ export default function ComingSoonProductDetails() {
                 try {
                     // Call the AddToCart function
                     await AddToCart();
-                    alert('Payment Successful and added to cart!');
+                    // alert('Payment Successful and added to cart!');
                 } catch (error) {
-                    console.error('Error adding to cart:', error);
-                    alert('Payment Successful, but failed to add to cart.');
+                    // console.error('Error adding to cart:', error);
+                    // alert('Payment Successful, but failed to add to cart.');
                 }
             },
             theme: {
