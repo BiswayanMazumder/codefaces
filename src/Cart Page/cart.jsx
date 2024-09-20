@@ -203,21 +203,25 @@ export default function Cart() {
                         </div>
                     </div>
                 </div>
-                <div className="cart-items" style={{ display: "flex", flexDirection: "row", gap: "20px" }}>
-                    <Link
-                        style={{ textDecoration: "none", color: activeZone === 'sneakerzone' ? "orangered" : "black" }}
-                        onClick={() => setActiveZone('sneakerzone')}
-                    >
-                        Sneakers Zone
-                    </Link>
-                    <Link
-                        style={{ textDecoration: "none", color: activeZone === 'tshirtzone' ? "orangered" : "black" }}
-                        onClick={() => setActiveZone('tshirtzone')}
-                    >
-                        TShirts Zone
-                    </Link>
+                <div className="cart-items" style={{ display: "flex", flexDirection: "row", gap: "0px", }}>
+                    <div className="enfemdv" style={{ borderBottom:activeZone === 'sneakerzone' ? '2px solid blue':'2px solid transparent' }}>
+                        <Link
+                            style={{ textDecoration: "none", color: activeZone === 'sneakerzone' ? "orangered" : "black" }}
+                            onClick={() => setActiveZone('sneakerzone')}
+                        >
+                            Sneakers Zone ({fetchedAjName.length})
+                        </Link>
+                    </div>
+                    <div className="enfemdv" style={{ borderBottom:activeZone === 'tshirtzone' ? '2px solid blue':'2px solid transparent' }}>
+                        <Link
+                            style={{ textDecoration: "none", color: activeZone === 'tshirtzone' ? "orangered" : "black" }}
+                            onClick={() => setActiveZone('tshirtzone')}
+                        >
+                            TShirts Zone ({fetchedAjNames.length})
+                        </Link>
+                    </div>
                 </div>
-                {activeZone === 'sneakerzone'?<Link className="cart-items" style={{ textDecoration: "none", color: "black" }}>
+                {activeZone === 'sneakerzone' ? <Link className="cart-items" style={{ textDecoration: "none", color: "black" }}>
                     {fetchedAjName.length > 0 ? (
                         fetchedAjName.map((name, index) => (
                             <Link key={index} className="cart-item" to={"/product"} onClick={() => {
@@ -240,8 +244,8 @@ export default function Cart() {
                     ) : (
                         <p>No items in cart</p>
                     )}
-                </Link>:<></>}
-                {activeZone === 'tshirtzone'?<Link className="cart-items" style={{ textDecoration: "none", color: "black" }}>
+                </Link> : <></>}
+                {activeZone === 'tshirtzone' ? <Link className="cart-items" style={{ textDecoration: "none", color: "black" }}>
                     {fetchedAjNames.length > 0 ? (
                         fetchedAjNames.map((name, index) => (
                             <Link key={index} className="cart-item" to={"/products/tshirts"} onClick={() => {
@@ -251,7 +255,7 @@ export default function Cart() {
                                 localStorage.setItem('productprice', fetchedAjPrices[index]);
                                 localStorage.setItem('productimage', fetchedAjPics[index]);
                                 localStorage.setItem('PID', documentNamess[index]);
-                                console.log('DOc name',documentNamess[index]);
+                                console.log('DOc name', documentNamess[index]);
                             }} style={{ textDecoration: "none", color: "black" }}>
                                 <img src={fetchedAjPics[index]} alt={name} className="cart-item-image" />
                                 <div className="cart-item-details">
@@ -264,7 +268,7 @@ export default function Cart() {
                     ) : (
                         <p>No items in cart</p>
                     )}
-                </Link>:<></>}
+                </Link> : <></>}
             </div>
         </>
     )
