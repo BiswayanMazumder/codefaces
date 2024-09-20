@@ -337,12 +337,11 @@ export default function Cart() {
                     {fetchedAjNamess.length > 0 ? (
                         fetchedAjNamess.map((name, index) => (
                             <Link key={index} className="cart-item" to={"/products/comingsoon"} onClick={() => {
-                                localStorage.setItem('producttype', 'Coming Soon');
-                                localStorage.setItem('iscart', true);
-                                localStorage.setItem('productname', fetchedAjNamess[index]);
-                                localStorage.setItem('productprice', fetchedAjPricess[index]);
-                                localStorage.setItem('productimage', fetchedAjPicss[index]);
-                                localStorage.setItem('PID', documentNamess[index]);
+                               localStorage.setItem('producttypeupcoming', 'Coming Soon');
+                                        localStorage.setItem('productnameupcoming', fetchedAjNamess[index]);
+                                        localStorage.setItem('productpriceupcoming', fetchedAjPricess[index]);
+                                        localStorage.setItem('productimageupcoming', fetchedAjPicss[index]);
+                                        localStorage.setItem('PIDupcoming', documentNamesss[index]);
                                 console.log(documentNamess[index]);
                             }} style={{ textDecoration: "none", color: "black" }}>
                                 <img src={fetchedAjPicss[index]} alt={name} className="cart-item-image" />
