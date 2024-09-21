@@ -173,7 +173,7 @@ export default function Landingpage() {
                 const ajPic = [];
                 const ajprice = [];
                 for (const docId of names) {
-                    const docRef = doc(db, 'sneakers', docId);
+                    const docRef = doc(db, 'Yeezys', docId);
                     const docSnap = await getDoc(docRef);
                     if (docSnap.exists()) {
                         ajName.push(docSnap.data()?.name);
