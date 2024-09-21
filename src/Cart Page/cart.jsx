@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import { arrayUnion, doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
+import { arrayUnion, doc, getDoc, getFirestore, serverTimestamp, setDoc } from 'firebase/firestore';
 import Menu from '../Menu for mobile/menu';
 const firebaseConfig = {
     apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
@@ -236,7 +236,7 @@ export default function Cart() {
         await setDoc(orderDetailsRef, {
             'Delivered':false,
             'Name':fetchedAjName,
-            'Order Date':Date.now(),
+            'Order Date':serverTimestamp(),
             'Order ID':result,
             'Out_Delivery':false,
             'Price':fetchedAjPrice,
