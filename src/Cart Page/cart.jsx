@@ -57,6 +57,7 @@ export default function Cart() {
     const [loadings, setLoadings] = useState(true); // Loading state
     const [fetchedAjPrice, setFetchedAjprice] = useState([]);
     const [total, setTotal] = useState(0);
+    const [totaltshirt, setTotaltshirt] = useState(0);
     useEffect(() => {
         const fetchDocumentNames = async () => {
             console.log('Fetching document names...');
@@ -148,6 +149,12 @@ export default function Cart() {
                         setFetchedAjNames(ajName);
                         setFetchedAjPics(ajPic);
                         setFetchedAjprices(ajprice);
+                        const totalPrice = ajprice
+                            .map(Number)
+                            .filter(price => !isNaN(price))
+                            .reduce((acc, price) => acc + price, 0);
+                        const totalprice = (totalPrice + (totalPrice * 0.18)).toFixed(2);
+                        setTotaltshirt(totalprice); // Update the total state
                     } else {
                         console.log('No cart items document found');
                     }
@@ -246,6 +253,35 @@ export default function Cart() {
             'Total':total
         })
     }
+    const generateordertshirt = async () => {
+        const auth = getAuth();
+        const db = getFirestore(app); // Initialize Firestore with the Firestore instance
+        const currentUser = auth.currentUser;
+        const characters = '0123456789';
+        let result = 'CT';
+        for (let i = 0; i < 6; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        console.log(result);
+        const UID = currentUser.uid;
+        const cartDocRef = doc(db, 'Order IDs', UID);
+        await setDoc(cartDocRef, {
+            'IDs': arrayUnion(result)
+        }, { merge: true });
+        const orderDetailsRef = doc(db, 'Order Details', result);
+        await setDoc(orderDetailsRef, {
+            'Delivered':false,
+            'Name':fetchedAjNames,
+            'Order Date':serverTimestamp(),
+            'Order ID':result,
+            'Out_Delivery':false,
+            'Price':fetchedAjPrices,
+            'Product ID':documentNamess,
+            'Product Image':fetchedAjPics,
+            'Shipped':false,
+            'Total':totaltshirt
+        })
+    }
     const handlePayment = async () => {
         const options = {
             key: 'rzp_test_5ujtbmUNWVYysI', // Your Razorpay Key ID
@@ -261,6 +297,35 @@ export default function Cart() {
                 try {
                     // Call the AddToCart function
                     await generateorder();
+                    // alert('Payment Successful and added to cart!');
+                } catch (error) {
+                    // console.error('Error adding to cart:', error);
+                    // alert('Payment Successful, but failed to add to cart.');
+                }
+            },
+            theme: {
+                color: '#F37254'
+            }
+        };
+
+        const razorpay = new window.Razorpay(options);
+        razorpay.open();
+    };
+    const handlePaymenttshirt = async () => {
+        const options = {
+            key: 'rzp_test_5ujtbmUNWVYysI', // Your Razorpay Key ID
+            amount: (totaltshirt * 100), // Amount in paise
+            currency: 'INR',
+            name: 'LuxeLayers',
+            description: `Product Order`,
+            image: 'https://luxelayers.vercel.app/favicon.ico', // Your logo URL
+            handler: async (response) => {
+                // Handle payment success
+                console.log(response);
+
+                try {
+                    // Call the AddToCart function
+                    await generateordertshirt();
                     // alert('Payment Successful and added to cart!');
                 } catch (error) {
                     // console.error('Error adding to cart:', error);
@@ -383,6 +448,7 @@ export default function Cart() {
                     ) : null : <></>}
 
                 </div>
+                <div className="udjhcnd">
                 {activeZone === 'tshirtzone' ? <Link className="cart-items" style={{ textDecoration: "none", color: "black" }}>
                     {fetchedAjNames.length > 0 ? (
                         fetchedAjNames.map((name, index) => (
@@ -407,6 +473,17 @@ export default function Cart() {
                         <p>No tshirts in cart</p>
                     )}
                 </Link> : <></>}
+                {fetchedAjNames.length > 0 ? activeZone === 'tshirtzone' ? (
+                        <Link style={{ textDecoration: "none", color: "black" }}>
+                            <div className="kekkfmdv" onClick={() => handlePaymenttshirt()}>
+                                Total: ₹{totaltshirt}
+                                <div className="checkoutbutton">
+                                    Checkout
+                                </div>
+                            </div>
+                        </Link>
+                    ) : null : <></>}
+                </div>
                 {activeZone === 'preebokzone' ? <Link className="cart-items" style={{ textDecoration: "none", color: "black" }}>
                     {fetchedAjNamess.length > 0 ? (
                         fetchedAjNamess.map((name, index) => (
