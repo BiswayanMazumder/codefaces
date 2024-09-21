@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc, getFirestore } from 'firebase/firestore';
+import { arrayUnion, doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 import Menu from '../Menu for mobile/menu';
 const firebaseConfig = {
     apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
@@ -75,7 +75,7 @@ export default function Cart() {
                         const ajName = [];
                         const ajPic = [];
                         const ajprice = [];
-    
+
                         for (let i = 0; i < pid.length; i++) {
                             const productDocRef = doc(db, 'sneakers', pid[i]);
                             const productDocSnap = await getDoc(productDocRef);
@@ -89,13 +89,13 @@ export default function Cart() {
                         setFetchedAjName(ajName);
                         setFetchedAjPic(ajPic);
                         setFetchedAjprice(ajprice);
-    
+
                         // Calculate total price after fetching product prices
                         const totalPrice = ajprice
                             .map(Number)
                             .filter(price => !isNaN(price))
                             .reduce((acc, price) => acc + price, 0);
-                        const totalprice=(totalPrice+(totalPrice*0.18)).toFixed(2);
+                        const totalprice = (totalPrice + (totalPrice * 0.18)).toFixed(2);
                         setTotal(totalprice); // Update the total state
                     } else {
                         console.log('No cart items document found');
@@ -107,7 +107,7 @@ export default function Cart() {
                 console.error('Error fetching document names:', error);
             }
         };
-    
+
         fetchDocumentNames();
     }, []);
     useEffect(() => {
@@ -217,6 +217,35 @@ export default function Cart() {
 
         fetchDocumentNames();
     }, []);
+    const generateorder = async () => {
+        const auth = getAuth();
+        const db = getFirestore(app); // Initialize Firestore with the Firestore instance
+        const currentUser = auth.currentUser;
+        const characters = '0123456789';
+        let result = 'CT';
+        for (let i = 0; i < 6; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        console.log(result);
+        const UID = currentUser.uid;
+        const cartDocRef = doc(db, 'Order IDs', UID);
+        await setDoc(cartDocRef, {
+            'IDs': arrayUnion(result)
+        }, { merge: true });
+        const orderDetailsRef = doc(db, 'Order Details', result);
+        await setDoc(orderDetailsRef, {
+            'Delivered':false,
+            'Name':fetchedAjName,
+            'Order Date':Date.now(),
+            'Order ID':result,
+            'Out_Delivery':false,
+            'Price':fetchedAjPrice,
+            'Product ID':documentNames,
+            'Product Image':fetchedAjPic,
+            'Shipped':false,
+            'Total':total
+        })
+    }
     const handlePayment = async () => {
         const options = {
             key: 'rzp_test_5ujtbmUNWVYysI', // Your Razorpay Key ID
@@ -228,10 +257,10 @@ export default function Cart() {
             handler: async (response) => {
                 // Handle payment success
                 console.log(response);
-    
+
                 try {
                     // Call the AddToCart function
-                    // await AddToCart();
+                    await generateorder();
                     // alert('Payment Successful and added to cart!');
                 } catch (error) {
                     // console.error('Error adding to cart:', error);
@@ -242,7 +271,7 @@ export default function Cart() {
                 color: '#F37254'
             }
         };
-    
+
         const razorpay = new window.Razorpay(options);
         razorpay.open();
     };
@@ -342,16 +371,16 @@ export default function Cart() {
                             <p>No sneakers in cart</p>
                         )}
                     </Link> : <></>}
-                    {fetchedAjName.length > 0?activeZone === 'sneakerzone' ? (
-                        <Link style={{textDecoration: "none", color: "black"}}>
-                        <div className="kekkfmdv" onClick={()=>handlePayment()}>
-                            Total: ₹{total}
-                            <div className="checkoutbutton">
-                                Checkout
+                    {fetchedAjName.length > 0 ? activeZone === 'sneakerzone' ? (
+                        <Link style={{ textDecoration: "none", color: "black" }}>
+                            <div className="kekkfmdv" onClick={() => handlePayment()}>
+                                Total: ₹{total}
+                                <div className="checkoutbutton">
+                                    Checkout
+                                </div>
                             </div>
-                        </div>
                         </Link>
-                    ) : null:<></>}
+                    ) : null : <></>}
 
                 </div>
                 {activeZone === 'tshirtzone' ? <Link className="cart-items" style={{ textDecoration: "none", color: "black" }}>
