@@ -155,6 +155,45 @@ export default function Landingpage() {
 
         fetchDocumentNames();
     }, []);
+    const [documentNamesss, setDocumentNamesss] = useState([]);
+    const [fetchedAjNamess, setFetchedAjNamess] = useState([]);
+    const [fetchedAjPicss, setFetchedAjPicss] = useState([]);
+    const [fetchedAjPricess, setFetchedAjpricess] = useState([]);
+    useEffect(() => {
+        const db = getFirestore(app);
+        const fetchDocumentNames = async () => {
+            setLoading(true);
+            try {
+                const colRef = collection(db, 'Yeezys');
+                const querySnapshot = await getDocs(colRef);
+                const names = querySnapshot.docs.map(doc => doc.id);
+                setDocumentNamesss(names);
+
+                const ajName = [];
+                const ajPic = [];
+                const ajprice = [];
+                for (const docId of names) {
+                    const docRef = doc(db, 'sneakers', docId);
+                    const docSnap = await getDoc(docRef);
+                    if (docSnap.exists()) {
+                        ajName.push(docSnap.data()?.name);
+                        ajPic.push(docSnap.data()?.['Product Image']);
+                        ajprice.push(docSnap.data()?.Price);
+                    }
+                }
+
+                setFetchedAjNamess(ajName);
+                setFetchedAjPicss(ajPic);
+                setFetchedAjpricess(ajprice);
+            } catch (e) {
+                console.error("Error fetching document names:", e);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchDocumentNames();
+    }, []);
     return (
         <>
             <div className="webbody">
@@ -459,13 +498,13 @@ export default function Landingpage() {
                     {
                         fetchedAjNames.map((name, index) => (
                             <Link style={{ textDecoration: "none", color: "black" }} key={index} onClick={() => {
-                                        localStorage.setItem('producttypeupcoming', 'Coming Soon');
-                                        localStorage.setItem('productnameupcoming', fetchedAjNames[index]);
-                                        localStorage.setItem('productpriceupcoming', fetchedAjPrices[index]);
-                                        localStorage.setItem('productimageupcoming', fetchedAjPics[index]);
-                                        localStorage.setItem('PIDupcoming', documentNamess[index]);
-                                        // console.log(documentNames[index]);
-                                    }} to={'/products/comingsoon'}>
+                                localStorage.setItem('producttypeupcoming', 'Coming Soon');
+                                localStorage.setItem('productnameupcoming', fetchedAjNames[index]);
+                                localStorage.setItem('productpriceupcoming', fetchedAjPrices[index]);
+                                localStorage.setItem('productimageupcoming', fetchedAjPics[index]);
+                                localStorage.setItem('PIDupcoming', documentNamess[index]);
+                                // console.log(documentNames[index]);
+                            }} to={'/products/comingsoon'}>
                                 <div className="gallery">
                                     <img src={fetchedAjPics[index]} alt="" className='newstockimages' />
                                     <br /><br />
@@ -480,77 +519,25 @@ export default function Landingpage() {
                         <video src="https://vod.freecaster.com/louisvuitton/9cab9fef-a9c7-45bb-b866-e0176b146dce/PqutfkpKHJm5u7hJW9yCWG6s_3.mp4" autoPlay muted loop className='promotionalvideo'></video>
                     </div>
                 </Link>
-                <div className="dhifjkfjlf" style={{ height: '500px', color: "black" }}>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
-                        <div className="gallery" >
-                            <img src="https://crepdogcrew.com/cdn/shop/products/image_5dcf2022-afff-4453-8cdf-ae694772b005.jpg?v=1645548228&width=1200" alt="" className='newstockimages' />
-                            <br /><br />
-                            adidas Yeezy Boost 350 V2 Dazzling Blue
-                        </div>
-                    </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
-                        <div className="gallery" >
-                            <img src="https://crepdogcrew.com/cdn/shop/products/YEEZYBOOST350V2.jpg?v=1673708997&width=1200" alt="" className='newstockimages' />
-                            <br /><br />
-                            adidas Yeezy Boost 350 V2 Core Black White
-                        </div>
-                    </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
-                        <div className="gallery" >
-                            <img src="https://crepdogcrew.com/cdn/shop/files/EditsbyAhmar01_5f8c7e1b-f9d7-4841-ad63-40e5bb1d0850.png?v=1718264646&width=1000" alt="" className='newstockimages' />
-                            <br /><br />
-                            adidas Yeezy Foam Runner Sand
-                        </div>
-                    </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
-                        <div className="gallery" >
-                            <img src="https://crepdogcrew.com/cdn/shop/products/YeezyBoost350V2_Bred_74fcca81-638d-4625-b002-e552555ceec9.jpg?v=1611595848&width=1000" alt="" className='newstockimages' />
-                            <br /><br />
-                            Adidas Yeezy Boost 350 V2 black red
-                        </div>
-                    </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
-                        <div className="gallery" >
-                            <img src="https://crepdogcrew.com/cdn/shop/products/YEEZYSLIDEPURE.png?v=1680159297&width=1200" alt="" className='newstockimages' />
-                            <br /><br />
-                            Yeezy Slide Pure
-                        </div>
-                    </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
-                        <div className="gallery" >
-                            <img src="https://crepdogcrew.com/cdn/shop/products/ADIDASYEEZYBOOST350V2CARBON_a89f4489-87e1-4c34-bc26-0fb2214f1d86.jpg?v=1606050742&width=1200" alt="" className='newstockimages' />
-                            <br /><br />
-                            adidas Yeezy Boost 350 V2 Carbon
-                        </div>
-                    </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
-                        <div className="gallery" >
-                            <img src="https://crepdogcrew.com/cdn/shop/files/1_6cc2c779-cd76-4094-b8e0-75a726096130.png?v=1700139687&width=1000" alt="" className='newstockimages' />
-                            <br /><br />
-                            adidas Yeezy 450 Dark Slate
-                        </div>
-                    </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
-                        <div className="gallery" >
-                            <img src="https://crepdogcrew.com/cdn/shop/products/image_f73351bd-401f-4ea2-b65d-24cbb2e78cd3.jpg?v=1622343450&width=1200" alt="" className='newstockimages' />
-                            <br /><br />
-                            adidas Yeezy Boost 700 Bright Blue
-                        </div>
-                    </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
-                        <div className="gallery" >
-                            <img src="https://crepdogcrew.com/cdn/shop/products/yeezya_edaa951b-ec14-4842-b15d-141d40cb4696.jpg?v=1630052170&width=1000" alt="" className='newstockimages' />
-                            <br /><br />
-                            adidas Yeezy Foam RNNR MX Cream Clay
-                        </div>
-                    </Link>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
-                        <div className="gallery" >
-                            <img src="https://crepdogcrew.com/cdn/shop/files/adidasYeezyBoost350V2Zebra4.png?v=1715091615&width=1000" alt="" className='newstockimages' />
-                            <br /><br />
-                            adidas Yeezy Boost 350 V2 Zebra
-                        </div>
-                    </Link>
+                <div className="dhifjkfjlf" style={{ height: '500px', color: "black" }} >
+                {
+                        fetchedAjNamess.map((name, index) => (
+                            <Link style={{ textDecoration: "none", color: "black" }} key={index} onClick={() => {
+                                localStorage.setItem('producttype', 'Yeezys');
+                                localStorage.setItem('productname', fetchedAjNamess[index]);
+                                localStorage.setItem('productprice', fetchedAjPricess[index]);
+                                localStorage.setItem('productimage', fetchedAjPicss[index]);
+                                localStorage.setItem('PID', documentNamesss[index]);
+                                // console.log(documentNames[index]);
+                            }} to={'/product'}>
+                                <div className="gallery">
+                                    <img src={fetchedAjPicss[index]} alt="" className='newstockimages' />
+                                    <br /><br />
+                                    {fetchedAjNamess[index]}
+                                </div>
+                            </Link>
+                        ))
+                    }
                 </div>
                 {
                     loggeduser ? <Link style={{ textDecoration: "none" }}>
