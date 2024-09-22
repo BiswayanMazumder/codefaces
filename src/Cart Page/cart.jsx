@@ -293,24 +293,50 @@ export default function Cart() {
             handler: async (response) => {
                 // Handle payment success
                 console.log(response);
-
+    
+                const paymentId = response.razorpay_payment_id;
+                console.log(paymentId);
                 try {
-                    // Call the AddToCart function
-                    await generateorder();
-                    // alert('Payment Successful and added to cart!');
+                    // Capture the payment
+                    const captureResponse = await fetch(`https://api.razorpay.com/v1/payments/${paymentId}/capture`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Basic ' + btoa('rzp_test_5ujtbmUNWVYysI:ewPpUg2XreTNa2EAQYgOchNu') // Replace with your Razorpay Key ID and Secret
+                        },
+                        body: JSON.stringify({
+                            amount: total * 100, // Ensure this matches the original amount in paise
+                            currency: 'INR'
+                        })
+                    });
+    
+                    const data = await captureResponse.json();
+                    
+                    if (captureResponse.ok) {
+                        // Payment captured successfully
+                        console.log('Payment captured:', data);
+                        // Call the AddToCart function
+                        await generateorder();
+                        // alert('Payment Successful and added to cart!');
+                    } else {
+                        // Handle capture failure
+                        console.error('Payment capture failed:', data);
+                        // alert('Payment Successful, but failed to capture payment.');
+                    }
                 } catch (error) {
-                    // console.error('Error adding to cart:', error);
-                    // alert('Payment Successful, but failed to add to cart.');
+                    console.error('Error during payment capture:', error);
+                    // alert('Payment Successful, but encountered an error.');
                 }
             },
             theme: {
                 color: '#F37254'
             }
         };
-
+    
         const razorpay = new window.Razorpay(options);
         razorpay.open();
     };
+    
     const handlePaymenttshirt = async () => {
         const options = {
             key: 'rzp_test_5ujtbmUNWVYysI', // Your Razorpay Key ID
