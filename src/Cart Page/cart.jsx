@@ -291,41 +291,31 @@ export default function Cart() {
             description: `Product Order`,
             image: 'https://luxelayers.vercel.app/favicon.ico', // Your logo URL
             handler: async (response) => {
-                // Handle payment success
-                console.log(response);
-    
+                // console.log(response);
                 const paymentId = response.razorpay_payment_id;
-                console.log(paymentId);
+    
                 try {
-                    // Capture the payment
-                    const captureResponse = await fetch(`https://api.razorpay.com/v1/payments/${paymentId}/capture`, {
+                    const captureResponse = await fetch('http://localhost:5000/capture-payment', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Authorization': 'Basic ' + btoa('rzp_test_5ujtbmUNWVYysI:ewPpUg2XreTNa2EAQYgOchNu') // Replace with your Razorpay Key ID and Secret
                         },
                         body: JSON.stringify({
+                            paymentId: paymentId,
                             amount: total * 100, // Ensure this matches the original amount in paise
-                            currency: 'INR'
                         })
                     });
     
                     const data = await captureResponse.json();
-                    
+    
                     if (captureResponse.ok) {
-                        // Payment captured successfully
-                        console.log('Payment captured:', data);
-                        // Call the AddToCart function
+                        // console.log('Payment captured:', data);
                         await generateorder();
-                        // alert('Payment Successful and added to cart!');
                     } else {
-                        // Handle capture failure
                         console.error('Payment capture failed:', data);
-                        // alert('Payment Successful, but failed to capture payment.');
                     }
                 } catch (error) {
                     console.error('Error during payment capture:', error);
-                    // alert('Payment Successful, but encountered an error.');
                 }
             },
             theme: {
@@ -337,32 +327,48 @@ export default function Cart() {
         razorpay.open();
     };
     
+    
     const handlePaymenttshirt = async () => {
         const options = {
             key: 'rzp_test_5ujtbmUNWVYysI', // Your Razorpay Key ID
-            amount: (totaltshirt * 100), // Amount in paise
+            amount: (total * 100), // Amount in paise
             currency: 'INR',
             name: 'LuxeLayers',
             description: `Product Order`,
             image: 'https://luxelayers.vercel.app/favicon.ico', // Your logo URL
             handler: async (response) => {
-                // Handle payment success
-                console.log(response);
-
+                // console.log(response);
+                const paymentId = response.razorpay_payment_id;
+    
                 try {
-                    // Call the AddToCart function
-                    await generateordertshirt();
-                    // alert('Payment Successful and added to cart!');
+                    const captureResponse = await fetch('http://localhost:5000/capture-payment', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            paymentId: paymentId,
+                            amount: total * 100, // Ensure this matches the original amount in paise
+                        })
+                    });
+    
+                    const data = await captureResponse.json();
+    
+                    if (captureResponse.ok) {
+                        // console.log('Payment captured:', data);
+                        await generateordertshirt();
+                    } else {
+                        console.error('Payment capture failed:', data);
+                    }
                 } catch (error) {
-                    // console.error('Error adding to cart:', error);
-                    // alert('Payment Successful, but failed to add to cart.');
+                    console.error('Error during payment capture:', error);
                 }
             },
             theme: {
                 color: '#F37254'
             }
         };
-
+    
         const razorpay = new window.Razorpay(options);
         razorpay.open();
     };
