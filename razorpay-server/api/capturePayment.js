@@ -1,7 +1,6 @@
 const axios = require('axios');
 
 module.exports = async (req, res) => {
-    // Allow only POST requests
     if (req.method === 'POST') {
         const { paymentId, amount } = req.body;
 
@@ -22,7 +21,13 @@ module.exports = async (req, res) => {
 
             return res.status(200).json(captureResponse.data);
         } catch (error) {
-            console.error('Payment capture failed:', error.response?.data || error.message);
+            if (error.response) {
+                console.error('Payment capture failed:', error.response.data);
+                console.error('Status Code:', error.response.status);
+                console.error('Headers:', error.response.headers);
+            } else {
+                console.error('Payment capture failed:', error.message);
+            }
             return res.status(500).json({ error: 'Payment capture failed' });
         }
     } else {
