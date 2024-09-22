@@ -284,32 +284,31 @@ export default function Cart() {
     }
     const handlePayment = async () => {
         const options = {
-            key: 'rzp_test_5ujtbmUNWVYysI', // Your Razorpay Key ID
-            amount: (total * 100), // Amount in paise
+            key: 'rzp_test_5ujtbmUNWVYysI',
+            amount: (total * 100),
             currency: 'INR',
             name: 'LuxeLayers',
             description: `Product Order`,
-            image: 'https://luxelayers.vercel.app/favicon.ico', // Your logo URL
+            image: 'https://luxelayers.vercel.app/favicon.ico',
             handler: async (response) => {
-                // console.log(response);
                 const paymentId = response.razorpay_payment_id;
     
                 try {
-                    const captureResponse = await fetch('http://localhost:5000/capture-payment', {
+                    const captureResponse = await fetch('/api/capturePayment', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({
                             paymentId: paymentId,
-                            amount: total * 100, // Ensure this matches the original amount in paise
+                            amount: total * 100,
                         })
                     });
     
                     const data = await captureResponse.json();
     
                     if (captureResponse.ok) {
-                        // console.log('Payment captured:', data);
+                        console.log('Payment captured:', data);
                         await generateorder();
                     } else {
                         console.error('Payment capture failed:', data);
@@ -326,6 +325,7 @@ export default function Cart() {
         const razorpay = new window.Razorpay(options);
         razorpay.open();
     };
+    
     
     
     const handlePaymenttshirt = async () => {
