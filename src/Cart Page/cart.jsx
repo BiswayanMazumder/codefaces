@@ -284,48 +284,33 @@ export default function Cart() {
     }
     const handlePayment = async () => {
         const options = {
-            key: 'rzp_test_5ujtbmUNWVYysI',
-            amount: (total * 100),
+            key: 'rzp_test_5ujtbmUNWVYysI', // Your Razorpay Key ID
+            amount: (total * 100), // Amount in paise
             currency: 'INR',
             name: 'LuxeLayers',
             description: `Product Order`,
-            image: 'https://luxelayers.vercel.app/favicon.ico',
+            image: 'https://luxelayers.vercel.app/favicon.ico', // Your logo URL
             handler: async (response) => {
-                const paymentId = response.razorpay_payment_id;
-    
+                // Handle payment success
+                console.log(response);
+
                 try {
-                    const captureResponse = await fetch('/api/capturePayment', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            paymentId: paymentId,
-                            amount: total * 100,
-                        })
-                    });
-    
-                    const data = await captureResponse.json();
-    
-                    if (captureResponse.ok) {
-                        console.log('Payment captured:', data);
-                        await generateorder();
-                    } else {
-                        console.error('Payment capture failed:', data);
-                    }
+                    // Call the AddToCart function
+                    await generateorder();
+                    // alert('Payment Successful and added to cart!');
                 } catch (error) {
-                    console.error('Error during payment capture:', error);
+                    // console.error('Error adding to cart:', error);
+                    // alert('Payment Successful, but failed to add to cart.');
                 }
             },
             theme: {
                 color: '#F37254'
             }
         };
-    
+
         const razorpay = new window.Razorpay(options);
         razorpay.open();
     };
-    
     
     
     const handlePaymenttshirt = async () => {
@@ -337,38 +322,23 @@ export default function Cart() {
             description: `Product Order`,
             image: 'https://luxelayers.vercel.app/favicon.ico', // Your logo URL
             handler: async (response) => {
-                // console.log(response);
-                const paymentId = response.razorpay_payment_id;
-    
+                // Handle payment success
+                console.log(response);
+
                 try {
-                    const captureResponse = await fetch('http://localhost:5000/capture-payment', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            paymentId: paymentId,
-                            amount: total * 100, // Ensure this matches the original amount in paise
-                        })
-                    });
-    
-                    const data = await captureResponse.json();
-    
-                    if (captureResponse.ok) {
-                        // console.log('Payment captured:', data);
-                        await generateordertshirt();
-                    } else {
-                        console.error('Payment capture failed:', data);
-                    }
+                    // Call the AddToCart function
+                    await generateordertshirt();
+                    // alert('Payment Successful and added to cart!');
                 } catch (error) {
-                    console.error('Error during payment capture:', error);
+                    // console.error('Error adding to cart:', error);
+                    // alert('Payment Successful, but failed to add to cart.');
                 }
             },
             theme: {
                 color: '#F37254'
             }
         };
-    
+
         const razorpay = new window.Razorpay(options);
         razorpay.open();
     };
