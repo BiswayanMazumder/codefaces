@@ -162,7 +162,7 @@ export default function Orderpage() {
                             <img src={order["Product Image"][order.Index]} alt={order["Name"][order.Index]} className="cart-item-image" />
                             <div className="cart-item-details">
                                 <p style={{ color: order.Delivered ? 'green' : 'red' }}>
-                                    {order.Delivered ? `Delivered on ${formatDate(order["Delivery Date"].seconds)}` : "Order yet to be Delivered"}
+                                    {order.Cancelled?`Order Cancelled on ${formatDate(order['Cancellation Date'].seconds)}`:order.Delivered ? `Delivered on ${formatDate(order["Delivery Date"].seconds)}` : "Order yet to be Delivered"}
                                 </p>
                                 <h3 className="cart-item-name">{order["Name"][order.Index]}</h3>
                                 <p className="cart-item-price" style={{ fontWeight: "500" }}>₹{order["Price"][order.Index]}</p>
