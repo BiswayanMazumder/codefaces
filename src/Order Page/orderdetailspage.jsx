@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc, getFirestore } from 'firebase/firestore';
+import { doc, getDoc, getFirestore, serverTimestamp, updateDoc } from 'firebase/firestore';
 import Menu from '../Menu for mobile/menu';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
@@ -62,7 +62,8 @@ export default function Orderdetailspage() {
     const [outfordeliverydate, setoutfordeliverydate] = useState('');
     const [delivereddate, setdelivereddate] = useState('');
     const [orderDetails, setOrderDetails] = useState(null);
-
+    const [cancellationdate,setcancellationdate]=useState('');
+    const [cancelled, setcancellation] = useState(false);
     useEffect(() => {
         const fetchOrderDetails = async () => {
             console.log('Fetching');
@@ -73,14 +74,16 @@ export default function Orderdetailspage() {
             if (orderDetailSnap.exists()) {
                 const order = orderDetailSnap.data();
                 setShipped(order["Shipped"]);
+                setcancellation(order["Cancelled"]);
                 setoutfordelivery(order["Out_Delivery"]);
                 setshippeddate(order["Order Date"]);
                 setoutfordeliverydate(order["Out_Delivery_Time"]);
+                setcancellationdate(order['Cancellation Date']);
                 setdelivereddate(order["Delivery Date"]);
                 setdelivered(order["Delivered"]);
                 allOrderDetails.push(order);
                 setOrderDetails(order);
-                console.log(order);
+                // console.log(order);
             } else {
                 console.log('No such document!');
             }
@@ -101,6 +104,14 @@ export default function Orderdetailspage() {
         // console.log('Shipped state updated ofd:', outfordelivery);
 
     }, [outfordelivery]);
+    useEffect(() => {
+        console.log('Shipped state updated ofd:', cancelled);
+
+    }, [cancelled]);
+    useEffect(() => {
+        // console.log('Shipped state updated ofd:', outfordelivery);
+
+    }, [cancellationdate]);
     useEffect(() => {
         // console.log('Shipped state updated deli:', delivered);
 
@@ -132,31 +143,31 @@ export default function Orderdetailspage() {
         }
         return invoiceNumber;
     };
-    
+
     const generateInvoice = async () => {
         if (!orderDetails) return; // Ensure orderDetails is available
-    
+
         const doc = new jsPDF();
         const invoiceNumber = generateInvoiceNumber(); // Generate a random invoice number
-    
+
         // Title
         doc.setFontSize(22);
         doc.text("Invoice", 105, 20, { align: "center" });
-    
+
         // Company Info
         doc.setFontSize(12);
         doc.text("LuxeLayers", 20, 40);
         doc.text("123 Luxe Street, Fashion City, Kolkata", 20, 45);
         doc.text("Phone: +91-234-567-890", 20, 50);
         doc.text("Email: support@luxelayers.com", 20, 55);
-    
+
         // Customer Info
         doc.text(`Customer Name: ${name}`, 20, 70);
         doc.text(`Invoice Number: ${invoiceNumber}`, 20, 75); // Display the random invoice number
         doc.text(`Order ID: ${orderDetails["Order ID"]}`, 20, 80);
         doc.text(`Order Date: ${formatDate(orderDetails["Order Date"].seconds)}`, 20, 85);
         doc.text(`Delivery Date: ${formatDate(orderDetails["Delivery Date"].seconds)}`, 20, 90);
-    
+
         // Add a table for products
         const tableStartY = 100;
         const products = orderDetails["Name"].map((name, index) => [
@@ -164,7 +175,7 @@ export default function Orderdetailspage() {
             { content: '', styles: { halign: 'center' } },
             `${orderDetails["Price"][index]} INR`
         ]);
-    
+
         doc.autoTable({
             startY: tableStartY,
             head: [['Item', 'Image', 'Price']],
@@ -181,20 +192,30 @@ export default function Orderdetailspage() {
             styles: { cellPadding: 2, fontSize: 12 }, // Adjust cell padding
             theme: 'grid'
         });
-    
+
         // Total Amount
         const totalY = doc.autoTable.previous.finalY + 10;
         doc.text(`Total Amount: ${orderDetails["Total"]} INR`, 20, totalY);
-    
+
         // Footer
         doc.text("Thank you for your purchase!", 105, totalY + 10, { align: "center" });
-    
+
         // Save the PDF
         doc.save(`${orderDetails["Order ID"]}.pdf`);
     };
     
-    
-    
+    const cancelorder = async () => {
+        const auth = getAuth();
+        const db = getFirestore(app); // Initialize Firestore with the Firestore instance
+        const currentUser = auth.currentUser;
+        console.log(localStorage.getItem('OID'));
+        const orderDetailsRef = doc(db, 'Order Details', localStorage.getItem('OID'));
+        await updateDoc(orderDetailsRef, {
+            'Cancelled': true,
+            'Cancellation Date': serverTimestamp()
+        })
+        setcancellation(true);
+    }
     return (
         <>
             <div className="webbody">
@@ -287,12 +308,23 @@ export default function Orderdetailspage() {
                             </div>
                             <br />
                             {
-                                delivered?<div className="nameds" style={{ fontWeight: "300", color: "gray",display:"flex",flexDirection:"row",gap:"10px" }}>
-                                <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/downloadInvoice_e0f744.png" alt="" height={"30px"} width={"30px"} />
-                                <Link style={{textDecoration:"none",color:"black",paddingTop:"5px",fontWeight:"500"}} onClick={()=>generateInvoice()}>
-                                    Download Invoice
-                                </Link>
-                            </div>:<></>
+                                delivered ? <div className="nameds" style={{ fontWeight: "300", color: "gray", display: "flex", flexDirection: "row", gap: "10px" }}>
+                                    <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/downloadInvoice_e0f744.png" alt="" height={"30px"} width={"30px"} />
+                                    <Link style={{ textDecoration: "none", color: "black", paddingTop: "5px", fontWeight: "500" }} onClick={() => generateInvoice()}>
+                                        Download Invoice
+                                    </Link>
+                                </div> : <></>
+                            }
+                            {
+                                outfordelivery ? <div className="nameds" style={{ fontWeight: "bold", color: "gray", display: "flex", flexDirection: "row", gap: "10px" }}>
+                                    <Link style={{ textDecoration: "none", color: "black", paddingTop: "5px", fontWeight: "600" }}>
+                                        Request Cancellation
+                                    </Link>
+                                </div> : <div className="nameds" style={{ fontWeight: "bold", color: "gray", display: "flex", flexDirection: "row", gap: "10px" }}>
+                                    <Link style={{ textDecoration: "none", color: "black", paddingTop: "5px", fontWeight: "600" }} onClick={() => cancelled ? null : cancelorder()}>
+                                        {cancelled ? "Order Cancelled" : "Cancel Order"}
+                                    </Link>
+                                </div>
                             }
                         </div>
 
@@ -304,7 +336,17 @@ export default function Orderdetailspage() {
                 </div>
                 {/* <br /><br /><br /> */}
                 <div className="deliverydetails">
-                    <div className="ejfkmvdv">
+                    {cancelled ? <div className="ejfkmvdv">
+                        <div className="shippingcircle" style={{ backgroundColor: "green" }}>
+
+                        </div>
+                        <div className="shippingline" style={{ backgroundColor: "green" }}>
+
+                        </div>
+                        <div className="shippingcircle" style={{ backgroundColor: "green" }}>
+
+                        </div>
+                    </div> : <div className="ejfkmvdv">
                         <div className="shippingcircle" style={{ backgroundColor: "green" }}>
 
                         </div>
@@ -320,9 +362,15 @@ export default function Orderdetailspage() {
                         <div className="shippingcircle" style={{ backgroundColor: delivered ? "green" : "red" }}>
 
                         </div>
-                    </div>
-
-                    <div className="ejfkmvdvs">
+                    </div>}
+                    {cancelled ? <div className="ejfkmvdvs">
+                        <div className="shippedtext" style={{ color: "green" }}>
+                            {`Item confirmed on ${formatDate(shippedate.seconds)}`}
+                        </div>
+                        <div className="shippedtext" style={{ color: "green" }}>
+                            Order Cancelled on {formatDate(cancellationdate.seconds)}
+                        </div>
+                    </div> : <div className="ejfkmvdvs">
                         <div className="shippedtext" style={{ color: "green" }}>
                             {`Item confirmed on ${formatDate(shippedate.seconds)}`}
                         </div>
@@ -332,14 +380,14 @@ export default function Orderdetailspage() {
                         <div className="shippedtext" style={{ color: delivered ? "green" : "red" }}>
                             {delivered ? `Delivered on ${formatDate(delivereddate.seconds)}` : "Yet to be delivered"}
                         </div>
-                    </div>
+                    </div>}
                     <div className="ejfkmvdvsss" style={{ paddingLeft: "35%", paddingTop: "20%", position: "relative" }}>
                         <Link className="shippedtext" style={{ color: "#2874F1", textDecoration: "none" }}>
-                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMTYnIGhlaWdodD0nMTknIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTggMTgiPgoJPGcgZmlsbD0nbm9uZSc+CgkJPHBvbHlnb24gaWQ9IlNoYXBlIiBmaWxsPSIjMjg3NEYxIiBwb2ludHM9IjkgMTIuMDYyNSAxMy42Mzc1IDE1LjQzNzUgMTEuODYyNSA5Ljk4NzUgMTYuNSA2LjY4NzUgMTAuODEyNSA2LjY4NzUgOSAxLjA2MjUgNy4xODc1IDYuNjg3NSAxLjUgNi42ODc1IDYuMTM3NSA5Ljk4NzUgNC4zNjI1IDE1LjQzNzUiIC8+CgkJPHBvbHlnb24gaWQ9IlNoYXBlIiBwb2ludHM9IjAgMCAxOCAwIDE4IDE4IDAgMTgiIC8+Cgk8L2c+Cjwvc3ZnPg==" alt="" className='rateimage' />
+                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMTYnIGhlaWdodD0nMTknIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTggMTgiPgoJPGcgZmlsbD0nbm9uZSc+CgkJPHBvbHlnb24gaWQ9IlNoYXBlIiBmaWxsPSIjMjg3NEYxIiBwb2ludHM9IjkgMTIuMDYyNSAxMy42Mzc1IDE1LjQzNzUgMTEuODYyNSA5Ljk4NzUgMTYuNSA2LjY4NzUgMTAuODEyNSA2LjY4NzUgOSAxLjA2MjUgNy4xODc1IDYuNjg3NSAxLjUgNi42ODc1IDYuMTM3NSA5Ljk4NzUgNC4zNjI1IDE1LjQzNzUiIC8+CgkJPHBvbHlnb24gaWQ9IlNoYXBlIiBwb2ludHM9IjAgMCAxOCAwIDE4IDE4IDAgMTgiIC8+Cgk8L2c+Cjwvc3ZnPg==" alt="" className='rateimage' />
                             Rate & Review Product
                         </Link>
                         <Link className="shippedtext" style={{ color: "#2874F1", textDecoration: "none" }}>
-                        <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/chatWithUs_69d373.svg" alt="" className='rateimage'/>
+                            <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/chatWithUs_69d373.svg" alt="" className='rateimage' />
                             Chat with us
                         </Link>
                     </div>
