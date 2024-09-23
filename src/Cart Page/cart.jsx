@@ -315,7 +315,7 @@ export default function Cart() {
     const handlePaymenttshirt = async () => {
         const options = {
             key: 'rzp_test_5ujtbmUNWVYysI', // Your Razorpay Key ID
-            amount: (total * 100), // Amount in paise
+            amount: (totaltshirt * 100), // Amount in paise
             currency: 'INR',
             name: 'LuxeLayers',
             description: `Product Order`,
