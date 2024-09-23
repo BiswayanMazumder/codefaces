@@ -311,8 +311,7 @@ export default function Cart() {
         const razorpay = new window.Razorpay(options);
         razorpay.open();
     };
-    
-    
+        
     const handlePaymenttshirt = async () => {
         const options = {
             key: 'rzp_test_5ujtbmUNWVYysI', // Your Razorpay Key ID
