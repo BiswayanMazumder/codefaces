@@ -64,6 +64,8 @@ export default function Orderdetailspage() {
     const [orderDetails, setOrderDetails] = useState(null);
     const [cancellationdate, setcancellationdate] = useState('');
     const [cancelled, setcancellation] = useState(false);
+    const [refunddate,setrefunddate]=useState('');
+    const[refunded,setrefunded]=useState(false);
     useEffect(() => {
         const fetchOrderDetails = async () => {
             console.log('Fetching');
@@ -81,6 +83,8 @@ export default function Orderdetailspage() {
                 setcancellationdate(order['Cancellation Date']);
                 setdelivereddate(order["Delivery Date"]);
                 setdelivered(order["Delivered"]);
+                setrefunded(order["Refunded"]);
+                setrefunddate(order['Refund Initial Date']);
                 allOrderDetails.push(order);
                 setOrderDetails(order);
                 // console.log(order);
@@ -100,6 +104,10 @@ export default function Orderdetailspage() {
         // console.log('Shipped state updated:', shipped);
 
     }, [shipped]);
+    useEffect(() => {
+        // console.log('Shipped state updated:', shipped);
+
+    }, [refunddate]);
     useEffect(() => {
         // console.log('Shipped state updated ofd:', outfordelivery);
 
@@ -128,6 +136,10 @@ export default function Orderdetailspage() {
         // console.log('Shipped state updated deli:', delivereddate);
 
     }, [delivereddate]);
+    useEffect(() => {
+        // console.log('Shipped state updated deli:', delivereddate);
+
+    }, [refunded]);
     const formatDate = (seconds) => {
         const date = new Date(seconds * 1000);
         return date.toLocaleDateString(undefined, {
@@ -212,7 +224,9 @@ export default function Orderdetailspage() {
         const orderDetailsRef = doc(db, 'Order Details', localStorage.getItem('OID'));
         await updateDoc(orderDetailsRef, {
             'Cancelled': true,
-            'Cancellation Date': serverTimestamp()
+            'Cancellation Date': serverTimestamp(),
+            'Refunded':false,
+            'Refund Initial Date': serverTimestamp()
         })
         setcancellation(true);
         setcancelledfirsttime(true);
@@ -347,6 +361,18 @@ export default function Orderdetailspage() {
                         <div className="shippingcircle" style={{ backgroundColor: "green" }}>
 
                         </div>
+                        <div className="shippingline" style={{ backgroundColor: "green" }}>
+
+                        </div>
+                        <div className="shippingcircle" style={{ backgroundColor: "green" }}>
+
+                        </div>
+                        <div className="shippingline" style={{ backgroundColor: refunded ? "green" : "red" }}>
+
+                        </div>
+                        <div className="shippingcircle" style={{ backgroundColor: refunded?"green":"red" }}>
+
+                        </div>
                     </div> : <div className="ejfkmvdv">
                         <div className="shippingcircle" style={{ backgroundColor: "green" }}>
 
@@ -370,6 +396,12 @@ export default function Orderdetailspage() {
                         </div>
                         <div className="shippedtext" style={{ color: "green" }}>
                             {cancelledfirsttime ? "Order Cancelled" : " Order Cancelled on " + formatDate(cancellationdate.seconds)}
+                        </div>
+                        <div className="shippedtext" style={{ color: "green" }}>
+                            {cancelledfirsttime ? "Refund Initiated" : "Refund Initiated " + formatDate(refunddate.seconds)}
+                        </div>
+                        <div className="shippedtext" style={{ color:refunded ? "green" : "red" }}>
+                            {refunded?"Refund completed":"Refund yet to be completed"}
                         </div>
                     </div> : <div className="ejfkmvdvs">
                         <div className="shippedtext" style={{ color: "green" }}>
