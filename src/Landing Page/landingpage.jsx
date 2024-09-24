@@ -5,6 +5,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { collection, doc, getDoc, getDocs, getFirestore, setDoc } from 'firebase/firestore';
 import Menu from '../Menu for mobile/menu';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 const firebaseConfig = {
     apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
     authDomain: "luxelayers.firebaseapp.com",
@@ -264,10 +265,23 @@ export default function Landingpage() {
         }
     ];
 
-    const toggleModal = (img) => {
+    const toggleModal = async(img,name) => {
         setSelectedImage(img);
         setIsOpen(!isOpen);
+        try {
+            const genAI = new GoogleGenerativeAI('AIzaSyC0kDunLTQWxNPZCVLTAKMa6ce9mvR0hd0');
+            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+            const prompt = `About ${name} in 50 words`;
+            const result = await model.generateContent(prompt);
+            setProductDetails(result.response.text());
+            // console.log('response',result.response.text());
+        } catch (error) {
+            console.error('Error generating content:', error);
+        }
     };
+    const [productdetails, setProductDetails] = useState('');
+
     return (
         <>
             <div className="webbody">
@@ -328,7 +342,7 @@ export default function Landingpage() {
                 <Link 
                     key={index} 
                     style={{ textDecoration: "none" }} 
-                    onClick={() => toggleModal(product.img)}
+                    onClick={() => toggleModal(product.img,product.name)}
                 >
                     <div className="items">
                         <img
@@ -354,7 +368,7 @@ export default function Landingpage() {
                             alt=""
                             style={{ width: '100%' }}
                         />
-                        <p>Some details about the product...</p>
+                        <p>{productdetails}</p>
                     </div>
                 </div>
             )}
