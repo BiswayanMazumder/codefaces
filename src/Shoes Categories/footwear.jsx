@@ -39,7 +39,7 @@ export default function Footwear() {
             try {
                 setLoading(true); // Start loading
                 // Fetch the collection
-                const colRef = collection(db, 'sneakers');
+                const colRef = collection(db, 'airmax');
                 const querySnapshot = await getDocs(colRef);
 
                 // Extract document IDs and add them to the list
