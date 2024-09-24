@@ -325,8 +325,7 @@ export default function Cart() {
             image: 'https://luxelayers.vercel.app/favicon.ico', // Your logo URL
             handler: async (response) => {
                 // Handle payment success
-                console.log(response);
-
+                // console.log(response);
                 try {
                     // Call the AddToCart function
                     await generateordertshirt(response.razorpay_payment_id);

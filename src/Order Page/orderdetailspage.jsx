@@ -203,7 +203,7 @@ export default function Orderdetailspage() {
         // Save the PDF
         doc.save(`${orderDetails["Order ID"]}.pdf`);
     };
-    
+    const [cancelledfirsttime, setcancelledfirsttime] = useState(false);
     const cancelorder = async () => {
         const auth = getAuth();
         const db = getFirestore(app); // Initialize Firestore with the Firestore instance
@@ -215,6 +215,7 @@ export default function Orderdetailspage() {
             'Cancellation Date': serverTimestamp()
         })
         setcancellation(true);
+        setcancelledfirsttime(true);
     }
     return (
         <>
@@ -368,7 +369,7 @@ export default function Orderdetailspage() {
                             {`Item confirmed on ${formatDate(shippedate.seconds)}`}
                         </div>
                         <div className="shippedtext" style={{ color: "green" }}>
-                            Order Cancelled on {formatDate(cancellationdate.seconds)}
+                            {cancelledfirsttime?"Order Cancelled":" Order Cancelled on "+formatDate(cancellationdate.seconds)} 
                         </div>
                     </div> : <div className="ejfkmvdvs">
                         <div className="shippedtext" style={{ color: "green" }}>
