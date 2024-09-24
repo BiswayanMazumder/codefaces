@@ -224,7 +224,7 @@ export default function Cart() {
 
         fetchDocumentNames();
     }, []);
-    const generateorder = async () => {
+    const generateorder = async (paymentid) => {
         const auth = getAuth();
         const db = getFirestore(app); // Initialize Firestore with the Firestore instance
         const currentUser = auth.currentUser;
@@ -250,10 +250,11 @@ export default function Cart() {
             'Product ID':documentNames,
             'Product Image':fetchedAjPic,
             'Shipped':false,
-            'Total':total
+            'Total':total,
+            'Payment ID':paymentid
         })
     }
-    const generateordertshirt = async () => {
+    const generateordertshirt = async (paymentid) => {
         const auth = getAuth();
         const db = getFirestore(app); // Initialize Firestore with the Firestore instance
         const currentUser = auth.currentUser;
@@ -279,7 +280,9 @@ export default function Cart() {
             'Product ID':documentNamess,
             'Product Image':fetchedAjPics,
             'Shipped':false,
-            'Total':totaltshirt
+            'Total':totaltshirt,
+            'Payment ID':paymentid
+            
         })
     }
     const handlePayment = async () => {
@@ -292,11 +295,11 @@ export default function Cart() {
             image: 'https://luxelayers.vercel.app/favicon.ico', // Your logo URL
             handler: async (response) => {
                 // Handle payment success
-                console.log(response);
+                // console.log(response.razorpay_payment_id);
 
                 try {
                     // Call the AddToCart function
-                    await generateorder();
+                    await generateorder(response.razorpay_payment_id);
                     // alert('Payment Successful and added to cart!');
                 } catch (error) {
                     // console.error('Error adding to cart:', error);
@@ -326,7 +329,7 @@ export default function Cart() {
 
                 try {
                     // Call the AddToCart function
-                    await generateordertshirt();
+                    await generateordertshirt(response.razorpay_payment_id);
                     // alert('Payment Successful and added to cart!');
                 } catch (error) {
                     // console.error('Error adding to cart:', error);
