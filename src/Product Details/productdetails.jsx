@@ -27,7 +27,26 @@ export default function ProductDetails() {
 
     const [productdetails, setProductDetails] = useState('');
     const [filteredSizes, setFilteredSizes] = useState([]);
-
+    const [user, setUser] = useState(false);
+    useEffect(() => {
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in, see docs for a list of available properties
+                // https://firebase.google.com/docs/reference/js/auth.user
+                const uid = user.uid;
+                console.log('User is signed in');
+                setUser(true);
+                // ...
+            } else {
+                // User is signed out
+                // ...
+                // console.log('User is not signed')
+                // setUser(false);
+            }
+        });
+        console.log(user);
+    });
     useEffect(() => {
         document.title = `${sneakername} | LuxeLayers`;
     }, [sneakername]);
@@ -87,7 +106,7 @@ export default function ProductDetails() {
     const [documentNames, setDocumentNames] = useState([]);
     const [fetchedAjName, setFetchedAjName] = useState([]);
     const [fetchedAjPic, setFetchedAjPic] = useState([]);
-    const [user, setUser] = useState(false);
+    // const [user, setUser] = useState(false);
     const [loading, setLoading] = useState(true); // Loading state
     const [fetchedAjPrice, setFetchedAjprice] = useState([]);
     useEffect(() => {
@@ -171,6 +190,44 @@ export default function ProductDetails() {
 
         fetchDocumentName();
     }, []);
+    const [favItems, setfavItems] = useState(false);
+    useEffect(() => {
+        const fetchDocumentName = async () => {
+            console.log('Fetching document names...');
+            try {
+                const currentUser = auth.currentUser;
+                if (currentUser) {
+                    const UID = currentUser.uid;
+                    let pid = [];  // Changed to let
+                    // console.log('Current UID:', UID);
+                    const cartDocRef = doc(db, 'Favourite Items', UID);
+                    const cartDocSnap = await getDoc(cartDocRef);
+                    if (cartDocSnap.exists()) {
+                        const cartData = cartDocSnap.data();
+                        pid = cartData?.['Product ID'] || [];
+                        // console.log('Product IDs:', pid);
+
+                        // Update state based on the presence of items
+                        if (pid.includes(sneakerid)) {
+                            setisfav(true);
+                        } else {
+                            setisfav(false);
+                        }
+                    } else {
+                        console.log('No cart items document found');
+                        setisfav(false); // Set to false if no document is found
+                    }
+                } else {
+                    console.log('No current user');
+                    setisfav(false); // Set to false if no user is logged in
+                }
+            } catch (error) {
+                console.error('Error fetching document names:', error);
+            }
+        };
+
+        fetchDocumentName();
+    }, []);
     useEffect(() => {
         const fetchReviews = async () => {
             console.log('Reviews fetching')
@@ -242,6 +299,59 @@ export default function ProductDetails() {
             console.error('Error removing product from cart:', error);
         }
     };
+    const [isfav,setisfav]=useState(false);
+    const addtofavourite = async () => {
+        if(isfav){
+            try {
+                // Get current user
+                const currentUser = auth.currentUser;
+                if (!currentUser) {
+                    throw new Error('No user is currently signed in.');
+                }
+    
+                const UID = currentUser.uid;
+                const cartDocRef = doc(db, 'Favourite Items', UID);
+    
+                // Use setDoc with merge to handle both create and update scenarios
+                await setDoc(cartDocRef, {
+                    'Product ID': arrayRemove(sneakerid)
+                }, { merge: true });
+    
+                // On success
+                setisfav(false);  // Indicate success
+                console.log('Product added to cart successfully.');
+            } catch (error) {
+                // On failure
+                setCartItems(false);  // Indicate failure
+                console.error('Error adding product to cart:', error);
+            }
+        }
+        if(!isfav){
+            try {
+                // Get current user
+                const currentUser = auth.currentUser;
+                if (!currentUser) {
+                    throw new Error('No user is currently signed in.');
+                }
+    
+                const UID = currentUser.uid;
+                const cartDocRef = doc(db, 'Favourite Items', UID);
+    
+                // Use setDoc with merge to handle both create and update scenarios
+                await setDoc(cartDocRef, {
+                    'Product ID': arrayUnion(sneakerid)
+                }, { merge: true });
+    
+                // On success
+                setisfav(true);  // Indicate success
+                console.log('Product added to cart successfully.');
+            } catch (error) {
+                // On failure
+                setCartItems(true);  // Indicate failure
+                console.error('Error adding product to cart:', error);
+            }
+        }
+    }
     const LazyImage = ({ src, alt }) => {
         const [loading, setLoading] = useState(true);
         const imgRef = useRef(null);
@@ -265,22 +375,6 @@ export default function ProductDetails() {
                 }
             };
         }, []);
-
-        useEffect(() => {
-            const auth = getAuth();
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    const uid = user.uid;
-                    setUser(true);
-                    // ...
-                } else {
-                }
-            });
-            // console.log(user);
-        });
-
-
-
         return (
             <div ref={imgRef} className="lazy-image-container">
                 {loading && <div className="loading-placeholder">Loading...</div>}
@@ -389,12 +483,22 @@ export default function ProductDetails() {
                                 ))
                             }
                         </select>
-                        <Link style={{ textDecoration: "none" }} onClick={cartItems ? RemoveFromCart : AddToCart}>
+                        <Link style={{ textDecoration: "none" }} onClick={cartItems ? RemoveFromCart : AddToCart} to={user?'':'/account/login'}>
                             <div className="ejnfdmvkdmv">
                                 {cartItems ? 'REMOVE FROM CART' : "ADD TO CART"}
                                 {/* <center>ADD TO CART</center> */}
                             </div>
                         </Link>
+                        <br />
+                        {user?<Link style={{ textDecoration: "none" }} onClick={()=>{
+                                addtofavourite();
+                            }}>
+                            <div className="ejnfdmvkdmv" style={{backgroundColor:isfav?"red":"yellow",color:isfav?"white":"black"}} onClick={()=>{
+                                addtofavourite();
+                            }}>
+                                {isfav?'ADDED TO FAVOURITE':'ADD TO FAVOURITE'}
+                            </div>
+                        </Link>:<></>}
                         <br /><br />
                     </div>
                 </div>
