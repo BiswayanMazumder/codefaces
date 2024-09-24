@@ -62,7 +62,7 @@ export default function Orderdetailspage() {
     const [outfordeliverydate, setoutfordeliverydate] = useState('');
     const [delivereddate, setdelivereddate] = useState('');
     const [orderDetails, setOrderDetails] = useState(null);
-    const [cancellationdate,setcancellationdate]=useState('');
+    const [cancellationdate, setcancellationdate] = useState('');
     const [cancelled, setcancellation] = useState(false);
     useEffect(() => {
         const fetchOrderDetails = async () => {
@@ -369,7 +369,7 @@ export default function Orderdetailspage() {
                             {`Item confirmed on ${formatDate(shippedate.seconds)}`}
                         </div>
                         <div className="shippedtext" style={{ color: "green" }}>
-                            {cancelledfirsttime?"Order Cancelled":" Order Cancelled on "+formatDate(cancellationdate.seconds)} 
+                            {cancelledfirsttime ? "Order Cancelled" : " Order Cancelled on " + formatDate(cancellationdate.seconds)}
                         </div>
                     </div> : <div className="ejfkmvdvs">
                         <div className="shippedtext" style={{ color: "green" }}>
@@ -382,7 +382,7 @@ export default function Orderdetailspage() {
                             {delivered ? `Delivered on ${formatDate(delivereddate.seconds)}` : "Yet to be delivered"}
                         </div>
                     </div>}
-                   {cancelled?<></>: <div className="ejfkmvdvsss" style={{ paddingLeft: "35%", paddingTop: "20%", position: "relative" }}>
+                    {cancelled ? <></> : <div className="ejfkmvdvsss" style={{ paddingLeft: "35%", paddingTop: "20%", position: "relative" }}>
                         <Link className="shippedtext" style={{ color: "#2874F1", textDecoration: "none" }}>
                             <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMTYnIGhlaWdodD0nMTknIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTggMTgiPgoJPGcgZmlsbD0nbm9uZSc+CgkJPHBvbHlnb24gaWQ9IlNoYXBlIiBmaWxsPSIjMjg3NEYxIiBwb2ludHM9IjkgMTIuMDYyNSAxMy42Mzc1IDE1LjQzNzUgMTEuODYyNSA5Ljk4NzUgMTYuNSA2LjY4NzUgMTAuODEyNSA2LjY4NzUgOSAxLjA2MjUgNy4xODc1IDYuNjg3NSAxLjUgNi42ODc1IDYuMTM3NSA5Ljk4NzUgNC4zNjI1IDE1LjQzNzUiIC8+CgkJPHBvbHlnb24gaWQ9IlNoYXBlIiBwb2ludHM9IjAgMCAxOCAwIDE4IDE4IDAgMTgiIC8+Cgk8L2c+Cjwvc3ZnPg==" alt="" className='rateimage' />
                             Rate & Review Product
