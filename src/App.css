@@ -956,3 +956,46 @@ gap: 30px;
 .checkoutbutton:hover {
   box-shadow: 2px 2px 8px 2px rgba(0, 0, 0, 0.5);
 }
+.footer{
+  width: 100vw;
+  height: 200px;
+  background-color: #232F3E;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.footercontainer{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 200px;
+  /* align-self: center; */
+}
+.footerpoints{
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  justify-content: start;
+  text-align: start;
+  align-items: start;
+}
+.headers{
+  font-weight: 600;
+  font-size: 18px;
+  color: white;
+  top: 20px;
+  position: relative;
+  left: 30px;
+}
+.headerspoints{
+  font-weight: 100;
+  color: white;
+  /* top: 12px; */
+  font-size: 15px;
+  position: relative;
+  left: 25px;
+}
+.headerspoints:hover{
+  color: grey;
+}

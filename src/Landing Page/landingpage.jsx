@@ -6,6 +6,7 @@ import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebas
 import { collection, doc, getDoc, getDocs, getFirestore, setDoc } from 'firebase/firestore';
 import Menu from '../Menu for mobile/menu';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import Footer from '../Footer Section/footer';
 const firebaseConfig = {
     apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
     authDomain: "luxelayers.firebaseapp.com",
@@ -726,8 +727,7 @@ export default function Landingpage() {
                         </div>
                     ) : <></>
                 }
-
-
+                <Footer/>
             </div>
         </>
     );
