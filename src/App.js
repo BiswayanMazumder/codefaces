@@ -24,6 +24,7 @@ import Orderdetailspage from './Order Page/orderdetailspage';
 import Sleeveless from './T-Shirts Categories/sleeveless';
 import TShirtProductDetails from './Product Details/tshirtproductdetails';
 import ComingSoonProductDetails from './Product Details/comingsoonproductpage';
+import Returnorder from './Return Page/returnorder';
 function App() {
   return (
     <BrowserRouter>
@@ -77,6 +78,9 @@ function App() {
       </Routes>
       <Routes>
         <Route path="/products/comingsoon" element={<ComingSoonProductDetails />} />
+      </Routes>
+      <Routes>
+        <Route path="/apps/return_order" element={<Returnorder />} />
       </Routes>
       <SpeedInsights />
       <Analytics />

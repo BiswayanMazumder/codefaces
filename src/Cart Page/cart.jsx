@@ -252,7 +252,19 @@ export default function Cart() {
     
         fetchDocumentNames();
     }, []);
-    
+    const [email, setEmail] = useState('');
+    useEffect(() => {
+        const auth = getAuth();
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setUser(user);
+                setEmail(user.email); // Set the email when the user is authenticated
+            }
+        });
+
+        // Cleanup subscription on unmount
+        return () => unsubscribe();
+    }, []);
     const generateorder = async (paymentid) => {
         const auth = getAuth();
         const db = getFirestore(app); // Initialize Firestore with the Firestore instance
@@ -280,7 +292,8 @@ export default function Cart() {
             'Product Image':fetchedAjPic,
             'Shipped':false,
             'Total':total,
-            'Payment ID':paymentid
+            'Payment ID':paymentid,
+            'email':email
         })
     }
     const generateordertshirt = async (paymentid) => {
@@ -310,7 +323,8 @@ export default function Cart() {
             'Product Image':fetchedAjPics,
             'Shipped':false,
             'Total':totaltshirt,
-            'Payment ID':paymentid
+            'Payment ID':paymentid,
+            'email':email
             
         })
     }
