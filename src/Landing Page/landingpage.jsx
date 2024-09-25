@@ -313,7 +313,7 @@ export default function Landingpage() {
         }
     ];
 
-    const toggleModal = async(img,name) => {
+    const toggleModal = async (img, name) => {
         setSelectedImage(img);
         setIsOpen(!isOpen);
         try {
@@ -386,42 +386,42 @@ export default function Landingpage() {
                     <img src={currentImage} alt="" className='bodyimg' />
                 </Link>
                 <div className="dhifjkfjlf">
-            {products.map((product, index) => (
-                <Link 
-                    key={index} 
-                    style={{ textDecoration: "none" }} 
-                    onClick={() => toggleModal(product.img,product.name)}
-                >
-                    <div className="items">
-                        <img
-                            src={product.img}
-                            alt={product.name}
-                            height={'100px'}
-                            width={'100px'}
-                            style={{ borderRadius: '50%' }}
-                        />
-                        <br /><br />
-                        {product.name}
-                    </div>
-                </Link>
-            ))}
+                    {products.map((product, index) => (
+                        <Link
+                            key={index}
+                            style={{ textDecoration: "none" }}
+                            onClick={() => toggleModal(product.img, product.name)}
+                        >
+                            <div className="items">
+                                <img
+                                    src={product.img}
+                                    alt={product.name}
+                                    height={'100px'}
+                                    width={'100px'}
+                                    style={{ borderRadius: '50%' }}
+                                />
+                                <br /><br />
+                                {product.name}
+                            </div>
+                        </Link>
+                    ))}
 
-            {isOpen && (
-                <div className="modal">
-                    <div className="modal-content">
-                        <span className="close" onClick={toggleModal}>&times;</span>
-                        <h2>{selectedImage ? products.find(p => p.img === selectedImage).name : ''}</h2>
-                        <img
-                            src={selectedImage}
-                            alt=""
-                            style={{ width: '100%' }}
-                        />
-                        <p>{productdetails}</p>
-                    </div>
-                </div>
-            )}
+                    {isOpen && (
+                        <div className="modal">
+                            <div className="modal-content">
+                                <span className="close" onClick={toggleModal}>&times;</span>
+                                <h2>{selectedImage ? products.find(p => p.img === selectedImage).name : ''}</h2>
+                                <img
+                                    src={selectedImage}
+                                    alt=""
+                                    style={{ width: '100%' }}
+                                />
+                                <p>{productdetails}</p>
+                            </div>
+                        </div>
+                    )}
 
-            <style jsx>{`
+                    <style jsx>{`
                 .modal {
                     display: flex;
                     justify-content: center;
@@ -455,7 +455,7 @@ export default function Landingpage() {
                     margin: 10px;
                 }
             `}</style>
-        </div>
+                </div>
                 <Link style={{ textDecoration: "none" }} to={'/dunks'}>
                     <div className="jjehfjnfjd">
                         <video src="https://videos.pexels.com/video-files/8533112/8533112-uhd_2560_1440_25fps.mp4" autoPlay muted loop className='promotionalvideo'></video>
@@ -679,35 +679,55 @@ export default function Landingpage() {
                 }
                 {
                     loggeduser ? <div className="jefkeklf" style={{ fontWeight: "bold", left: "25px", position: "relative", top: "50px" }}>
-                       Your Favourite Items
+                        Your Favourite Items
 
                     </div> : <></>
                 }
                 {
-                    loggeduser && fetchedAjNamesss.length > 0 ? <div className="dhifjkfjlf" style={{ height: '500px', color: "black" }}>
-                        {
-                            fetchedAjNamesss.map((name, index) => (
-                                <Link style={{ textDecoration: "none", color: "black" }} key={index}
-                                    onClick={() => {
-                                        localStorage.setItem('producttype', 'sneakers');
-                                        localStorage.setItem('productname', fetchedAjNamesss[index]);
-                                        localStorage.setItem('productprice', fetchedAjPricesss[index]);
-                                        localStorage.setItem('productimage', fetchedAjPicsss[index]);
-                                        localStorage.setItem('PID', documentNamessss[index]);
-                                        console.log(documentNames[index]);
-                                    }}
-                                    to={"/product"}
-                                >
-                                    <div className="gallery" >
-                                        <img src={fetchedAjPicsss[index]} alt="" className='newstockimages' />
-                                        <br /><br />
-                                        {fetchedAjNamesss[index]}
-                                    </div>
-                                </Link>
-                            ))
-                        }
-                    </div> : <></>
+                    loggeduser && fetchedAjNamesss.length > 0 ? (
+                        <div className="dhifjkfjlf" style={{ height: '500px', color: "black" }}>
+                            {
+                                fetchedAjNamesss.map((name, index) => (
+                                    <Link
+                                        style={{ textDecoration: "none", color: "black", position: 'relative' }}
+                                        key={index}
+                                        onClick={() => {
+                                            localStorage.setItem('producttype', 'sneakers');
+                                            localStorage.setItem('productname', fetchedAjNamesss[index]);
+                                            localStorage.setItem('productprice', fetchedAjPricesss[index]);
+                                            localStorage.setItem('productimage', fetchedAjPicsss[index]);
+                                            localStorage.setItem('PID', documentNamessss[index]);
+                                            console.log(documentNames[index]);
+                                        }}
+                                        to={"/product"}
+                                    >
+                                        <div className="gallery">
+                                            <img src={fetchedAjPicsss[index]} alt="" className='newstockimages' />
+                                            <div
+                                                style={{
+                                                    position: 'absolute',
+                                                    top: '5px',  // Adjust the position as needed
+                                                    right: '5px',  // Adjust the position as needed
+                                                    cursor: 'pointer',
+                                                    zIndex: 1,  // Ensure the icon is above the image
+                                                }}
+                                                onClick={(e) => {
+                                                    e.stopPropagation(); // Prevents the click from propagating to the Link
+                                                    // Add any additional functionality for the heart icon here, if needed
+                                                }}
+                                            >
+                                            </div>
+                                            <br /><br />
+                                            {fetchedAjNamesss[index]}
+                                        </div>
+                                    </Link>
+                                ))
+                            }
+                        </div>
+                    ) : <></>
                 }
+
+
             </div>
         </>
     );
