@@ -55,6 +55,52 @@ export default function Returnorder() {
             setempty(false);
         }, 5000);
     }
+    const [correctorder,setcorrectorder]=useState(false);
+    const [firsttime,setfirsttime]=useState(true);
+    const [Email,setemail]=useState('');
+    const fetchorder = async () => {
+        var orderid = document.getElementById('emailaddress').value;
+        var email = document.getElementById('passwordbox').value;
+        const auth = getAuth();
+        const db = getFirestore(app); // Initialize Firestore with the Firestore instance
+        const currentUser = auth.currentUser;
+    
+        if (!currentUser) {
+            console.log('No user is currently logged in.');
+            return;
+        }
+    
+        const UID = currentUser.uid;
+        const orderDocRef = doc(db, 'Order Details', orderid);
+    
+        try {
+            const orderDocSnapshot = await getDoc(orderDocRef); // Get the document snapshot
+    
+            if (orderDocSnapshot.exists()) {
+                const cartData = orderDocSnapshot.data(); // Get the data from the snapshot
+                const emailid = cartData.email;
+                console.log('Email', emailid);
+                if(emailid==email){
+                    setfirsttime(false);
+                    setInterval(() => {
+                        setfirsttime(true);
+                    }, 5000);
+                    setcorrectorder(true);
+                }
+                else{
+                    setInterval(() => {
+                        setfirsttime(true);
+                    }, 5000);
+                    setfirsttime(false);
+                }
+            } else {
+                console.log('No such document!');
+            }
+        } catch (error) {
+            console.log('Error fetching order:', error);
+        }
+    }
+    
     return (
         <div className='webbody' style={{height: '100vh'}}>
             <div className="headersection">
@@ -122,12 +168,17 @@ export default function Returnorder() {
                         </div>
                     </div>
                     <Link style={{ textDecoration: "none", color: "white" }}>
-                        <div className="ekfjmmf" onClick={()=>{emptyvalue()}}>
+                        <div className="ekfjmmf" onClick={()=>{fetchorder()}}>
                             <div className="loginbutton" style={{ border: "none", backgroundColor: "#BFA162", color: "white", justifyContent: "center", alignItems: "center", textAlign: "center", display: "flex" }} >
                                 Find your order
                             </div>
                         </div>
                     </Link>
+                    {
+                      firsttime?<></>:  correctorder?<></>:<div className="ffmfmb" style={{ color: "red",fontWeight:"500" }}>
+                    Incorrect order details
+                    </div>
+                    }
                     <br /><br />
                     <div className="dfbjdndn">
                         <div className="ejfhfm">
