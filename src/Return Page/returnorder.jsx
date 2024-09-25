@@ -79,7 +79,7 @@ export default function Returnorder() {
             if (orderDocSnapshot.exists()) {
                 const cartData = orderDocSnapshot.data(); // Get the data from the snapshot
                 const emailid = cartData.email;
-                console.log('Email', emailid);
+                // console.log('Email', emailid);
                 if(emailid==email){
                     setfirsttime(false);
                     setInterval(() => {
