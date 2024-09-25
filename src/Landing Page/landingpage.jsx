@@ -195,9 +195,57 @@ export default function Landingpage() {
 
         fetchDocumentNames();
     }, []);
+    const [documentNamessss, setDocumentNamessss] = useState([]);
+    const [fetchedAjNamesss, setFetchedAjNamesss] = useState([]);
+    const [fetchedAjPicsss, setFetchedAjPicsss] = useState([]);
+    const [fetchedAjPricesss, setFetchedAjpricesss] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
-    
+    useEffect(() => {
+        const fetchDocumentNames = async () => {
+            console.log('Fetching document names...');
+            try {
+                const auth = getAuth();
+                const db = getFirestore(app);
+                const currentUser = auth.currentUser;
+                if (currentUser) {
+                    const UID = currentUser.uid;
+                    const cartDocRef = doc(db, 'Favourite Items', UID);
+                    const cartDocSnap = await getDoc(cartDocRef);
+                    if (cartDocSnap.exists()) {
+                        const cartData = cartDocSnap.data();
+                        const pid = cartData?.['Product ID'] || [];
+                        setDocumentNamessss(pid);
+                        const ajName = [];
+                        const ajPic = [];
+                        const ajprice = [];
+
+                        for (let i = 0; i < pid.length; i++) {
+                            const productDocRef = doc(db, 'sneakers', pid[i]);
+                            const productDocSnap = await getDoc(productDocRef);
+                            if (productDocSnap.exists()) {
+                                const productData = productDocSnap.data();
+                                ajName.push(productData?.name || 'No Name');
+                                ajPic.push(productData?.['Product Image'] || 'No Image');
+                                ajprice.push(productData?.Price || 0);
+                            }
+                        }
+                        setFetchedAjNamesss(ajName);
+                        setFetchedAjPicsss(ajPic);
+                        setFetchedAjpricesss(ajprice);
+                    } else {
+                        console.log('No favourite items document found');
+                    }
+                } else {
+                    console.log('No current user');
+                }
+            } catch (error) {
+                console.error('Error fetching document names:', error);
+            }
+        };
+
+        fetchDocumentNames();
+    }, []);
     const products = [
         {
             name: "AIR JORDAN 4 RETRO GS 'BLACK/WHITE'",
@@ -616,6 +664,44 @@ export default function Landingpage() {
                                         <img src={fetchedAjPic[index]} alt="" className='newstockimages' />
                                         <br /><br />
                                         {fetchedAjName[index]}
+                                    </div>
+                                </Link>
+                            ))
+                        }
+                    </div> : <></>
+                }
+                {
+                    loggeduser ? <Link style={{ textDecoration: "none" }}>
+                        <div className="jjehfjnfjd">
+                            <video src="https://media.jimmychoo.com/video/upload/e_volume:mute,q_auto:best,f_auto/v1727081973/WEBSITE/Autumn%202024/HP/wk26/GBROW/d-gbrow-box5_ynqy8i.mp4" autoPlay muted loop className='promotionalvideo'></video>
+                        </div>
+                    </Link> : <></>
+                }
+                {
+                    loggeduser ? <div className="jefkeklf" style={{ fontWeight: "bold", left: "25px", position: "relative", top: "50px" }}>
+                       Your Favourite Items
+
+                    </div> : <></>
+                }
+                {
+                    loggeduser && fetchedAjNamesss.length > 0 ? <div className="dhifjkfjlf" style={{ height: '500px', color: "black" }}>
+                        {
+                            fetchedAjNamesss.map((name, index) => (
+                                <Link style={{ textDecoration: "none", color: "black" }} key={index}
+                                    onClick={() => {
+                                        localStorage.setItem('producttype', 'sneakers');
+                                        localStorage.setItem('productname', fetchedAjNamesss[index]);
+                                        localStorage.setItem('productprice', fetchedAjPricesss[index]);
+                                        localStorage.setItem('productimage', fetchedAjPicsss[index]);
+                                        localStorage.setItem('PID', documentNamessss[index]);
+                                        console.log(documentNames[index]);
+                                    }}
+                                    to={"/product"}
+                                >
+                                    <div className="gallery" >
+                                        <img src={fetchedAjPicsss[index]} alt="" className='newstockimages' />
+                                        <br /><br />
+                                        {fetchedAjNamesss[index]}
                                     </div>
                                 </Link>
                             ))
