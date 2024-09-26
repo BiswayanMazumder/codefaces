@@ -45,10 +45,10 @@ export default function Returnorder() {
     const [empty,setempty]=useState(false);
     const emptyvalue=()=>{
         var orderid=document.getElementById('emailaddress').value;
-        var email=document.getElementById('passwordbox').value;
+        // var email=document.getElementById('passwordbox').value;
         // console.log('orderid',orderid);
         // console.log('email',email);
-        if(orderid=='' || email==''){
+        if(orderid==''){
             setempty(true);
         }
         setInterval(() => {
@@ -59,8 +59,8 @@ export default function Returnorder() {
     const [firsttime,setfirsttime]=useState(true);
     const [Email,setemail]=useState('');
     const fetchorder = async () => {
-        var orderid = document.getElementById('emailaddress').value;
-        var email = document.getElementById('passwordbox').value;
+        emptyvalue();
+        var orderid = document.getElementById('emailaddress').value; // Order ID input
         const auth = getAuth();
         const db = getFirestore(app); // Initialize Firestore with the Firestore instance
         const currentUser = auth.currentUser;
@@ -71,6 +71,7 @@ export default function Returnorder() {
         }
     
         const UID = currentUser.uid;
+        const userEmail = currentUser.email; // Get the current user's email
         const orderDocRef = doc(db, 'Order Details', orderid);
     
         try {
@@ -79,19 +80,18 @@ export default function Returnorder() {
             if (orderDocSnapshot.exists()) {
                 const cartData = orderDocSnapshot.data(); // Get the data from the snapshot
                 const emailid = cartData.email;
-                // console.log('Email', emailid);
-                if(emailid==email){
+    
+                if (emailid === userEmail) { // Compare with the current user's email
                     setfirsttime(false);
                     setInterval(() => {
                         setfirsttime(true);
                     }, 5000);
                     setcorrectorder(true);
-                }
-                else{
+                } else {
+                    setfirsttime(false);
                     setInterval(() => {
                         setfirsttime(true);
                     }, 5000);
-                    setfirsttime(false);
                 }
             } else {
                 console.log('No such document!');
@@ -100,6 +100,7 @@ export default function Returnorder() {
             console.log('Error fetching order:', error);
         }
     }
+    
     
     return (
         <div className='webbody' style={{height: '100vh'}}>
@@ -162,11 +163,11 @@ export default function Returnorder() {
                             <input type="text" placeholder='Order Number' className='email' id='emailaddress' style={{ border:empty? "2px solid red":"" }} />
                         </div>
                     </div>
-                    <div className="ekfjmmf">
+                    {/* <div className="ekfjmmf">
                         <div className="email" style={{ border: "none"}}>
                             <input type="text" placeholder='Email Address' className='email' id='passwordbox' style={{ border:empty? "2px solid red":"" }}/>
                         </div>
-                    </div>
+                    </div> */}
                     <Link style={{ textDecoration: "none", color: "white" }}>
                         <div className="ekfjmmf" onClick={()=>{fetchorder()}}>
                             <div className="loginbutton" style={{ border: "none", backgroundColor: "#BFA162", color: "white", justifyContent: "center", alignItems: "center", textAlign: "center", display: "flex" }} >
@@ -176,7 +177,7 @@ export default function Returnorder() {
                     </Link>
                     {
                       firsttime?<></>:  correctorder?<></>:<div className="ffmfmb" style={{ color: "red",fontWeight:"500" }}>
-                    Incorrect order details
+                    Sorry this is not your order
                     </div>
                     }
                     <br /><br />
