@@ -83,10 +83,12 @@ export default function Returnorder() {
     
                 if (emailid === userEmail) { // Compare with the current user's email
                     setfirsttime(false);
+                    localStorage.setItem('searchorderid', orderid);
                     setInterval(() => {
                         setfirsttime(true);
                     }, 5000);
                     setcorrectorder(true);
+                    window.location.href='/apps/return_order_details';
                 } else {
                     setfirsttime(false);
                     setInterval(() => {
@@ -163,12 +165,7 @@ export default function Returnorder() {
                             <input type="text" placeholder='Order Number' className='email' id='emailaddress' style={{ border:empty? "2px solid red":"" }} />
                         </div>
                     </div>
-                    {/* <div className="ekfjmmf">
-                        <div className="email" style={{ border: "none"}}>
-                            <input type="text" placeholder='Email Address' className='email' id='passwordbox' style={{ border:empty? "2px solid red":"" }}/>
-                        </div>
-                    </div> */}
-                    <Link style={{ textDecoration: "none", color: "white" }}>
+                    <Link style={{ textDecoration: "none", color: "white" }} to={correctorder?'/apps/return_order_details':'/apps/return_order'}>
                         <div className="ekfjmmf" onClick={()=>{fetchorder()}}>
                             <div className="loginbutton" style={{ border: "none", backgroundColor: "#BFA162", color: "white", justifyContent: "center", alignItems: "center", textAlign: "center", display: "flex" }} >
                                 Find your order
