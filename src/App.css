@@ -1052,3 +1052,19 @@ gap: 30px;
 .jdefnjjdjfkf img {
   margin-right: 10px; /* Space between image and text */
 }
+.bottomdetails{
+  margin-left: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  /* gap: 20px; */
+}
+.ebujfkfje{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.eujflkefm{
+  font-weight: 600;
+  font-size: 20px;
+}

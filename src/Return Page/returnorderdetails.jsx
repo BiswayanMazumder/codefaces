@@ -52,6 +52,8 @@ export default function Returnorderdetails() {
     const [name, setnameorder] = useState([]);
     const [price, setprice] = useState([]);
     const [productimg, setproductimg] = useState([]);
+    const [totaltshirt, setTotaltshirt] = useState(0);
+
     useEffect(() => {
         const fetchOrderDetails = async () => {
             console.log('Fetching');
@@ -67,6 +69,7 @@ export default function Returnorderdetails() {
                 setshippeddate(order["Order Date"]);
                 setnameorder(order["Name"]);
                 setprice(order["Price"]);
+                setTotaltshirt(order["Total"]);
                 setproductimg(order["Product Image"]);
                 setoutfordeliverydate(order["Out_Delivery_Time"]);
                 setcancellationdate(order['Cancellation Date']);
@@ -77,12 +80,10 @@ export default function Returnorderdetails() {
                 allOrderDetails.push(order);
                 setOrderDetails(order);
                 // console.log(order);
+
             } else {
                 console.log('No such document!');
             }
-
-            // Log allOrderDetails here if needed
-            // console.log('Order Details', allOrderDetails);
         };
 
         fetchOrderDetails();
@@ -212,8 +213,8 @@ export default function Returnorderdetails() {
                     <div className="jdefn">
                         Order date : {formatDate(shippedate.seconds)}
                     </div>
-                    <div className="jdefdn" style={{color:cancelled?"red":"green"}}>
-                        {cancelled?`Cancelled on : ${formatDate(cancellationdate.seconds)}`:`Estimated delivery : ${formatDate(calculateEstimatedDelivery(shippedate.seconds))}`}
+                    <div className="jdefdn" style={{ color: cancelled ? "red" : "green" }}>
+                        {cancelled ? `Cancelled on : ${formatDate(cancellationdate.seconds)}` : `Estimated delivery : ${formatDate(calculateEstimatedDelivery(shippedate.seconds))}`}
                     </div>
                 </div>
                 <br /><br />
@@ -234,6 +235,45 @@ export default function Returnorderdetails() {
                                 )
                             })
                         }
+                    </div>
+                </div>
+                <div className="bottomdetails">
+                    <div className="ebujfkfje">
+                        <div className="eujflkefm">
+                            Need Help?
+                        </div>
+                        <Link className="eujflbfbjemnf" style={{ textDecoration: "none", color: "black",fontSize: "17px"}}>
+                            Order Issues
+                        </Link>
+                        <Link className="eujflbfbjemnf" style={{ textDecoration: "none", color: "black",fontSize: "17px"}}>
+                            Delivery Info
+                        </Link>
+                        <Link className="eujflbfbjemnf" style={{ textDecoration: "none", color: "black",fontSize: "17px"}}>
+                            Return Info
+                        </Link>
+                        <Link className="eujflbfbjemnf" style={{ textDecoration: "none", color: "black",fontSize: "17px"}}>
+                            {/* Return Info */}
+                        </Link>
+                    </div>
+                    <div className="ebujfkfje">
+                        <div className="eujflkefm">
+                            Order Summary
+                        </div>
+                        <div className="eujflbfbjemnf" style={{ textDecoration: "none", color: "black",fontSize: "17px"}}>
+                            Subtotal : ₹{((totaltshirt)-(0.18*totaltshirt)).toFixed(2)}
+                        </div>
+                        <div className="eujflbfbjemnf" style={{ textDecoration: "none", color: "black",fontSize: "17px"}}>
+                            Delivery Charges : ₹0.00
+                        </div>
+                        <div className="eujflbfbjemnf" style={{ textDecoration: "none", color: "black",fontSize: "17px"}}>
+                            Tax : ₹{(0.18*totaltshirt).toFixed(2)}
+                        </div>
+                        <div className="eujflbfbjemnf" style={{ textDecoration: "none", color: "black",fontSize: "17px",fontWeight: "bold"}}>
+                            Total : ₹{totaltshirt}
+                        </div>
+                        <div className="eujflbfbjemnf" style={{ textDecoration: "none", color: "black",fontSize: "17px"}}>
+                            
+                        </div>
                     </div>
                 </div>
             </div>
