@@ -6,7 +6,8 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import Menu from '../Menu for mobile/menu';
 import LoadingSpinner from './loader';
-
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 const firebaseConfig = {
     apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
     authDomain: "luxelayers.firebaseapp.com",
@@ -147,6 +148,74 @@ export default function Returnorderdetails() {
         estimatedDeliveryDate.setDate(orderDate.getDate() + 7); // Add 7 days for estimated delivery
         return estimatedDeliveryDate.getTime() / 1000; // Convert back to seconds
     };
+    const generateInvoiceNumber = () => {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let invoiceNumber = 'INV-'; // Prefix for the invoice number
+        for (let i = 0; i < 8; i++) {
+            invoiceNumber += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return invoiceNumber;
+    };
+
+    const generateInvoice = async () => {
+        if (!orderDetails) return; // Ensure orderDetails is available
+
+        const doc = new jsPDF();
+        const invoiceNumber = generateInvoiceNumber(); // Generate a random invoice number
+
+        // Title
+        doc.setFontSize(22);
+        doc.text("Invoice", 105, 20, { align: "center" });
+
+        // Company Info
+        doc.setFontSize(12);
+        doc.text("LuxeLayers", 20, 40);
+        doc.text("123 Luxe Street, Fashion City, Kolkata", 20, 45);
+        doc.text("Phone: +91-234-567-890", 20, 50);
+        doc.text("Email: support@luxelayers.com", 20, 55);
+
+        // Customer Info
+        doc.text(`Customer Name: ${name}`, 20, 70);
+        doc.text(`Invoice Number: ${invoiceNumber}`, 20, 75); // Display the random invoice number
+        doc.text(`Order ID: ${orderDetails["Order ID"]}`, 20, 80);
+        doc.text(`Order Date: ${formatDate(orderDetails["Order Date"].seconds)}`, 20, 85);
+        doc.text(`Delivery Date: ${formatDate(orderDetails["Delivery Date"].seconds)}`, 20, 90);
+
+        // Add a table for products
+        const tableStartY = 100;
+        const products = orderDetails["Name"].map((name, index) => [
+            name,
+            { content: '', styles: { halign: 'center' } },
+            `${orderDetails["Price"][index]} INR`
+        ]);
+
+        doc.autoTable({
+            startY: tableStartY,
+            head: [['Item', 'Image', 'Price']],
+            body: products,
+            didParseCell: (data) => {
+                if (data.column.index === 1) {
+                    const img = new Image();
+                    img.src = orderDetails["Product Image"][data.row.index];
+                    img.onload = function () {
+                        doc.addImage(img, 'JPEG', data.cell.x + 3, data.cell.y + 1, 30, 30);
+                    };
+                }
+            },
+            styles: { cellPadding: 2, fontSize: 12 }, // Adjust cell padding
+            theme: 'grid'
+        });
+
+        // Total Amount
+        const totalY = doc.autoTable.previous.finalY + 10;
+        doc.text(`Total Amount: ${orderDetails["Total"]} INR`, 20, totalY);
+
+        // Footer
+        doc.text("Thank you for your purchase!", 105, totalY + 10, { align: "center" });
+
+        // Save the PDF
+        doc.save(`${orderDetails["Order ID"]}.pdf`);
+    };
     if (loading) {
         return <LoadingSpinner />;
     }
@@ -215,13 +284,21 @@ export default function Returnorderdetails() {
                 </div>
                 <div className="heading">
                     ORDER ID : {localStorage.getItem('searchorderid')}
+                    {
+                                delivered ? <div className="nameds" style={{ fontWeight: "300", color: "gray", display: "flex", flexDirection: "row", gap: "10px" }}>
+                                    <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/downloadInvoice_e0f744.png" alt="" height={"30px"} width={"30px"} />
+                                    <Link style={{ textDecoration: "none", color: "black", paddingTop: "5px", fontWeight: "500",fontSize:"15px",marginRight:"20px" }} onClick={() => generateInvoice()}>
+                                        Download Invoice
+                                    </Link>
+                                </div> : <></>
+                            }
                 </div>
                 <div className="dhfjdndv">
                     <div className="jdefn">
                         Order date : {formatDate(shippedate.seconds)}
                     </div>
                     <div className="jdefdn" style={{ color: cancelled ? "red" : "green" }}>
-                        {cancelled ? `Cancelled on : ${formatDate(cancellationdate.seconds)}` : `Estimated delivery : ${formatDate(calculateEstimatedDelivery(shippedate.seconds))}`}
+                        {delivered? `Delivered on : ${formatDate(delivereddate.seconds)}` : cancelled ? `Cancelled on : ${formatDate(cancellationdate.seconds)}` : `Estimated delivery : ${formatDate(calculateEstimatedDelivery(shippedate.seconds))}`}
                     </div>
                 </div>
                 <br /><br />
