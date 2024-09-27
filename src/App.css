@@ -1021,3 +1021,34 @@ gap: 30px;
   font-size: 15px;
   font-weight: 500;
 }
+.jerjgglk{
+  margin: 20px;
+}
+.jhjnglkmf {
+  display: flex;
+  gap: 50px;
+  flex-direction: column;
+  flex-wrap: wrap; /* Allows items to wrap if they exceed the container width */
+}
+
+.jdefnjjdjfkf {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center; /* Aligns items vertically centered */
+  margin: 10px; /* Adds some space between items */
+}
+.ehfjnfkee{
+  display: flex;
+  margin-right: 20px;
+  flex-direction: row;
+  align-items: center; /* Aligns items vertically centered */
+  margin: 10px; /* Adds some space between items */ 
+}
+.prrickekjfef{
+  font-weight: 600;
+  margin-right: 20px;
+}
+.jdefnjjdjfkf img {
+  margin-right: 10px; /* Space between image and text */
+}

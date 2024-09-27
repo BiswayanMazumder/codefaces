@@ -49,6 +49,9 @@ export default function Returnorderdetails() {
     const [cancelled, setcancellation] = useState(false);
     const [refunddate, setrefunddate] = useState('');
     const [refunded, setrefunded] = useState(false);
+    const [name, setnameorder] = useState([]);
+    const [price, setprice] = useState([]);
+    const [productimg, setproductimg] = useState([]);
     useEffect(() => {
         const fetchOrderDetails = async () => {
             console.log('Fetching');
@@ -62,6 +65,9 @@ export default function Returnorderdetails() {
                 setcancellation(order["Cancelled"]);
                 setoutfordelivery(order["Out_Delivery"]);
                 setshippeddate(order["Order Date"]);
+                setnameorder(order["Name"]);
+                setprice(order["Price"]);
+                setproductimg(order["Product Image"]);
                 setoutfordeliverydate(order["Out_Delivery_Time"]);
                 setcancellationdate(order['Cancellation Date']);
                 setdelivereddate(order["Delivery Date"]);
@@ -208,6 +214,26 @@ export default function Returnorderdetails() {
                     </div>
                     <div className="jdefdn">
                         Estimated delivery : {formatDate(calculateEstimatedDelivery(shippedate.seconds))}
+                    </div>
+                </div>
+                <br /><br />
+                <div className="jerjgglk">
+                    <div className="jhjnglkmf">
+                        {
+                            name.map((item, index) => {
+                                return (
+                                    <div className="jdefnjjdjfkf">
+                                        <div className="ehfjnfkee">
+                                            <img src={productimg[index]} alt={item} height={"200px"} width={"200px"} />
+                                            {item}
+                                        </div>
+                                        <div className="prrickekjfef">
+                                            ₹{price[index]}
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
                     </div>
                 </div>
             </div>
