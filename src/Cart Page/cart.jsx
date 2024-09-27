@@ -76,34 +76,21 @@ export default function Cart() {
                         const ajName = [];
                         const ajPic = [];
                         const ajprice = [];
-    
+
                         for (let i = 0; i < pid.length; i++) {
                             const productDocRef = doc(db, 'sneakers', pid[i]);
                             const productDocSnap = await getDoc(productDocRef);
                             if (productDocSnap.exists()) {
                                 const productData = productDocSnap.data();
                                 ajName.push(productData?.name || 'No Name');
+                                ajPic.push(productData?.['Product Image'] || 'No Image');
                                 ajprice.push(productData?.Price || 0);
-                                
-                                // Fetching the image URL and converting it to Blob
-                                const imageUrl = productData?.['Product Image'];
-                                if (imageUrl) {
-                                    const response = await fetch(imageUrl);
-                                    const blob = await response.blob();
-                                    const blobUrl = URL.createObjectURL(blob);
-                                    ajPic.push(blobUrl);
-    
-                                    // Log the Blob URL to the console
-                                    // console.log('Blob URL:', blobUrl);
-                                } else {
-                                    ajPic.push('No Image');
-                                }
                             }
                         }
                         setFetchedAjName(ajName);
                         setFetchedAjPic(ajPic);
                         setFetchedAjprice(ajprice);
-    
+
                         // Calculate total price after fetching product prices
                         const totalPrice = ajprice
                             .map(Number)
@@ -121,10 +108,9 @@ export default function Cart() {
                 console.error('Error fetching document names:', error);
             }
         };
-    
+
         fetchDocumentNames();
     }, []);
-    
     useEffect(() => {
         const fetchDocumentNames = async () => {
             console.log('Fetching document names...');
@@ -134,34 +120,28 @@ export default function Cart() {
                 const currentUser = auth.currentUser;
                 if (currentUser) {
                     const UID = currentUser.uid;
+                    // console.log('Current UID:', UID);
                     const cartDocRef = doc(db, 'Cart Items TShirt', UID);
                     const cartDocSnap = await getDoc(cartDocRef);
                     if (cartDocSnap.exists()) {
                         const cartData = cartDocSnap.data();
+                        // console.log('Cart Items data:', cartData);
                         const pid = cartData?.['Product ID'] || [];
+                        // console.log('Product IDs:', pid);
                         setDocumentNamess(pid);
                         const ajName = [];
                         const ajPic = [];
                         const ajprice = [];
-    
+
                         for (let i = 0; i < pid.length; i++) {
                             const productDocRef = doc(db, 'Sleeveless', pid[i]);
                             const productDocSnap = await getDoc(productDocRef);
                             if (productDocSnap.exists()) {
                                 const productData = productDocSnap.data();
+                                // console.log('Product data:', productData);
                                 ajName.push(productData?.name || 'No Name');
-                                const imageUrl = productData?.['Product Image'] || 'No Image';
-                                ajPic.push(imageUrl);
+                                ajPic.push(productData?.['Product Image'] || 'No Image');
                                 ajprice.push(productData?.Price || 0);
-    
-                                // If the image URL is valid, convert it to Blob
-                                if (imageUrl && imageUrl !== 'No Image') {
-                                    const response = await fetch(imageUrl);
-                                    const blob = await response.blob();
-                                    const blobUrl = URL.createObjectURL(blob);
-                                    ajPic[i] = blobUrl; // Update the ajPic array with the Blob URL
-                                    // console.log('Blob URL:', blobUrl); // Log the Blob URL
-                                }
                             } else {
                                 console.log(`No product data found for ID: ${pid[i]}`);
                             }
@@ -169,7 +149,6 @@ export default function Cart() {
                         setFetchedAjNames(ajName);
                         setFetchedAjPics(ajPic);
                         setFetchedAjprices(ajprice);
-    
                         const totalPrice = ajprice
                             .map(Number)
                             .filter(price => !isNaN(price))
@@ -186,10 +165,9 @@ export default function Cart() {
                 console.error('Error fetching document names:', error);
             }
         };
-    
+
         fetchDocumentNames();
     }, []);
-    
     const [fetchedAjPricess, setFetchedAjpricess] = useState([]);
     const [documentNamesss, setDocumentNamesss] = useState([]);
     const [fetchedAjNamess, setFetchedAjNamess] = useState([]);
@@ -204,34 +182,28 @@ export default function Cart() {
                 const currentUser = auth.currentUser;
                 if (currentUser) {
                     const UID = currentUser.uid;
+                    // console.log('Current UID:', UID);
                     const cartDocRef = doc(db, 'Prebook Items', UID);
                     const cartDocSnap = await getDoc(cartDocRef);
                     if (cartDocSnap.exists()) {
                         const cartData = cartDocSnap.data();
+                        // console.log('Cart Items data:', cartData);
                         const pid = cartData?.['Product ID'] || [];
+                        // console.log('Product IDs:', pid);
                         setDocumentNamesss(pid);
                         const ajName = [];
                         const ajPic = [];
                         const ajprice = [];
-    
+
                         for (let i = 0; i < pid.length; i++) {
                             const productDocRef = doc(db, 'Coming Soon', pid[i]);
                             const productDocSnap = await getDoc(productDocRef);
                             if (productDocSnap.exists()) {
                                 const productData = productDocSnap.data();
+                                // console.log('Product data:', productData);
                                 ajName.push(productData?.name || 'No Name');
-                                const imageUrl = productData?.['Product Image'] || 'No Image';
-                                ajPic.push(imageUrl);
+                                ajPic.push(productData?.['Product Image'] || 'No Image');
                                 ajprice.push(productData?.Price || 0);
-    
-                                // Convert the image URL to Blob and create Blob URL
-                                if (imageUrl && imageUrl !== 'No Image') {
-                                    const response = await fetch(imageUrl);
-                                    const blob = await response.blob();
-                                    const blobUrl = URL.createObjectURL(blob);
-                                    ajPic[i] = blobUrl; // Update the ajPic array with the Blob URL
-                                    // console.log('Blob URL:', blobUrl); // Log the Blob URL
-                                }
                             } else {
                                 console.log(`No product data found for ID: ${pid[i]}`);
                             }
@@ -249,21 +221,8 @@ export default function Cart() {
                 console.error('Error fetching document names:', error);
             }
         };
-    
-        fetchDocumentNames();
-    }, []);
-    const [email, setEmail] = useState('');
-    useEffect(() => {
-        const auth = getAuth();
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setUser(user);
-                setEmail(user.email); // Set the email when the user is authenticated
-            }
-        });
 
-        // Cleanup subscription on unmount
-        return () => unsubscribe();
+        fetchDocumentNames();
     }, []);
     const generateorder = async (paymentid) => {
         const auth = getAuth();
@@ -274,8 +233,9 @@ export default function Cart() {
         for (let i = 0; i < 6; i++) {
             result += characters.charAt(Math.floor(Math.random() * characters.length));
         }
-        // console.log(result);
+        console.log(result);
         const UID = currentUser.uid;
+        const userEmail = currentUser.email;
         const cartDocRef = doc(db, 'Order IDs', UID);
         await setDoc(cartDocRef, {
             'IDs': arrayUnion(result)
@@ -293,7 +253,7 @@ export default function Cart() {
             'Shipped':false,
             'Total':total,
             'Payment ID':paymentid,
-            'email':email
+            'email':userEmail
         })
     }
     const generateordertshirt = async (paymentid) => {
@@ -305,8 +265,9 @@ export default function Cart() {
         for (let i = 0; i < 6; i++) {
             result += characters.charAt(Math.floor(Math.random() * characters.length));
         }
-        // console.log(result);
+        console.log(result);
         const UID = currentUser.uid;
+        const userEmail = currentUser.email;
         const cartDocRef = doc(db, 'Order IDs', UID);
         await setDoc(cartDocRef, {
             'IDs': arrayUnion(result)
@@ -324,7 +285,7 @@ export default function Cart() {
             'Shipped':false,
             'Total':totaltshirt,
             'Payment ID':paymentid,
-            'email':email
+            'email':userEmail
             
         })
     }
