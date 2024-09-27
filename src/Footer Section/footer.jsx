@@ -46,8 +46,8 @@ export default function Footer() {
                 <div className="headers">
                 POLICIES
                 </div>
-                <Link className="headerspoints" to={user?'/apps/return_order':'/account/login'} style={{textDecoration: 'none'}}>
-                Return Your Order
+                <Link className="headerspoints" to={user?'/apps/search_order':'/account/login'} style={{textDecoration: 'none'}}>
+                Search Your Order
                 </Link>
                 <div className="headerspoints">
                 Shipping Policy

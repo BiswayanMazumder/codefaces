@@ -212,8 +212,8 @@ export default function Returnorderdetails() {
                     <div className="jdefn">
                         Order date : {formatDate(shippedate.seconds)}
                     </div>
-                    <div className="jdefdn">
-                        Estimated delivery : {formatDate(calculateEstimatedDelivery(shippedate.seconds))}
+                    <div className="jdefdn" style={{color:cancelled?"red":"green"}}>
+                        {cancelled?`Cancelled on : ${formatDate(cancellationdate.seconds)}`:`Estimated delivery : ${formatDate(calculateEstimatedDelivery(shippedate.seconds))}`}
                     </div>
                 </div>
                 <br /><br />

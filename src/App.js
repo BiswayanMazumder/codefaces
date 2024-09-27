@@ -81,10 +81,10 @@ function App() {
         <Route path="/products/comingsoon" element={<ComingSoonProductDetails />} />
       </Routes>
       <Routes>
-        <Route path="/apps/return_order" element={<Returnorder />} />
+        <Route path="/apps/search_order" element={<Returnorder />} />
       </Routes>
       <Routes>
-        <Route path="/apps/return_order_details" element={<Returnorderdetails />} />
+        <Route path="/apps/search_order_details" element={<Returnorderdetails />} />
       </Routes>
       <SpeedInsights />
       <Analytics />
