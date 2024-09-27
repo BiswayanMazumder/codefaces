@@ -5,6 +5,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import Menu from '../Menu for mobile/menu';
+import LoadingSpinner from './loader';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
@@ -38,6 +39,7 @@ export default function Returnorderdetails() {
         });
         console.log(user);
     });
+    const [loading, setLoading] = useState(true); // Loading state
     const [shipped, setShipped] = useState(true);
     const [outfordelivery, setoutfordelivery] = useState(false);
     const [delivered, setdelivered] = useState(false);
@@ -57,6 +59,7 @@ export default function Returnorderdetails() {
     useEffect(() => {
         const fetchOrderDetails = async () => {
             console.log('Fetching');
+            setLoading(true); // Set loading to true before fetching
             const db = getFirestore(app);
             const allOrderDetails = [];
             const orderDetailsRef = doc(db, 'Order Details', localStorage.getItem('searchorderid'));
@@ -84,6 +87,7 @@ export default function Returnorderdetails() {
             } else {
                 console.log('No such document!');
             }
+            setLoading(false); // Set loading to false after fetching
         };
 
         fetchOrderDetails();
@@ -143,6 +147,9 @@ export default function Returnorderdetails() {
         estimatedDeliveryDate.setDate(orderDate.getDate() + 7); // Add 7 days for estimated delivery
         return estimatedDeliveryDate.getTime() / 1000; // Convert back to seconds
     };
+    if (loading) {
+        return <LoadingSpinner />;
+    }
     return (
         <div className='webbody'>
             <div className="headersection">
