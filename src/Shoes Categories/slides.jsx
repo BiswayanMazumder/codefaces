@@ -5,6 +5,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import Menu from '../Menu for mobile/menu';
+import LoadingSpinner from '../Return Page/loader';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
@@ -186,7 +187,7 @@ export default function Slides() {
                 </div>
                 <img src="https://images.vegnonveg.com/media/collections/75/171955723875667e5c76f082e.png" alt="" width={"100%"} />
                 {loading ? (
-                    <div className="loading">Loading...</div>
+                    <div className="loading"><LoadingSpinner/></div>
                 ) : (
                     <div className="fgfhhgjjh">
                         {

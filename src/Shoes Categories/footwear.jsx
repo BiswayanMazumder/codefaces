@@ -5,6 +5,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import Menu from '../Menu for mobile/menu';
+import LoadingSpinner from '../Return Page/loader';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
@@ -184,7 +185,7 @@ export default function Footwear() {
                 <video src="https://images.vegnonveg.com/media/collections/140/172623524714066e4426f7646c.mp4" width={"100%"} autoPlay loop muted></video>
                 {/* <img src="https://images.vegnonveg.com/media/collections/101/17198391211016682a991ee9b7.png" alt="" width={"100%"} /> */}
                 {loading ? (
-                    <div className="loading">Loading...</div>
+                    <div className="loading"><LoadingSpinner/></div>
                 ) : (
                     <div className="fgfhhgjjh">
                         {

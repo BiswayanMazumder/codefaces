@@ -5,6 +5,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import Menu from '../Menu for mobile/menu';
+import LoadingSpinner from '../Return Page/loader';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
@@ -188,7 +189,7 @@ export default function Dunks() {
                 </div>
                 <img src="https://images.vegnonveg.com/media/collections/101/17198391211016682a991ee9b7.png" alt="" width={"100%"} />
                 {loading ? (
-                    <center className="loading">Loading...</center>
+                    <div className="loading"><LoadingSpinner/></div>
                 ) : (
                     <div className="fgfhhgjjh">
                         {

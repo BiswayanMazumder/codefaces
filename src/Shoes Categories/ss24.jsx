@@ -5,6 +5,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import Menu from '../Menu for mobile/menu';
+import LoadingSpinner from '../Return Page/loader';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
@@ -186,7 +187,7 @@ export default function SS24() {
                 </div>
                 <video src="https://images.vegnonveg.com/media/collections/132/17171505421326659a34e3985f.mp4" width={"100%"} autoPlay loop muted></video>
                 {loading ? (
-                    <div className="loading">Loading...</div>
+                    <div className="loading"><LoadingSpinner/></div>
                 ) : (
                     <div className="fgfhhgjjh">
                         {
