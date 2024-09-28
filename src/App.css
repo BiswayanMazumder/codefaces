@@ -941,16 +941,65 @@ gap: 30px;
   justify-content: space-between;
   padding-right: 40px;
 }
+.kekkfmdva {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  /* padding: 50px 40px; */
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  color: white;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  background-color: #2874F0;
+  width: 80%; /* Set the width of the div */
+  margin: 0 auto; /* Center the div horizontally */
+  height: fit-content;
+  text-align: center; /* Center text inside the div */
+}
+.jnlfmlkfmewlk{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  /* padding: 50px 40px; */
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  justify-content: start; /* Center content horizontally */
+  align-items: start; /* Center content vertically */
+  background-color: #e0e0e0;
+  width: 80%; /* Set the width of the div */
+  margin: 0 auto; /* Center the div horizontally */
+  height: 650px;
+  text-align: center; /* Center text inside the div */
+}
+.detailsentryfirstrow{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 50px;
+}
+.name{
+  display: flex;
+  position: relative;
+  width: 30vw;
+  height: 50px;
+}
 .checkoutbutton{
   font-weight: 500;
   justify-content: center;
   align-items: center;
   text-align: center;
   display: flex;
+  color: white;
+  font-weight: bold;
   font-size: 15px;
-  background-color: yellow;
+  background-color: orangered;
   padding: 15px;
-  width: 80px;
+  width: 85px;
   border-radius: 10px;
 }
 .checkoutbutton:hover {

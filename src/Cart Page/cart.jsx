@@ -5,6 +5,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { arrayUnion, doc, getDoc, getFirestore, serverTimestamp, setDoc } from 'firebase/firestore';
 import Menu from '../Menu for mobile/menu';
+import axios from 'axios';
 const firebaseConfig = {
     apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
     authDomain: "luxelayers.firebaseapp.com",
@@ -242,18 +243,18 @@ export default function Cart() {
         }, { merge: true });
         const orderDetailsRef = doc(db, 'Order Details', result);
         await setDoc(orderDetailsRef, {
-            'Delivered':false,
-            'Name':fetchedAjName,
-            'Order Date':serverTimestamp(),
-            'Order ID':result,
-            'Out_Delivery':false,
-            'Price':fetchedAjPrice,
-            'Product ID':documentNames,
-            'Product Image':fetchedAjPic,
-            'Shipped':false,
-            'Total':total,
-            'Payment ID':paymentid,
-            'email':userEmail
+            'Delivered': false,
+            'Name': fetchedAjName,
+            'Order Date': serverTimestamp(),
+            'Order ID': result,
+            'Out_Delivery': false,
+            'Price': fetchedAjPrice,
+            'Product ID': documentNames,
+            'Product Image': fetchedAjPic,
+            'Shipped': false,
+            'Total': total,
+            'Payment ID': paymentid,
+            'email': userEmail,
         })
     }
     const generateordertshirt = async (paymentid) => {
@@ -274,19 +275,19 @@ export default function Cart() {
         }, { merge: true });
         const orderDetailsRef = doc(db, 'Order Details', result);
         await setDoc(orderDetailsRef, {
-            'Delivered':false,
-            'Name':fetchedAjNames,
-            'Order Date':serverTimestamp(),
-            'Order ID':result,
-            'Out_Delivery':false,
-            'Price':fetchedAjPrices,
-            'Product ID':documentNamess,
-            'Product Image':fetchedAjPics,
-            'Shipped':false,
-            'Total':totaltshirt,
-            'Payment ID':paymentid,
-            'email':userEmail
-            
+            'Delivered': false,
+            'Name': fetchedAjNames,
+            'Order Date': serverTimestamp(),
+            'Order ID': result,
+            'Out_Delivery': false,
+            'Price': fetchedAjPrices,
+            'Product ID': documentNamess,
+            'Product Image': fetchedAjPics,
+            'Shipped': false,
+            'Total': totaltshirt,
+            'Payment ID': paymentid,
+            'email': userEmail
+
         })
     }
     const handlePayment = async () => {
@@ -318,7 +319,7 @@ export default function Cart() {
         const razorpay = new window.Razorpay(options);
         razorpay.open();
     };
-        
+
     const handlePaymenttshirt = async () => {
         const options = {
             key: 'rzp_test_5ujtbmUNWVYysI', // Your Razorpay Key ID
@@ -346,6 +347,35 @@ export default function Cart() {
 
         const razorpay = new window.Razorpay(options);
         razorpay.open();
+    };
+    const [pincode, setPincode] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [locality, setLocality] = useState('');
+    const fetchCity = async (pin) => {
+        try {
+            const response = await axios.get(`https://api.postalpincode.in/pincode/${pin}`);
+            if (response.data[0].Status === 'Success' && response.data[0].PostOffice.length > 0) {
+                setCity(response.data[0].PostOffice[0].Division); // Get the district name
+                setState(response.data[0].PostOffice[0].Circle);
+                setLocality(response.data[0].PostOffice[0].Name);
+            } else {
+                setCity('City not found');
+            }
+        } catch (error) {
+            console.error('Error fetching city:', error);
+            setCity('Error fetching city');
+        }
+    };
+
+    const handlePincodeChange = (e) => {
+        const value = e.target.value;
+        setPincode(value);
+        if (value.length === 6 && /^[0-9]{6}$/.test(value)) { // Check for valid 6-digit pincode
+            fetchCity(value);
+        } else {
+            setCity(''); // Clear city if pincode is invalid
+        }
     };
     return (
         <>
@@ -443,53 +473,35 @@ export default function Cart() {
                             <p>No sneakers in cart</p>
                         )}
                     </Link> : <></>}
-                    {fetchedAjName.length > 0 ? activeZone === 'sneakerzone' ? (
-                        <Link style={{ textDecoration: "none", color: "black" }}>
-                            <div className="kekkfmdv" onClick={() => handlePayment()}>
-                                Total: ₹{total}
-                                <div className="checkoutbutton">
-                                    Checkout
-                                </div>
-                            </div>
-                        </Link>
-                    ) : null : <></>}
+
 
                 </div>
                 <div className="udjhcnd">
-                {activeZone === 'tshirtzone' ? <Link className="cart-items" style={{ textDecoration: "none", color: "black" }}>
-                    {fetchedAjNames.length > 0 ? (
-                        fetchedAjNames.map((name, index) => (
-                            <Link key={index} className="cart-item" to={"/products/tshirts"} onClick={() => {
-                                localStorage.setItem('producttype', 'Sleeveless');
-                                localStorage.setItem('iscart', true);
-                                localStorage.setItem('productname', fetchedAjNames[index]);
-                                localStorage.setItem('productprice', fetchedAjPrices[index]);
-                                localStorage.setItem('productimage', fetchedAjPics[index]);
-                                localStorage.setItem('PID', documentNamess[index]);
-                                console.log('DOc name', documentNamess[index]);
-                            }} style={{ textDecoration: "none", color: "black" }}>
-                                <img src={fetchedAjPics[index]} alt={name} className="cart-item-image" />
-                                <div className="cart-item-details">
-                                    <h3 className="cart-item-name">{fetchedAjNames[index]}</h3>
-                                    <br /><br />
-                                    <p className="cart-item-price" style={{ fontWeight: "500" }}>₹{fetchedAjPrices[index]}</p>
-                                </div>
-                            </Link>
-                        ))
-                    ) : (
-                        <p>No tshirts in cart</p>
-                    )}
-                </Link> : <></>}
-                {fetchedAjNames.length > 0 ? activeZone === 'tshirtzone' ? (
-                        <Link style={{ textDecoration: "none", color: "black" }}>
-                            <div className="kekkfmdv" onClick={() => handlePaymenttshirt()}>
-                                Total: ₹{totaltshirt}
-                                <div className="checkoutbutton">
-                                    Checkout
-                                </div>
-                            </div>
-                        </Link>
-                    ) : null : <></>}
+                    {activeZone === 'tshirtzone' ? <Link className="cart-items" style={{ textDecoration: "none", color: "black" }}>
+                        {fetchedAjNames.length > 0 ? (
+                            fetchedAjNames.map((name, index) => (
+                                <Link key={index} className="cart-item" to={"/products/tshirts"} onClick={() => {
+                                    localStorage.setItem('producttype', 'Sleeveless');
+                                    localStorage.setItem('iscart', true);
+                                    localStorage.setItem('productname', fetchedAjNames[index]);
+                                    localStorage.setItem('productprice', fetchedAjPrices[index]);
+                                    localStorage.setItem('productimage', fetchedAjPics[index]);
+                                    localStorage.setItem('PID', documentNamess[index]);
+                                    console.log('DOc name', documentNamess[index]);
+                                }} style={{ textDecoration: "none", color: "black" }}>
+                                    <img src={fetchedAjPics[index]} alt={name} className="cart-item-image" />
+                                    <div className="cart-item-details">
+                                        <h3 className="cart-item-name">{fetchedAjNames[index]}</h3>
+                                        <br /><br />
+                                        <p className="cart-item-price" style={{ fontWeight: "500" }}>₹{fetchedAjPrices[index]}</p>
+                                    </div>
+                                </Link>
+                            ))
+                        ) : (
+                            <p>No tshirts in cart</p>
+                        )}
+                    </Link> : <></>}
+                    
                 </div>
                 {activeZone === 'preebokzone' ? <Link className="cart-items" style={{ textDecoration: "none", color: "black" }}>
                     {fetchedAjNamess.length > 0 ? (
@@ -514,6 +526,94 @@ export default function Cart() {
                         <p>No items prebooked</p>
                     )}
                 </Link> : <></>}
+                {fetchedAjName.length > 0  && (
+                    <div className="jenfke">
+                        <div className="kekkfmdva">Delivery Address</div>
+                        <div className="jnlfmlkfmewlk">
+                            <div className="detailsentryfirstrow">
+                                <div className="khjkf" style={{ marginLeft: '10px' }}>
+                                    <input type="text" className="name" placeholder="Name" id='nameInput' />
+                                </div>
+                                <div className="khjkf">
+                                    <input type="tel" className="name" placeholder="10-digit mobile number" id='mobileInput' pattern="[0-9]{10}" />
+                                </div>
+                            </div>
+                            <div className="detailsentryfirstrow">
+                                <div className="khjkf" style={{ marginLeft: '10px' }}>
+                                    <input
+                                        type="text"
+                                        className="name"
+                                        placeholder="Pincode"
+                                        value={pincode}
+                                        onChange={handlePincodeChange}
+                                    />
+                                </div>
+                                <div className="khjkf">
+                                    <input
+                                        type="text"
+                                        className="name"
+                                        placeholder="City/District/Town"
+                                        value={city}
+                                        onChange={(e) => setCity(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="detailsentryfirstrow">
+                                <div className="khjkf" style={{ marginLeft: '10px' }}>
+                                    <input
+                                        type="text"
+                                        className="name"
+                                        placeholder="Address (Area and Street)"
+                                        id='addressInput'
+                                        style={{
+                                            height: '200px',
+                                            width: "50vw",
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                            <div className="detailsentryfirstrow">
+                                <div className="khjkf" style={{ marginLeft: '10px' }}>
+                                    <input type="text" className="name" placeholder="Locality" id='localityInput' value={locality} onChange={(e) => setLocality(e.target.value)} />
+                                </div>
+                                <div className="khjkf">
+                                    <input type="text" className="name" placeholder="State" id='stateInput' value={state} onChange={(e) => setState(e.target.value)} />
+                                </div>
+                            </div>
+                            <div className="detailsentryfirstrow">
+                                <div className="khjkf" style={{ marginLeft: '10px' }}>
+                                    <input type="text" className="name" placeholder="Landmark (Optional)" id='landmarkInput' />
+                                </div>
+                                <div className="khjkf">
+                                    <input type="tel" className="name" placeholder="Optional phone number" id='optionalPhoneInput' />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+                
+                <br /><br />
+                {fetchedAjNames.length > 0 ? activeZone === 'tshirtzone' ? (
+                        <Link style={{ textDecoration: "none", color: "black" }}>
+                            <div className="kekkfmdv" onClick={() => handlePaymenttshirt()}>
+                                Total: ₹{totaltshirt}
+                                <div className="checkoutbutton">
+                                    Checkout
+                                </div>
+                            </div>
+                        </Link>
+                    ) : null : <></>}
+                {fetchedAjName.length > 0 ? activeZone === 'sneakerzone' ? (
+                    <Link style={{ textDecoration: "none", color: "black" }}>
+                        <div className="kekkfmdv" onClick={() => handlePayment()}>
+                            Total: ₹{total}
+                            <div className="checkoutbutton">
+                                Checkout
+                            </div>
+                        </div>
+                    </Link>
+                ) : null : <></>}
+                <br /><br />
             </div>
         </>
     )
