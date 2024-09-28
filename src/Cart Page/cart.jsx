@@ -526,7 +526,72 @@ export default function Cart() {
                         <p>No items prebooked</p>
                     )}
                 </Link> : <></>}
-                {fetchedAjName.length > 0  && (
+                {fetchedAjName.length > 0 && activeZone === 'sneakerzone' && (
+                    <div className="jenfke">
+                        <div className="kekkfmdva">Delivery Address</div>
+                        <div className="jnlfmlkfmewlk">
+                            <div className="detailsentryfirstrow">
+                                <div className="khjkf" style={{ marginLeft: '10px' }}>
+                                    <input type="text" className="name" placeholder="Name" id='nameInput' />
+                                </div>
+                                <div className="khjkf">
+                                    <input type="tel" className="name" placeholder="10-digit mobile number" id='mobileInput' pattern="[0-9]{10}" />
+                                </div>
+                            </div>
+                            <div className="detailsentryfirstrow">
+                                <div className="khjkf" style={{ marginLeft: '10px' }}>
+                                    <input
+                                        type="text"
+                                        className="name"
+                                        placeholder="Pincode"
+                                        value={pincode}
+                                        onChange={handlePincodeChange}
+                                    />
+                                </div>
+                                <div className="khjkf">
+                                    <input
+                                        type="text"
+                                        className="name"
+                                        placeholder="City/District/Town"
+                                        value={city}
+                                        onChange={(e) => setCity(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="detailsentryfirstrow">
+                                <div className="khjkf" style={{ marginLeft: '10px' }}>
+                                    <input
+                                        type="text"
+                                        className="name"
+                                        placeholder="Address (Area and Street)"
+                                        id='addressInput'
+                                        style={{
+                                            height: '200px',
+                                            width: "50vw",
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                            <div className="detailsentryfirstrow">
+                                <div className="khjkf" style={{ marginLeft: '10px' }}>
+                                    <input type="text" className="name" placeholder="Locality" id='localityInput' value={locality} onChange={(e) => setLocality(e.target.value)} />
+                                </div>
+                                <div className="khjkf">
+                                    <input type="text" className="name" placeholder="State" id='stateInput' value={state} onChange={(e) => setState(e.target.value)} />
+                                </div>
+                            </div>
+                            <div className="detailsentryfirstrow">
+                                <div className="khjkf" style={{ marginLeft: '10px' }}>
+                                    <input type="text" className="name" placeholder="Landmark (Optional)" id='landmarkInput' />
+                                </div>
+                                <div className="khjkf">
+                                    <input type="tel" className="name" placeholder="Optional phone number" id='optionalPhoneInput' />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+                {fetchedAjNames.length > 0 && activeZone === 'tshirtzone' && (
                     <div className="jenfke">
                         <div className="kekkfmdva">Delivery Address</div>
                         <div className="jnlfmlkfmewlk">
