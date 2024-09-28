@@ -20,6 +20,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 export default function Returnorderdetails() {
+    useEffect(() => {
+        document.title = "Luxelayers - Search Order Details";
+    })
     const [user, setUser] = useState(false);
     useEffect(() => {
         const auth = getAuth();

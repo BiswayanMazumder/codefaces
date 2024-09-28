@@ -20,7 +20,7 @@ const analytics = getAnalytics(app);
 
 export default function Returnorder() {
     useState(() => {
-        document.title = 'Return Order | LuxeLayers'
+        document.title = 'Search Order | LuxeLayers'
     })
     const [user, setUser] = useState(false);
     useEffect(() => {
