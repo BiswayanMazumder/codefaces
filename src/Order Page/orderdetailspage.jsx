@@ -7,6 +7,7 @@ import { doc, getDoc, getFirestore, serverTimestamp, updateDoc } from 'firebase/
 import Menu from '../Menu for mobile/menu';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import LoadingSpinner from '../Return Page/loader';
 // Initialize Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
@@ -64,13 +65,25 @@ export default function Orderdetailspage() {
     const [orderDetails, setOrderDetails] = useState(null);
     const [cancellationdate, setcancellationdate] = useState('');
     const [cancelled, setcancellation] = useState(false);
-    const [refunddate,setrefunddate]=useState('');
-    const[refunded,setrefunded]=useState(false);
+    const [refunddate, setrefunddate] = useState('');
+    const [refunded, setrefunded] = useState(false);
+    const [receiepentname, setreceiepentname] = useState('');
+    const [receiepentemail, setreceiepentemail] = useState('');
+    const [receiepentphone, setreceiepentphone] = useState('');
+    const [receiepentaddress, setreceiepentaddress] = useState('');
+    const [receiepentcity, setreceiepentcity] = useState('');
+    const [receiepentstate, setreceiepentstate] = useState('');
+    const [receiepentpincode, setreceiepentpincode] = useState('');
+    const [locality, setlocality] = useState('');
+    const [landmark, setlandmark] = useState('');
+    const [optional, setoptional] = useState('');
+    const [loading,setloading]=useState(true)
     useEffect(() => {
         const fetchOrderDetails = async () => {
             console.log('Fetching');
             const db = getFirestore(app);
             const allOrderDetails = [];
+            setloading(true);
             const orderDetailsRef = doc(db, 'Order Details', localStorage.getItem('OID'));
             const orderDetailSnap = await getDoc(orderDetailsRef);
             if (orderDetailSnap.exists()) {
@@ -79,15 +92,25 @@ export default function Orderdetailspage() {
                 setcancellation(order["Cancelled"]);
                 setoutfordelivery(order["Out_Delivery"]);
                 setshippeddate(order["Order Date"]);
+                setreceiepentname(order["Receipent name"]);
+                setreceiepentaddress(order["address"])
+                setreceiepentphone(order["mobile"])
+                setreceiepentcity(order["city"])
+                setreceiepentpincode(order["pincode"])
+                setreceiepentstate(order["state"])
+                setlocality(order["locality"])
+                setlandmark(order["landmark"])
                 setoutfordeliverydate(order["Out_Delivery_Time"]);
                 setcancellationdate(order['Cancellation Date']);
                 setdelivereddate(order["Delivery Date"]);
                 setdelivered(order["Delivered"]);
+                setoptional(order["optionalPhone"]);
                 setrefunded(order["Refunded"]);
                 setrefunddate(order['Refund Initial Date']);
                 allOrderDetails.push(order);
                 setOrderDetails(order);
                 // console.log(order);
+                setloading(false);
             } else {
                 console.log('No such document!');
             }
@@ -225,7 +248,7 @@ export default function Orderdetailspage() {
         await updateDoc(orderDetailsRef, {
             'Cancelled': true,
             'Cancellation Date': serverTimestamp(),
-            'Refunded':false,
+            'Refunded': false,
             'Refund Initial Date': serverTimestamp()
         })
         setcancellation(true);
@@ -233,7 +256,7 @@ export default function Orderdetailspage() {
     }
     return (
         <>
-            <div className="webbody">
+            { loading?<div className="loading"><LoadingSpinner/></div>:<div className="webbody">
                 <div className="headersection">
                     <div className="jdjvkklv">
 
@@ -347,6 +370,23 @@ export default function Orderdetailspage() {
                 </div>
                 <br /><br /><br />
                 <div className="djfkdklckd">
+                    Delivery Address
+                    <div className="djhkdj">
+                        {
+                            name
+                        }
+                    </div>
+                    <div className="jjehkfj">
+                        {receiepentaddress} , {locality} , {receiepentcity} , {landmark} , {receiepentstate} , {receiepentpincode}
+                        <br />
+                        <div className="djhkdj" style={{ fontWeight: "bold" }}>
+                            Phone number
+                        </div>
+                        {receiepentphone} , {optional}
+                    </div>
+                </div>
+                <br /><br /><br />
+                <div className="djfkdklckd">
                     Track your order
                 </div>
                 {/* <br /><br /><br /> */}
@@ -370,7 +410,7 @@ export default function Orderdetailspage() {
                         <div className="shippingline" style={{ backgroundColor: refunded ? "green" : "red" }}>
 
                         </div>
-                        <div className="shippingcircle" style={{ backgroundColor: refunded?"green":"red" }}>
+                        <div className="shippingcircle" style={{ backgroundColor: refunded ? "green" : "red" }}>
 
                         </div>
                     </div> : <div className="ejfkmvdv">
@@ -400,8 +440,8 @@ export default function Orderdetailspage() {
                         <div className="shippedtext" style={{ color: "green" }}>
                             {cancelledfirsttime ? "Refund Initiated" : "Refund Initiated " + formatDate(refunddate.seconds)}
                         </div>
-                        <div className="shippedtext" style={{ color:refunded ? "green" : "red" }}>
-                            {refunded?"Refund completed":"Refund yet to be completed"}
+                        <div className="shippedtext" style={{ color: refunded ? "green" : "red" }}>
+                            {refunded ? "Refund completed" : "Refund yet to be completed"}
                         </div>
                     </div> : <div className="ejfkmvdvs">
                         <div className="shippedtext" style={{ color: "green" }}>
@@ -425,7 +465,7 @@ export default function Orderdetailspage() {
                         </Link>
                     </div>}
                 </div>
-            </div>
+            </div>}
         </>
     )
 }

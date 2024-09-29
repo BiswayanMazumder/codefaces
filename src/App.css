@@ -976,6 +976,15 @@ gap: 30px;
   height: 650px;
   text-align: center; /* Center text inside the div */
 }
+.djhkdj{
+  margin-top: 20px;
+}
+.jjehkfj{
+  font-weight: 400;
+  font-size: 15px;
+  margin-top: 10px;
+  /* width: 400px; */
+}
 .detailsentryfirstrow{
   display: flex;
   flex-direction: row;
