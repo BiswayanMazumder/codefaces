@@ -236,17 +236,17 @@ export default function Cart() {
         const landmark = document.querySelector('#landmarkInput').value;
         const optionalPhone = document.querySelector('#optionalPhoneInput').value;
     
-        console.log({
-            'Details':name,
-            mobile,
-            pincode,
-            city,
-            address,
-            locality,
-            state,
-            landmark,
-            optionalPhone,
-        });
+        // console.log({
+        //     'Details':name,
+        //     mobile,
+        //     pincode,
+        //     city,
+        //     address,
+        //     locality,
+        //     state,
+        //     landmark,
+        //     optionalPhone,
+        // });
         const auth = getAuth();
         const db = getFirestore(app); // Initialize Firestore with the Firestore instance
         const currentUser = auth.currentUser;
@@ -298,17 +298,17 @@ export default function Cart() {
         const landmark = document.querySelector('#landmarkInput').value;
         const optionalPhone = document.querySelector('#optionalPhoneInput').value;
     
-        console.log({
-            'Details':name,
-            mobile,
-            pincode,
-            city,
-            address,
-            locality,
-            state,
-            landmark,
-            optionalPhone,
-        });
+        // console.log({
+        //     'Details':name,
+        //     mobile,
+        //     pincode,
+        //     city,
+        //     address,
+        //     locality,
+        //     state,
+        //     landmark,
+        //     optionalPhone,
+        // });
         const auth = getAuth();
         const db = getFirestore(app); // Initialize Firestore with the Firestore instance
         const currentUser = auth.currentUser;
@@ -350,6 +350,30 @@ export default function Cart() {
         })
     }
     const handlePayment = async () => {
+        const name = document.querySelector('#nameInput').value;
+        const mobile = document.querySelector('#mobileInput').value;
+        const pincode = document.querySelector('#pincodeInput').value;
+        const city = document.querySelector('#cityInput').value;
+        const address = document.querySelector('#addressInput').value;
+        const locality = document.querySelector('#localityInput').value;
+        const state = document.querySelector('#stateInput').value;
+        const landmark = document.querySelector('#landmarkInput').value;
+        const optionalPhone = document.querySelector('#optionalPhoneInput').value;
+        // console.log({
+        //     'Details':name,
+        //     mobile,
+        //     pincode,
+        //     city,
+        //     address,
+        //     locality,
+        //     state,
+        //     landmark,
+        //     optionalPhone,
+        // });
+        if(name === '' || mobile === '' || pincode === '' || city === '' || address === '' || locality === '' || state === '' || landmark === '' || optionalPhone === ''){
+            alert('Please fill all the details');
+            return;
+        }
         const options = {
             key: 'rzp_test_5ujtbmUNWVYysI', // Your Razorpay Key ID
             amount: (total * 100), // Amount in paise
@@ -380,6 +404,30 @@ export default function Cart() {
     };
 
     const handlePaymenttshirt = async () => {
+        const name = document.querySelector('#nameInput').value;
+        const mobile = document.querySelector('#mobileInput').value;
+        const pincode = document.querySelector('#pincodeInput').value;
+        const city = document.querySelector('#cityInput').value;
+        const address = document.querySelector('#addressInput').value;
+        const locality = document.querySelector('#localityInput').value;
+        const state = document.querySelector('#stateInput').value;
+        const landmark = document.querySelector('#landmarkInput').value;
+        const optionalPhone = document.querySelector('#optionalPhoneInput').value;
+        // console.log({
+        //     'Details':name,
+        //     mobile,
+        //     pincode,
+        //     city,
+        //     address,
+        //     locality,
+        //     state,
+        //     landmark,
+        //     optionalPhone,
+        // });
+        if(name === '' || mobile === '' || pincode === '' || city === '' || address === '' || locality === '' || state === '' || landmark === '' || optionalPhone === ''){
+            alert('Please fill all the details');
+            return;
+        }
         const options = {
             key: 'rzp_test_5ujtbmUNWVYysI', // Your Razorpay Key ID
             amount: (totaltshirt * 100), // Amount in paise
