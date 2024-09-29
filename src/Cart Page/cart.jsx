@@ -226,6 +226,27 @@ export default function Cart() {
         fetchDocumentNames();
     }, []);
     const generateorder = async (paymentid) => {
+        const name = document.querySelector('#nameInput').value;
+        const mobile = document.querySelector('#mobileInput').value;
+        const pincode = document.querySelector('#pincodeInput').value;
+        const city = document.querySelector('#cityInput').value;
+        const address = document.querySelector('#addressInput').value;
+        const locality = document.querySelector('#localityInput').value;
+        const state = document.querySelector('#stateInput').value;
+        const landmark = document.querySelector('#landmarkInput').value;
+        const optionalPhone = document.querySelector('#optionalPhoneInput').value;
+    
+        console.log({
+            'Details':name,
+            mobile,
+            pincode,
+            city,
+            address,
+            locality,
+            state,
+            landmark,
+            optionalPhone,
+        });
         const auth = getAuth();
         const db = getFirestore(app); // Initialize Firestore with the Firestore instance
         const currentUser = auth.currentUser;
@@ -255,9 +276,39 @@ export default function Cart() {
             'Total': total,
             'Payment ID': paymentid,
             'email': userEmail,
+            'Name': name,
+            'mobile': mobile,
+            'pincode': pincode,
+            'city': city,
+            'address': address,
+            'locality': locality,
+            'state': state,
+            'landmark': landmark,
+            'optionalPhone': optionalPhone
         })
     }
     const generateordertshirt = async (paymentid) => {
+        const name = document.querySelector('#nameInput').value;
+        const mobile = document.querySelector('#mobileInput').value;
+        const pincode = document.querySelector('#pincodeInput').value;
+        const city = document.querySelector('#cityInput').value;
+        const address = document.querySelector('#addressInput').value;
+        const locality = document.querySelector('#localityInput').value;
+        const state = document.querySelector('#stateInput').value;
+        const landmark = document.querySelector('#landmarkInput').value;
+        const optionalPhone = document.querySelector('#optionalPhoneInput').value;
+    
+        console.log({
+            'Details':name,
+            mobile,
+            pincode,
+            city,
+            address,
+            locality,
+            state,
+            landmark,
+            optionalPhone,
+        });
         const auth = getAuth();
         const db = getFirestore(app); // Initialize Firestore with the Firestore instance
         const currentUser = auth.currentUser;
@@ -286,8 +337,16 @@ export default function Cart() {
             'Shipped': false,
             'Total': totaltshirt,
             'Payment ID': paymentid,
-            'email': userEmail
-
+            'email': userEmail,
+            'Name': name,
+            'mobile': mobile,
+            'pincode': pincode,
+            'city': city,
+            'address': address,
+            'locality': locality,
+            'state': state,
+            'landmark': landmark,
+            'optionalPhone': optionalPhone
         })
     }
     const handlePayment = async () => {
@@ -501,7 +560,7 @@ export default function Cart() {
                             <p>No tshirts in cart</p>
                         )}
                     </Link> : <></>}
-                    
+
                 </div>
                 {activeZone === 'preebokzone' ? <Link className="cart-items" style={{ textDecoration: "none", color: "black" }}>
                     {fetchedAjNamess.length > 0 ? (
@@ -544,6 +603,7 @@ export default function Cart() {
                                         type="text"
                                         className="name"
                                         placeholder="Pincode"
+                                        id='pincodeInput'  // Added unique ID
                                         value={pincode}
                                         onChange={handlePincodeChange}
                                     />
@@ -553,6 +613,7 @@ export default function Cart() {
                                         type="text"
                                         className="name"
                                         placeholder="City/District/Town"
+                                        id='cityInput'  // Added unique ID
                                         value={city}
                                         onChange={(e) => setCity(e.target.value)}
                                     />
@@ -591,6 +652,7 @@ export default function Cart() {
                         </div>
                     </div>
                 )}
+
                 {fetchedAjNames.length > 0 && activeZone === 'tshirtzone' && (
                     <div className="jenfke">
                         <div className="kekkfmdva">Delivery Address</div>
@@ -609,6 +671,7 @@ export default function Cart() {
                                         type="text"
                                         className="name"
                                         placeholder="Pincode"
+                                        id='pincodeInput'  // Added unique ID
                                         value={pincode}
                                         onChange={handlePincodeChange}
                                     />
@@ -618,6 +681,7 @@ export default function Cart() {
                                         type="text"
                                         className="name"
                                         placeholder="City/District/Town"
+                                        id='cityInput'  // Added unique ID
                                         value={city}
                                         onChange={(e) => setCity(e.target.value)}
                                     />
@@ -656,18 +720,18 @@ export default function Cart() {
                         </div>
                     </div>
                 )}
-                
+
                 <br /><br />
                 {fetchedAjNames.length > 0 ? activeZone === 'tshirtzone' ? (
-                        <Link style={{ textDecoration: "none", color: "black" }}>
-                            <div className="kekkfmdv" onClick={() => handlePaymenttshirt()}>
-                                Total: ₹{totaltshirt}
-                                <div className="checkoutbutton">
-                                    Checkout
-                                </div>
+                    <Link style={{ textDecoration: "none", color: "black" }}>
+                        <div className="kekkfmdv" onClick={() => handlePaymenttshirt()}>
+                            Total: ₹{totaltshirt}
+                            <div className="checkoutbutton">
+                                Checkout
                             </div>
-                        </Link>
-                    ) : null : <></>}
+                        </div>
+                    </Link>
+                ) : null : <></>}
                 {fetchedAjName.length > 0 ? activeZone === 'sneakerzone' ? (
                     <Link style={{ textDecoration: "none", color: "black" }}>
                         <div className="kekkfmdv" onClick={() => handlePayment()}>
