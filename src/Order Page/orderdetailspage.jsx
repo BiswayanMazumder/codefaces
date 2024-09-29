@@ -373,7 +373,7 @@ export default function Orderdetailspage() {
                     Delivery Address
                     <div className="djhkdj">
                         {
-                            name
+                            receiepentname
                         }
                     </div>
                     <div className="jjehkfj">
