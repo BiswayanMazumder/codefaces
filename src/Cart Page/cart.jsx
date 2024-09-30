@@ -741,9 +741,7 @@ export default function Cart() {
                 {
                     fetchedAjName.length > 0 && activeZone === 'sneakerzone' && (
                         <div className="jenfke">
-                            <div className="kekkfmdva" style={{fontWeight:"300",fontSize:"15px",justifyContent:"start",textAlign:"start"}}>  Order confirmation email will be sent to <div className="fgfgfg" style={{fontWeight:"600",marginLeft:"5px"}}>
-                             {email}
-                            </div>
+                            <div className="kekkfmdva" style={{fontWeight:"300",fontSize:"15px",justifyContent:"start",textAlign:"start"}}>Order confirmation email will be sent to {email}
                             </div>
                             <div className="jnlfmlkfmewlk" style={{height:"fit-content",backgroundColor:"white"}}>
                             </div>
@@ -817,6 +815,7 @@ export default function Cart() {
                         </div>
                     </div>
                 )}
+                
                 {
                     fetchedAjNames.length > 0 && activeZone === 'tshirtzone' && (
                         <div className="jenfke">
@@ -841,7 +840,16 @@ export default function Cart() {
                         </div>
                     )
                 }
-
+                {
+                    fetchedAjName.length > 0 && activeZone === 'tshirtzone' && (
+                        <div className="jenfke">
+                            <div className="kekkfmdva" style={{fontWeight:"300",fontSize:"15px",justifyContent:"start",textAlign:"start"}}>Order confirmation email will be sent to {email}
+                            </div>
+                            <div className="jnlfmlkfmewlk" style={{height:"fit-content",backgroundColor:"white"}}>
+                            </div>
+                        </div>
+                    )
+                }
                 <br /><br />
                 {fetchedAjNames.length > 0 ? activeZone === 'tshirtzone' ? (
                     <Link style={{ textDecoration: "none", color: "black" }}>
