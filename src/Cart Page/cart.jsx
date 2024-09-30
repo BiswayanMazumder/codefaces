@@ -402,7 +402,19 @@ export default function Cart() {
         const razorpay = new window.Razorpay(options);
         razorpay.open();
     };
+    const [email, setEmail] = useState('');
+    useEffect(() => {
+        const auth = getAuth();
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setUser(user);
+                setEmail(user.email); // Set the email when the user is authenticated
+            }
+        });
 
+        // Cleanup subscription on unmount
+        return () => unsubscribe();
+    }, []);
     const handlePaymenttshirt = async () => {
         const name = document.querySelector('#nameInput').value;
         const mobile = document.querySelector('#mobileInput').value;
@@ -710,15 +722,7 @@ export default function Cart() {
                             <div className="jnlfmlkfmewlk" style={{height:"fit-content"}}>
                                 {fetchedAjName.length > 0 ? (
                                     fetchedAjName.map((name, index) => (
-                                        <Link key={index} className="cart-item" to={"/product"} onClick={() => {
-                                            localStorage.setItem('producttype', 'sneakers');
-                                            localStorage.setItem('iscart', true);
-                                            localStorage.setItem('productname', fetchedAjName[index]);
-                                            localStorage.setItem('productprice', fetchedAjPrice[index]);
-                                            localStorage.setItem('productimage', fetchedAjPic[index]);
-                                            localStorage.setItem('PID', documentNames[index]);
-                                            console.log(documentNames[index]);
-                                        }} style={{ textDecoration: "none", color: "black",backgroundColor:"#e0e0e0" }}>
+                                        <Link key={index} className="cart-item"  style={{ textDecoration: "none", color: "black",backgroundColor:"#e0e0e0" }}>
                                             <img src={fetchedAjPic[index]} alt={name} className="cart-item-image" />
                                             <div className="cart-item-details">
                                                 <h3 className="cart-item-name">{name}</h3>
@@ -730,6 +734,18 @@ export default function Cart() {
                                 ) : (
                                     <p>No sneakers in cart</p>
                                 )}
+                            </div>
+                        </div>
+                    )
+                }
+                {
+                    fetchedAjName.length > 0 && activeZone === 'sneakerzone' && (
+                        <div className="jenfke">
+                            <div className="kekkfmdva" style={{fontWeight:"300",fontSize:"15px",justifyContent:"start",textAlign:"start"}}>  Order confirmation email will be sent to <div className="fgfgfg" style={{fontWeight:"600",marginLeft:"5px"}}>
+                             {email}
+                            </div>
+                            </div>
+                            <div className="jnlfmlkfmewlk" style={{height:"fit-content",backgroundColor:"white"}}>
                             </div>
                         </div>
                     )
@@ -825,6 +841,7 @@ export default function Cart() {
                         </div>
                     )
                 }
+
                 <br /><br />
                 {fetchedAjNames.length > 0 ? activeZone === 'tshirtzone' ? (
                     <Link style={{ textDecoration: "none", color: "black" }}>
