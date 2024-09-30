@@ -191,7 +191,7 @@ export default function Profilepage() {
                         Personal Information
                         <input type="text" placeholder={name} className='username' disabled style={{ cursor: "not-allowed" }} />
                     </div>
-                    <div className="personalnames">
+                    {/* <div className="personalnames">
                         Your Gender
                         <br /><br />
                         <div className="gendertiles">
@@ -200,7 +200,7 @@ export default function Profilepage() {
                             <input type="radio" id="female" name="gender" value="female" checked={!gender} disabled style={{ cursor: "not-allowed" }} />
                             <label for="female">Female</label>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="personalnames">
                         Email Address
                         <input type="text" placeholder={email} className='username' disabled style={{ cursor: "not-allowed" }} />
