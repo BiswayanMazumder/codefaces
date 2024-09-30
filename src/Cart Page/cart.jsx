@@ -828,9 +828,9 @@ export default function Cart() {
                 <br /><br />
                 {fetchedAjNames.length > 0 ? activeZone === 'tshirtzone' ? (
                     <Link style={{ textDecoration: "none", color: "black" }}>
-                        <div className="kekkfmdv" onClick={() => handlePaymenttshirt()}>
+                        <div className="kekkfmdv" >
                             Total: ₹{totaltshirt}
-                            <div className="checkoutbutton">
+                            <div className="checkoutbutton" onClick={() => handlePaymenttshirt()}>
                                 Checkout
                             </div>
                         </div>
@@ -838,9 +838,9 @@ export default function Cart() {
                 ) : null : <></>}
                 {fetchedAjName.length > 0 ? activeZone === 'sneakerzone' ? (
                     <Link style={{ textDecoration: "none", color: "black" }}>
-                        <div className="kekkfmdv" onClick={() => handlePayment()}>
+                        <div className="kekkfmdv" >
                             Total: ₹{total}
-                            <div className="checkoutbutton">
+                            <div className="checkoutbutton" onClick={() => handlePayment()}>
                                 Checkout
                             </div>
                         </div>
