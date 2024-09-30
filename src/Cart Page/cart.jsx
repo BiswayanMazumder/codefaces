@@ -235,7 +235,7 @@ export default function Cart() {
         const state = document.querySelector('#stateInput').value;
         const landmark = document.querySelector('#landmarkInput').value;
         const optionalPhone = document.querySelector('#optionalPhoneInput').value;
-    
+
         // console.log({
         //     'Details':name,
         //     mobile,
@@ -297,7 +297,7 @@ export default function Cart() {
         const state = document.querySelector('#stateInput').value;
         const landmark = document.querySelector('#landmarkInput').value;
         const optionalPhone = document.querySelector('#optionalPhoneInput').value;
-    
+
         // console.log({
         //     'Details':name,
         //     mobile,
@@ -370,7 +370,7 @@ export default function Cart() {
         //     landmark,
         //     optionalPhone,
         // });
-        if(name === '' || mobile === '' || pincode === '' || city === '' || address === '' || locality === '' || state === '' || landmark === '' || optionalPhone === ''){
+        if (name === '' || mobile === '' || pincode === '' || city === '' || address === '' || locality === '' || state === '' || landmark === '' || optionalPhone === '') {
             alert('Please fill all the details');
             return;
         }
@@ -424,7 +424,7 @@ export default function Cart() {
         //     landmark,
         //     optionalPhone,
         // });
-        if(name === '' || mobile === '' || pincode === '' || city === '' || address === '' || locality === '' || state === '' || landmark === '' || optionalPhone === ''){
+        if (name === '' || mobile === '' || pincode === '' || city === '' || address === '' || locality === '' || state === '' || landmark === '' || optionalPhone === '') {
             alert('Please fill all the details');
             return;
         }
@@ -635,7 +635,8 @@ export default function Cart() {
                 </Link> : <></>}
                 {fetchedAjName.length > 0 && activeZone === 'sneakerzone' && (
                     <div className="jenfke">
-                        <div className="kekkfmdva">Delivery Address</div>
+                        <div className="kekkfmdva">Delivery Address
+                        </div>
                         <div className="jnlfmlkfmewlk">
                             <div className="detailsentryfirstrow">
                                 <div className="khjkf" style={{ marginLeft: '10px' }}>
@@ -699,8 +700,40 @@ export default function Cart() {
                             </div>
                         </div>
                     </div>
-                )}
 
+                )}
+                {
+                    fetchedAjName.length > 0 && activeZone === 'sneakerzone' && (
+                        <div className="jenfke">
+                            <div className="kekkfmdva">Order Summary
+                            </div>
+                            <div className="jnlfmlkfmewlk" style={{height:"fit-content"}}>
+                                {fetchedAjName.length > 0 ? (
+                                    fetchedAjName.map((name, index) => (
+                                        <Link key={index} className="cart-item" to={"/product"} onClick={() => {
+                                            localStorage.setItem('producttype', 'sneakers');
+                                            localStorage.setItem('iscart', true);
+                                            localStorage.setItem('productname', fetchedAjName[index]);
+                                            localStorage.setItem('productprice', fetchedAjPrice[index]);
+                                            localStorage.setItem('productimage', fetchedAjPic[index]);
+                                            localStorage.setItem('PID', documentNames[index]);
+                                            console.log(documentNames[index]);
+                                        }} style={{ textDecoration: "none", color: "black",backgroundColor:"#e0e0e0" }}>
+                                            <img src={fetchedAjPic[index]} alt={name} className="cart-item-image" />
+                                            <div className="cart-item-details">
+                                                <h3 className="cart-item-name">{name}</h3>
+                                                <br /><br />
+                                                <p className="cart-item-price" style={{ fontWeight: "500",display:"flex",justifyContent:"start" }}>₹{fetchedAjPrice[index]}</p>
+                                            </div>
+                                        </Link>
+                                    ))
+                                ) : (
+                                    <p>No sneakers in cart</p>
+                                )}
+                            </div>
+                        </div>
+                    )
+                }
                 {fetchedAjNames.length > 0 && activeZone === 'tshirtzone' && (
                     <div className="jenfke">
                         <div className="kekkfmdva">Delivery Address</div>
@@ -768,7 +801,30 @@ export default function Cart() {
                         </div>
                     </div>
                 )}
-
+                {
+                    fetchedAjNames.length > 0 && activeZone === 'tshirtzone' && (
+                        <div className="jenfke">
+                            <div className="kekkfmdva">Order Summary
+                            </div>
+                            <div className="jnlfmlkfmewlk" style={{height:"fit-content"}}>
+                                {fetchedAjNames.length > 0 ? (
+                                    fetchedAjNames.map((name, index) => (
+                                        <Link key={index} className="cart-item" style={{ textDecoration: "none", color: "black",backgroundColor:"#e0e0e0" }}>
+                                            <img src={fetchedAjPics[index]} alt={name} className="cart-item-image" />
+                                            <div className="cart-item-details">
+                                                <h3 className="cart-item-name">{fetchedAjNames[index]}</h3>
+                                                <br /><br />
+                                                <p className="cart-item-price" style={{ fontWeight: "500",display:"flex",justifyContent:"start" }}>₹{fetchedAjPrices[index]}</p>
+                                            </div>
+                                        </Link>
+                                    ))
+                                ) : (
+                                    <p>No sneakers in cart</p>
+                                )}
+                            </div>
+                        </div>
+                    )
+                }
                 <br /><br />
                 {fetchedAjNames.length > 0 ? activeZone === 'tshirtzone' ? (
                     <Link style={{ textDecoration: "none", color: "black" }}>
