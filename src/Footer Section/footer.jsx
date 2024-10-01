@@ -19,7 +19,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 export default function Footer() {
-  const [user, setUser] = useState(false);
+    const [user, setUser] = useState(false);
     useEffect(() => {
         const auth = getAuth();
         onAuthStateChanged(auth, (user) => {
@@ -39,26 +39,24 @@ export default function Footer() {
         });
         console.log(user);
     });
-  return (
-    <div className="footer">
-        <div className="footercontainer">
-            <div className="footerpoints">
-                <div className="headers">
-                POLICIES
-                </div>
-                <Link className="headerspoints" to={user?'/apps/search_order':'/account/login'} style={{textDecoration: 'none'}}>
-                Search Your Order
-                </Link>
-                <div className="headerspoints">
-                Shipping Policy
-                </div>
-                <div className="headerspoints">
-                <Link className="headerspoints" to={'/pages/terms-condition'} style={{textDecoration: 'none'}}>
-                Terms and Condition
-                </Link>
+    return (
+        <div className="footer">
+            <div className="footercontainer">
+                <div className="footerpoints">
+                    <div className="headers">
+                        POLICIES
+                    </div>
+                    <Link className="headerspoints" to={user ? '/apps/search_order' : '/account/login'} style={{ textDecoration: 'none' }}>
+                        Search Your Order
+                    </Link>
+                    <Link className="headerspoints" to={'/pages/terms-condition'} style={{ textDecoration: 'none' }}>
+                        Terms And Conditions
+                    </Link>
+                    <div className="headerspoints">
+                        Shipping Policy
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-  )
+    )
 }
