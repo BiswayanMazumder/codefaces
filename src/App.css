@@ -1157,3 +1157,13 @@ gap: 30px;
       transform: rotate(360deg);
   }
 }
+.jhckdjhkjd{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: start;
+  width:fit-content;
+  padding: 20px;
+  overflow: scroll;
+}

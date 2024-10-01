@@ -26,6 +26,7 @@ import TShirtProductDetails from './Product Details/tshirtproductdetails';
 import ComingSoonProductDetails from './Product Details/comingsoonproductpage';
 import Returnorder from './Return Page/returnorder';
 import Returnorderdetails from './Return Page/returnorderdetails';
+import TermCondition from './Terms and Condition/terms-condition';
 function App() {
   return (
     <BrowserRouter>
@@ -85,6 +86,9 @@ function App() {
       </Routes>
       <Routes>
         <Route path="/apps/search_order_details" element={<Returnorderdetails />} />
+      </Routes>
+      <Routes>
+        <Route path="/pages/terms-condition" element={<TermCondition />} />
       </Routes>
       <SpeedInsights />
       <Analytics />

@@ -53,7 +53,9 @@ export default function Footer() {
                 Shipping Policy
                 </div>
                 <div className="headerspoints">
-                Terms and Conditions
+                <Link className="headerspoints" to={'/pages/terms-condition'} style={{textDecoration: 'none'}}>
+                Terms and Condition
+                </Link>
                 </div>
             </div>
         </div>
