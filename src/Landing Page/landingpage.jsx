@@ -679,7 +679,7 @@ export default function Landingpage() {
                     </Link> : <></>
                 }
                 {
-                    loggeduser ? <div className="jefkeklf" style={{ fontWeight: "bold", left: "25px", position: "relative", top: "50px" }}>
+                    loggeduser && fetchedAjNamesss.length > 0 ? <div className="jefkeklf" style={{ fontWeight: "bold", left: "25px", position: "relative", top: "50px" }}>
                         Your Favourite Items
 
                     </div> : <></>
