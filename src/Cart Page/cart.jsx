@@ -850,7 +850,7 @@ export default function Cart() {
                         </div>
                     )
                 }
-                <br /><br />
+                <br /><br /> 
                 {fetchedAjNames.length > 0 ? activeZone === 'tshirtzone' ? (
                     <Link style={{ textDecoration: "none", color: "black" }}>
                         <div className="kekkfmdv" >
