@@ -5,6 +5,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { collection, doc, getDoc, getDocs, getFirestore, setDoc } from 'firebase/firestore';
 import Menu from '../Menu for mobile/menu';
+import LoadingSpinner from '../Return Page/loader';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAvYR2_B7BVNKufzGZHaaUcxJYWKyQ-_Jk",
@@ -107,7 +108,7 @@ export default function Sleeveless() {
             </div>
         );
     };
-
+    const [activeZone, setActiveZone] = useState('sleveless');
     const generateAlphanumericString = (index) => {
         const db = getFirestore(app);
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -130,7 +131,6 @@ export default function Sleeveless() {
             'XXL': true
         });
     };
-
     return (
         <>
             <div className="webbody">
@@ -176,7 +176,25 @@ export default function Sleeveless() {
                     </div>
                 </div>
                 <video src="https://vod.freecaster.com/louisvuitton/9d07bef3-470a-4055-b7d5-61367469eb43/ne9rE3V5nNi47f4tUESV7WB1_9.mp4" alt="" width={"100%"} muted autoPlay loop />
-                <div className="jdjfdjv">
+                <div className="jejfmlkl">
+                    <Link className="sleveless" style={{fontWeight:activeZone==='sleveless'?'bold':'500',textDecoration:'none',color:'black'}} onClick={()=>{
+                        setActiveZone('sleveless');
+                    }}>
+                        SLEEVELESS
+                    </Link>
+                    <Link className="sleveless" onClick={()=>{
+                        setActiveZone('untamedwild');
+                    }} style={{fontWeight:activeZone==='untamedwild'?'bold':'500',textDecoration:'none',color:'black'}}>
+                        UNTAMED WILD
+                    </Link>
+                    <Link className="sleveless" onClick={()=>{
+                        setActiveZone('distressed');
+                    }}  style={{fontWeight:activeZone==='distressed'?'bold':'500',textDecoration:'none',color:'black'}}>
+                        DISTRESSED
+                    </Link>
+                </div>
+               {
+                loading?<div className="loading"><LoadingSpinner/></div>: <div className="jdjfdjv">
                     {
                         fetchedAjName.map((name, index) => (
                             <Link to="/products/tshirts"
@@ -201,6 +219,7 @@ export default function Sleeveless() {
                         ))
                     }
                 </div>
+               }
             </div>
         </>
     );

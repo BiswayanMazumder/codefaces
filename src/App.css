@@ -336,7 +336,15 @@ body {
   margin-bottom: 50px;
   /* background-color: red; */
 }
-
+.jejfmlkl{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 20px;
+  gap: 80px;
+}
 @media screen and (min-width: 1440px) {
   .ejfjf {
     opacity: 0;
